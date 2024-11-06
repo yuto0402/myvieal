@@ -1,0 +1,33 @@
+# Docker
+**/.dockerignore
+**/Dockerfile*
+**/compose*
+**/docker-compose*
+
+# Git
+**/.git
+
+# Environments
+.env
+.venv
+
+# Python bytecode
+**/__pycache__
+
+# Tools
+.mypy_cache
+.ropeproject
+.ruff_cache
+
+# SQLite
+db.sqlite3
+db.sqlite3-journal
+
+# Unit test
+.tox
+.coverage
+.coverage.*
+coverage.xml
+htmlcov
+*.cover
+.pytest_cache

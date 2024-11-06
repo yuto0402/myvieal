@@ -1,0 +1,43 @@
+version: 2
+updates:
+  # Poetry
+  - allow:
+      - dependency-type: all
+    directory: /
+    groups:
+      boto:
+        patterns:
+          - "boto3"
+          - "botocore"
+          - "s3transfer"
+      psycopg:
+        patterns:
+          - "psycopg"
+          - "psycopg-*"
+    open-pull-requests-limit: 10
+    package-ecosystem: pip
+    rebase-strategy: auto
+    schedule:
+      interval: weekly
+      time: "09:00"
+      timezone: Asia/Tokyo
+    versioning-strategy: increase-if-necessary
+  # NPM
+  - directory: /
+    groups:
+      eslint:
+        patterns:
+          - "eslint"
+          - "eslint-*"
+      stylelint:
+        patterns:
+          - "stylelint"
+          - "stylelint-*"
+    open-pull-requests-limit: 10
+    package-ecosystem: npm
+    rebase-strategy: auto
+    schedule:
+      interval: weekly
+      time: "09:00"
+      timezone: Asia/Tokyo
+    versioning-strategy: increase-if-necessary
