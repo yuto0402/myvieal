@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group">
+      {{ form.username.label_tag }}
+      {{ form.username }}
+    </div>
+    <div class="form-group sp">
+      <label for="{{ form.email.id_for_label }}">Email<br>address:</label>
+      {{ form.email }}
+    </div>
+    <div class="form-group">
+      {{ form.password1.label_tag }}
+      {{ form.password1 }}
+    </div>
+    <div class="form-group sp">
+      <label for="{{ form.password2.id_for_label }}">Password<br>confirmation:</label>
+      {{ form.password2 }}
+    </div>
+    <div class="form-group pp">
+      <label for="{{ form.icon_image.id_for_label }}">Img:</label>
+      {{ form.icon_image }}
+    </div>
+    <button type="submit">Submit</button>
+    <div>
+      {% for field in form %}
+      {{ field.errors }}
+      {% endfor %}
+      {{ form.non_field_errors }}
+    </div>
+  </form>
+</body>
+</html>
