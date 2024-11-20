@@ -1,9 +1,10 @@
 from django.urls import path
 from django.views.generic.base import TemplateView
+from . import views
 
 urlpatterns = [
-    path("", TemplateView.as_view(template_name="myvieal/example.html"), name="index"),
-    path("2", TemplateView.as_view(template_name="myvieal/example2.html"), name="index2"),
-    path("cat", TemplateView.as_view(template_name="myvieal/example_img.html"), name="index3"),
-    # ↑これらはちゃんと動くかどうかのテストです。消していいよ
+    path('top/', views.MovieListView.as_view(), name='top'),
+    path('create/', views.MovieCreateView.as_view(), name='MovieCreate'),
+    path('edit/', views.MovieEditView.as_view(), name='MovieEdit'),
+    path('detail/<int:pk>/', views.MovieDetailView.as_view(), name='MovieDetail'),
 ]
