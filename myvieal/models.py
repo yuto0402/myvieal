@@ -10,7 +10,7 @@ class Movie(models.Model):
     movie_file = models.FileField(
         upload_to="videos/", validators=[FileExtensionValidator(allowed_extensions=["mp4", "avi", "mov", "webm"])]
     )
-    number_of_views = models.IntegerField()
+    number_of_views = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
