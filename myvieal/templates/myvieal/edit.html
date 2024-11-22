@@ -1,16 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{% load static %}">
+{% extends "myvieal/base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block extra-style %}
 <link rel="stylesheet" href="{% static 'myvieal/css/edit.css' %}">
-t</head>
-<body>
+{% endblock %}
+
+{% block header-container %}
+  <a href="{% url 'top' %}" class="top">×</a>
+  <h3>動画の編集</h3>
+  <a href="{% url 'MovieDelete' movie.pk %}" class="delete">削除</a>
+{% endblock %}
+
+{% block content %}
+<main>
   <form action="" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form.as_p }}
+    <div class="title">
+      <p>タイトル <span class="requirement">必須</span></p>
+      {{ form.title }}
+    </div>
+    <div class="explanation">
+      <p>詳細文 <span class="requirement">必須</span></p>
+      {{ form.explanation }}
+    </div>
     <button type="submit" class="btn btn-primary">保存</button>
   </form>
-</body>
-</html>
+</main>
+{% endblock %}

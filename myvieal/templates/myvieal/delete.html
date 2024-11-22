@@ -1,0 +1,21 @@
+{% extends "myvieal/base.html" %}
+{% load static %}
+
+{% block extra-style %}
+<link rel="stylesheet" href="{% static 'myvieal/css/delete.css' %}">
+{% endblock %}
+
+{% block content %}
+<main>
+  <div class="form">
+    <form method="post">
+      {% csrf_token %}
+      <p>動画を削除しますか?</p>
+      <div class="buttons">
+        <button class="cancel">キャンセル</button>
+        <button type="submit">削除する</button>
+      </div>
+    </form>
+  </div>
+</main>
+{% endblock %}

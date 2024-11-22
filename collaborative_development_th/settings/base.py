@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     "pipeline",
     "accounts",
     "myvieal",
+    "widget_tweaks",
 ]
 
 MIDDLEWARE = [

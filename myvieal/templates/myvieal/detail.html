@@ -1,17 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{% load static %}">
+{% extends "myvieal/base.html" %}
+{% load static %}
+
+{% block extra-style %}
   <link rel="stylesheet" href="{% static 'myvieal/css/detail.css' %}">
-  <title>Document</title>
-</head>
-<body>
-<header></header>
+{% endblock %}
+
+{% block header-container %}
+  <h3>Myvieal</h3>
+  <a href="{% url 'MovieCreate' %}" class="create">+</a>
+
+  {% if movie.created_by == user %}
+  <a href="{% url 'MovieEdit' movie.pk %}" class="edit">編集</a>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
 <main>
   <div class="container">
-    <video src="{{ movie.movie_file.url }}" autoplay muted type="video/mp4"></video>
+    <video src="{{ movie.movie_file.url }}" controls autoplay type="video/mp4"></video>
   </div>
   <div class="overview">
     <div class="title">{{ movie.title }}</div>
@@ -25,5 +31,4 @@
   </div>
 </main>
 <script src="{% static 'myvieal/js/detail.js' %}"></script>
-</body>
-</html>
+{% endblock %}

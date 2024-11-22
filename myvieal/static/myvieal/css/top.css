@@ -1,3 +1,19 @@
+/* header */
+h3 {
+  position: absolute;
+  left: 5%;
+}
+
+.edit {
+  text-decoration: none;
+  color: #fff;
+  font-size: 30px;
+  position: absolute;
+  left: 90%;
+}
+/* ここまで header */
+
+/* body */
 body {
   overflow-x: hidden;
 }
@@ -88,4 +104,4 @@ img {
     gap: 10px;
   }
   }
-
+/* ここまで body */

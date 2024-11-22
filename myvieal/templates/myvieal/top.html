@@ -1,14 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{% load static %}">
+{% extends "myvieal/base.html" %}
+{% load static %}
+
+{% block extra-style %}
   <link rel="stylesheet" href="{% static 'myvieal/css/top.css' %}">
-  <title>Document</title>
-</head>
-<body>
-  <header></header>
+{% endblock %}
+
+{% block header-container %}
+  <h3>Myvieal</h3>
+  <a href="{% url 'MovieCreate' %}" class="edit">+</a>
+{% endblock %}
+
+{% block content %}
   <main>
     {% for movie in movies %}
     <a href="{% url 'MovieDetail' movie.pk %}" class="list">
@@ -19,6 +21,4 @@
     </a>
     {% endfor %}
   </main>
-  <footer></footer>
-</body>
-</html>
+{% endblock %}

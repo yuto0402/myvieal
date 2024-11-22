@@ -1,0 +1,64 @@
+/* header */
+.top {
+  text-decoration: none;
+  color: #fff;
+  font-size: 30px;
+  position: absolute;
+  left: 5%;
+}
+
+h3 {
+  position: absolute;
+  left: 15%;
+  font-size: 20px;
+}
+
+.delete {
+  position: absolute;
+  left: 85%;
+  text-decoration: none;
+  color: #fff;
+}
+/* ここまで header */
+
+/* body */
+form > div {
+  padding: 10px 10px 20px;
+  border-bottom: 1px solid grey;
+}
+
+.requirement {
+  color: red;
+  font-size: 12px;
+}
+
+textarea {
+  width: 100%;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  resize: none;
+}
+
+textarea:focus {
+  outline: none;
+  box-shadow: none;
+  border: none;
+}
+
+.btn {
+  margin: 20px 10px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 95%;
+  height: 38px;
+  font-size: 15px;
+  color: #2b8f38;
+  background-color: #fff;
+  border-radius: 20px;
+  border: 1px solid #2b8f38;
+  cursor: pointer;
+}
+
+/* ここまで body */

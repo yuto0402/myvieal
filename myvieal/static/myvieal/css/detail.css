@@ -1,7 +1,33 @@
+/* 全体 */
 html, body {
   overflow-x: hidden;
 }
+/* ここまで全体 */
 
+/* header */
+h3 {
+  position: absolute;
+  left: 5%;
+}
+
+.create {
+  text-decoration: none;
+  color: #fff;
+  font-size: 30px;
+  position: absolute;
+  left: 90%;
+}
+
+.edit {
+  text-decoration: none;
+  color: #fff;
+  position: absolute;
+  left: 75%;
+}
+
+/* ここまで header */
+
+/* body */
 body {
   margin: 0;
 }
@@ -65,3 +91,4 @@ video {
 .detail {
   cursor: pointer;
 }
+/* ここまで body */

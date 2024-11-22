@@ -1,10 +1,10 @@
 # Create your views here.
 from django.shortcuts import render
-from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.urls import reverse_lazy, reverse
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Movie
-from .forms import MovieForm
+from .forms import MovieForm, MovieEditForm
 
 # Create your views here.
 class MovieListView(LoginRequiredMixin, ListView):
@@ -39,4 +39,12 @@ class MovieDetailView(LoginRequiredMixin, DetailView):
 class MovieEditView(LoginRequiredMixin, UpdateView):
     model = Movie
     template_name = 'myvieal/edit.html'
-    form_class = MovieForm
+    form_class = MovieEditForm
+
+    def get_success_url(self):
+        return reverse('MovieDetail', kwargs={'pk': self.object.pk})
+
+class MovieDeleteView(LoginRequiredMixin, DeleteView):
+    model = Movie
+    template_name = 'myvieal/delete.html'
+    success_url = reverse_lazy('top')
