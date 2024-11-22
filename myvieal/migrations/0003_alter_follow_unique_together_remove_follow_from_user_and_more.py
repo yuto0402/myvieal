@@ -4,22 +4,21 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('myvieal', '0002_alter_follow_from_user_alter_follow_unique_together_and_more'),
+        ("myvieal", "0002_alter_follow_from_user_alter_follow_unique_together_and_more"),
     ]
 
     operations = [
         migrations.AlterUniqueTogether(
-            name='follow',
+            name="follow",
             unique_together=set(),
         ),
         migrations.RemoveField(
-            model_name='follow',
-            name='from_user',
+            model_name="follow",
+            name="from_user",
         ),
         migrations.RemoveField(
-            model_name='follow',
-            name='to_user',
+            model_name="follow",
+            name="to_user",
         ),
     ]
