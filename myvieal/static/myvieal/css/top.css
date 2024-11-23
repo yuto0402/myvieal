@@ -1,5 +1,8 @@
 /* header */
-h3 {
+.top {
+  font-size: 18px;
+  text-decoration: none;
+  color: #fff;
   position: absolute;
   left: 5%;
 }

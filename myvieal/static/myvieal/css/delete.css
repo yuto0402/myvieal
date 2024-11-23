@@ -1,18 +1,36 @@
 /* body */
-main {
-  display: grid;
-  place-items: center;
-  width: 100%;
-  height: 100%;
+form {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 350px;
+  height: 150px;
+  border-radius: 10px;
+  border: 1px solid #000;
 }
 
-.form {
-  width: 70%;
-  height: 30%;
-  border: 1px solid #000;
+p {
+  font-size: 25px;
+  font-weight: bold;
+  margin: 30px 20px;
 }
 
 .buttons {
   display: flex;
+  gap: 40px;
+  margin: 40px 0 10px 120px;
+}
+
+.edit, .delete {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 17px;
+  text-decoration: none;
+  color: #2b8f38;
+  background-color: #fff;
+  border: none;
+  cursor: pointer;
 }
 /* ここまで body */

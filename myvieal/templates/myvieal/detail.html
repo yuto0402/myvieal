@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block header-container %}
-  <h3>Myvieal</h3>
+  <a href="{% url 'top' %}" class="top">Myvieal</a>
   <a href="{% url 'MovieCreate' %}" class="create">+</a>
 
   {% if movie.created_by == user %}
@@ -23,7 +23,7 @@
     <div class="title">{{ movie.title }}</div>
     <div class="information">{{ movie.number_of_views }}回視聴・{{ movie.created_at|timesince }} ago</div>
     <div class="creater">
-      <div class="icon"></div>
+      <div class="icon"><img src="{{ movie.created_by.icon_image.url }}" alt=""></div>
       <div class="createrName">{{ movie.created_by.username }}</div>
     </div>
     <div class="description">{{ movie.explanation }}</div>

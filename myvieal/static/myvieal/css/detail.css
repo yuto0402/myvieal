@@ -5,7 +5,10 @@ html, body {
 /* ここまで全体 */
 
 /* header */
-h3 {
+.top {
+  font-size: 18px;
+  text-decoration: none;
+  color: #fff;
   position: absolute;
   left: 5%;
 }

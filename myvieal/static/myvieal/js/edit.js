@@ -15,18 +15,3 @@ document.getElementById("image-input").addEventListener("change", function(event
   // 動画ファイルを読み込む
   reader.readAsDataURL(file);
 });
-
-document.getElementById("file-input").addEventListener("change", function(event) {
-  var file = event.target.files[0];
-  var videoPreview = document.querySelector(".video-preview");
-
-  var reader = new FileReader();
-
-  reader.onload = function(e) {
-    videoPreview.src = reader.result;
-    videoPreview.style.display = "block";
-  }
-
-  reader.readAsDataURL(file);
-});
-

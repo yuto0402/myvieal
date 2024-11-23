@@ -12,8 +12,8 @@
       {% csrf_token %}
       <p>動画を削除しますか?</p>
       <div class="buttons">
-        <button class="cancel">キャンセル</button>
-        <button type="submit">削除する</button>
+        <a href="{% url 'MovieEdit' movie.pk %}" class="edit">キャンセル</a>
+        <button type="submit" class="delete">削除する</button>
       </div>
     </form>
   </div>

@@ -1,3 +1,9 @@
+/* 全体 */
+html, body {
+  overflow-x: hidden;
+}
+/* ここまで全体 */
+
 /* header */
 .top {
   text-decoration: none;
@@ -33,7 +39,7 @@ form > div {
   justify-content: center;
 }
 
-.movie_select {
+.movie-select, .thumbnail-select {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -52,11 +58,17 @@ form > div {
 }
 
 .video-preview {
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 150px;
   border-radius: 10px;
   object-fit: cover;
   margin-top: 20px;
+}
+
+.thumbnail-preview {
+  width: 100%;
+  height: 56.25%;
+  object-fit: cover;
 }
 
 textarea {
@@ -72,10 +84,9 @@ textarea:focus {
   box-shadow: none;
   border: none;
 }
-/* ここまで body */
 
 .btn {
-  margin: 20px 10px 0;
+  margin: 20px 10px ;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -88,3 +99,11 @@ textarea:focus {
   border: 1px solid #2b8f38;
   cursor: pointer;
 }
+
+.movie-select:hover, .thumbnail-select:hover, .btn:hover {
+  color: #fff;
+  background-color: #2b8f38;
+}
+
+/* ここまで body */
+

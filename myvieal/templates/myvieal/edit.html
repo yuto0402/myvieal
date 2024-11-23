@@ -16,15 +16,27 @@
 <main>
   <form action="" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
+
+    <img class="thumbnail-preview" src="{{ object.thumbnail.url }}">
+    <div class="thumbnail">
+      <input type="file" id="image-input" name="thumbnail" class="thumbnail" style="display: none;" required>
+      <div class="button-container">
+        <label for="image-input" class="thumbnail-select">サムネイルを変更</label>
+      </div>
+    </div>
+
     <div class="title">
       <p>タイトル <span class="requirement">必須</span></p>
       {{ form.title }}
     </div>
+
     <div class="explanation">
       <p>詳細文 <span class="requirement">必須</span></p>
       {{ form.explanation }}
     </div>
+
     <button type="submit" class="btn btn-primary">保存</button>
   </form>
 </main>
+<script src="{% static 'myvieal/js/edit.js' %}"></script>
 {% endblock %}
