@@ -1,14 +1,10 @@
 from django.contrib import admin
 
-from .models import Follow, Movie, Search
+from .models import Movie, Search
 
 
 class MovieAdmin(admin.ModelAdmin):
     list_display = ["title", "explanation", "movie_file", "number_of_views", "created_at", "created_by"]
-
-
-class FollowAdmin(admin.ModelAdmin):
-    list_display = ["from_user", "to_user"]
 
 
 class SearchAdmin(admin.ModelAdmin):
@@ -16,5 +12,4 @@ class SearchAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Movie, MovieAdmin)
-admin.site.register(Follow, FollowAdmin)
 admin.site.register(Search, SearchAdmin)
