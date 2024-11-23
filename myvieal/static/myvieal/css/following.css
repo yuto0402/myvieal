@@ -1,0 +1,50 @@
+.following-container {
+  overflow-y: scroll;
+}
+
+.link {
+  text-decoration: none;
+
+  &:visited {
+    color: black;
+  }
+}
+
+.following-item {
+  height: 15vh;
+  border: 1px solid silver;
+
+  display: flex;
+}
+
+.following-item__icon-wrapper {
+  flex: 1;
+
+  /*　アイコンの上下左右中央よせ用　*/
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.following-item__icon {
+  width: 10vh;
+  height: 10vh;
+  border-radius: 50%;
+
+  background-position: center;
+  background-size: contain;
+}
+
+.following-item__username-wrapper {
+  flex: 1;
+
+  /*　ユーザー名の上下左右中央よせ用　*/
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.following-item__username {
+  font-size: 2rem;
+  font-weight: 500;
+}

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Follow, Movie, Search
+from .models import Movie, Search
 
 
 class MovieAdmin(admin.ModelAdmin):
@@ -16,5 +16,4 @@ class SearchAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Movie, MovieAdmin)
-admin.site.register(Follow, FollowAdmin)
 admin.site.register(Search, SearchAdmin)
