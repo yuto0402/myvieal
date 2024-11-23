@@ -7,10 +7,6 @@ class MovieAdmin(admin.ModelAdmin):
     list_display = ["title", "explanation", "movie_file", "number_of_views", "created_at", "created_by"]
 
 
-class FollowAdmin(admin.ModelAdmin):
-    list_display = ["from_user", "to_user"]
-
-
 class SearchAdmin(admin.ModelAdmin):
     list_display = ["search_word", "searched_at", "searched_by"]
 
