@@ -15,7 +15,6 @@ class Movie(models.Model):
     created_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     thumbnail = models.ImageField(verbose_name="さむね", blank=True, null=True, upload_to="images/")
 
-
     def __str__(self):
         return f"{self.title} (by: {self.created_by.username})"
 
