@@ -4,6 +4,7 @@ from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Movie
+from accounts.models import CustomUser
 from .forms import MovieForm, MovieEditForm
 
 # Create your views here.
@@ -48,3 +49,11 @@ class MovieDeleteView(LoginRequiredMixin, DeleteView):
     model = Movie
     template_name = 'myvieal/delete.html'
     success_url = reverse_lazy('top')
+
+class Following(ListView):
+    model = CustomUser
+    template_name = "myvieal/following.html"
+
+    def get_queryset(self):
+        # returnしたのを宣言するとruff-checkにやめろと言われた
+        return self.request.user.following.all()
