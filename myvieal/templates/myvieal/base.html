@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>myvieal</title>
   <link rel="stylesheet" href="{% static 'myvieal/css/base.css' %}">
-  {% block extra-style %}{% endblock extra-style %}
+  {% block extra-style %}{% endblock %}
 </head>
 <body>
     {% block header %}
@@ -19,13 +19,15 @@
         </div>
     </header>
     {% endblock %}
+
     {% block content %}
     {% endblock %}
+
     {% block footer %}
     <footer class="footer">
         <div class="footer-container">
           <div class="footer-container__item">
-            <a href="" class="footer-item__link">
+            <a href="{% url 'top' %}" class="footer-item__link">
                 <span class="footer-item__icon">{% block footer-item__icon--home %}<img src="{% static 'myvieal/img/home.svg' %}">{% endblock footer-item__icon--home %}</span>
                 <span class="footer-item__text">ホーム</span>
             </a>
