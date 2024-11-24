@@ -6,7 +6,15 @@ from .models import CustomUser
 
 class CustomUserAdmin(UserAdmin):
     model = CustomUser
-    list_display = ["id", "username", "password", "email", "icon_image", "introduction", "date_joined"]
+    fieldsets = (
+        *UserAdmin.fieldsets,  # 既存のフィールドセットを展開
+        ("Custom Fields", {"fields": ("icon_image", "introduction", "following")}),
+    )
+
+    add_fieldsets = (
+        *UserAdmin.fieldsets,  # 既存のフィールドセットを展開
+        ("Custom Fields", {"fields": ("icon_image", "introduction", "following")}),
+    )
 
 
 admin.site.register(CustomUser, CustomUserAdmin)
