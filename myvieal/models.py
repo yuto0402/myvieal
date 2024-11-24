@@ -13,7 +13,8 @@ class Movie(models.Model):
     number_of_views = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    thumbnail = models.ImageField(verbose_name='さむね', blank=True, null=True, upload_to='images/')
+    thumbnail = models.ImageField(verbose_name="さむね", blank=True, null=True, upload_to="images/")
+
 
     def __str__(self):
         return f"{self.title} (by: {self.created_by.username})"
