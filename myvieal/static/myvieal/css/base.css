@@ -29,6 +29,19 @@ body {
   color: #fff;
   font-size: 15px;
   align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.header-container__title {
+  margin: auto 12px;
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.header-container__new-video {
+  margin: auto 12px;
 }
 
 /* ここまで header */
@@ -44,6 +57,7 @@ body {
 
 .footer-container {
   display: flex;
+  align-items: center;
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -71,18 +85,11 @@ body {
 
 .footer-item__icon {
   display: block;
-  position: absolute;
-  top: 35%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   line-height: 1.2rem;
 }
 
 .footer-item__text {
-  position: absolute;
-  top: 70%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  display: block;
   line-height: 0.8rem;
   font-size: 0.8rem;
   color: white;
