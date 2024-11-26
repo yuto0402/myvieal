@@ -1,5 +1,6 @@
 /* 全体 */
-html, body {
+html,
+body {
   overflow-x: hidden;
 }
 /* ここまで全体 */
@@ -39,7 +40,8 @@ form > div {
   justify-content: center;
 }
 
-.movie-select, .thumbnail-select {
+.movie-select,
+.thumbnail-select {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -86,7 +88,7 @@ textarea:focus {
 }
 
 .btn {
-  margin: 20px 10px ;
+  margin: 20px 10px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -100,10 +102,11 @@ textarea:focus {
   cursor: pointer;
 }
 
-.movie-select:hover, .thumbnail-select:hover, .btn:hover {
+.movie-select:hover,
+.thumbnail-select:hover,
+.btn:hover {
   color: #fff;
   background-color: #2b8f38;
 }
 
 /* ここまで body */
-
