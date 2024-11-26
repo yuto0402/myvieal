@@ -1,0 +1,34 @@
+{% extends "myvieal/base.html" %}
+{% load static %}
+
+{% block extra-style %}
+  <link rel="stylesheet" href="{% static 'myvieal/css/detail.css' %}">
+{% endblock %}
+
+{% block header-container %}
+  <a href="{% url 'top' %}" class="top">Myvieal</a>
+  <a href="{% url 'MovieCreate' %}" class="create">+</a>
+
+  {% if movie.created_by == user %}
+  <a href="{% url 'MovieEdit' movie.pk %}" class="edit">編集</a>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+<main>
+  <div class="container">
+    <video src="{{ movie.movie_file.url }}" controls autoplay type="video/mp4"></video>
+  </div>
+  <div class="overview">
+    <div class="title">{{ movie.title }}</div>
+    <div class="information">{{ movie.number_of_views }}回視聴・{{ movie.created_at|timesince }} ago</div>
+    <div class="creater">
+      <div class="icon"><img src="{{ movie.created_by.icon_image.url }}" alt=""></div>
+      <div class="createrName">{{ movie.created_by.username }}</div>
+    </div>
+    <div class="description">{{ movie.explanation }}</div>
+    <span class="detail">...もっと見る</span>
+  </div>
+</main>
+<script src="{% static 'myvieal/js/detail.js' %}"></script>
+{% endblock %}
