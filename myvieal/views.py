@@ -57,6 +57,24 @@ class MovieDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy("top")
 
 
+class SearchView(LoginRequiredMixin, ListView):
+    model = Movie
+    template_name = "myvieal/search.html"
+
+    def get_queryset(self):
+        obj = Movie.objects.all()
+        order = self.request.GET.get("display_order")
+        search = self.request.GET.get("search")
+        if order is not None:
+            obj = obj.order_by("-" + order)  # queryがstr型なので+演算子で文字列連結を行う
+        if search is not None:
+            obj = obj.filter(title__icontains=search)
+        return obj
+
+    # コンテクストデータのキーは標準では"videos_list"(モデル名_list)なので"objects"に変更
+    context_object_name = "movies"
+
+
 class Following(ListView):
     model = CustomUser
     template_name = "myvieal/following.html"

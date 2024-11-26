@@ -10,5 +10,6 @@ urlpatterns = [
     path("edit/<int:pk>/", views.MovieEditView.as_view(), name="MovieEdit"),
     path("detail/<int:pk>/", views.MovieDetailView.as_view(), name="MovieDetail"),
     path("delete/<int:pk>/", views.MovieDeleteView.as_view(), name="MovieDelete"),
+    path("search/", views.SearchView.as_view(), name="search"),
     path("following", Following.as_view(), name="following"),
 ]
