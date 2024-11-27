@@ -1,0 +1,97 @@
+/* 全体 */
+html, body {
+  overflow-x: hidden;
+}
+/* ここまで全体 */
+
+/* header */
+.top {
+  font-size: 18px;
+  text-decoration: none;
+  color: #fff;
+  position: absolute;
+  left: 5%;
+}
+
+.create {
+  text-decoration: none;
+  color: #fff;
+  font-size: 30px;
+  position: absolute;
+  left: 90%;
+}
+
+.edit {
+  text-decoration: none;
+  color: #fff;
+  position: absolute;
+  left: 75%;
+}
+
+/* ここまで header */
+
+/* body */
+body {
+  margin: 0;
+}
+
+.container {
+  width: 100vw;
+}
+
+video {
+  width: 100%;
+}
+
+.overview {
+  padding: 10px;
+}
+
+.title {
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  word-wrap: break-word;
+}
+
+.information {
+ color: #9b9b9b;
+ margin-bottom: 5px;
+}
+
+.creater {
+  display: flex;
+  gap: 15px;
+  padding-bottom: 15px;
+  border-bottom: solid 1px #9b9b9b;;
+}
+
+.creater div {
+  display: grid;
+  place-items: center;
+}
+
+.icon img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.description {
+  padding-top: 15px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.description.expanded {
+  -webkit-line-clamp: unset;
+  overflow: visible;
+}
+
+.detail {
+  cursor: pointer;
+}
+/* ここまで body */
