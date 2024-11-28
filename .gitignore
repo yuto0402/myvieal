@@ -311,3 +311,4 @@ media/
 
 #デフォ画像のパスだけ除外
 !media/misc
+!media/misc/*
