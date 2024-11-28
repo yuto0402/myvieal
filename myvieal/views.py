@@ -57,7 +57,7 @@ class MovieDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy("top")
 
 
-class Following(ListView):
+class Following(LoginRequiredMixin, ListView):
     model = CustomUser
     template_name = "myvieal/following.html"
 
