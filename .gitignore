@@ -308,3 +308,6 @@ staticfiles/
 
 # Django user-uploaded files
 media/
+
+#デフォ画像のパスだけ除外
+!media/misc

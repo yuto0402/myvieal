@@ -29,7 +29,6 @@ INSTALLED_APPS = [
     "pipeline",
     "accounts",
     "myvieal",
-    "widget_tweaks",
 ]
 
 MIDDLEWARE = [
@@ -183,6 +182,9 @@ AUTHENTICATION_BACKENDS = [
 
 ACCOUNT_FORMS = {
     "signup": "accounts.forms.CustomSignupForm",
+    "login": "accounts.forms.CustomLoginForm",
+    "reset_password": "accounts.forms.CustomResetPasswordForm",
+    "reset_password_from_key": "accounts.forms.CustomResetPasswordKeyForm",
 }
 
 ACCOUNT_ADAPTER = "accounts.adapter.CustomAccountAdapter"

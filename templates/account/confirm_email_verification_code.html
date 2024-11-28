@@ -1,0 +1,26 @@
+{% extends "myvieal/entrance.html" %}
+{% load static %}
+
+{% block style %}<link rel="stylesheet" href="{% static 'accounts/css/signup.css' %}">{% endblock style %}
+
+{% block header %}メールアドレスの認証{% endblock header %}
+
+{% block main %}
+<form method="post">
+  {% csrf_token %}
+  <div class="message">
+    {{ email }}に数字４ケタの認証コードを送信しました。<br>下のテキストボックスに記入してください。
+  </div>
+  <div class="form-group">
+    <input type="text" name={{ form.code.name }} placeholder="認証コード（４ケタ）" reqired>
+  </div>
+  <div class="message resend">メールが届きませんか？<a href="">再送する</a></div>
+  <div class="error_container">
+    {% for field in form %}
+    {{ field.errors }}
+    {% endfor %}
+    {{ form.non_field_errors }}
+  </div>
+  <button type="submit"><div>アカウント作成を完了</div></button>
+</form>
+{% endblock main %}
