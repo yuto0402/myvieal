@@ -13,8 +13,8 @@
     <header class="header">
         <div class="header-container">
             {% block header-container %}
-              <a href="" class="header-container__title">myvieal</a>
-              <a href="" class="header-container__new-video"><img src="{% static 'myvieal/img/new_video.svg' %}"></a>
+              <a href="{% url 'top' %}" class="header-container__title">Myvieal</a>
+              <a href="{% url 'MovieCreate' %}" class="header-container__new-video"><img src="{% static 'myvieal/img/new_video.svg' %}"></a>
             {% endblock header-container %}
         </div>
     </header>
@@ -39,13 +39,13 @@
                 </a>
             </div>
             <div class="footer-container__item">
-              <a href="{% url "following" %}" class="footer-item__link">
+              <a href="{% url 'following' %}" class="footer-item__link">
                   <span class="footer-item__icon">{% block footer-item__icon--following %}<img src="{% static 'myvieal/img/following.svg' %}">{% endblock footer-item__icon--following %}</span>
                   <span class="footer-item__text">フォロー中</span>
               </a>
             </div>
             <div class="footer-container__item">
-                <a href="" class="footer-item__link">
+                <a href="{% url 'Profile' user.pk %}" class="footer-item__link">
                     <div class="footer-item__icon">{% block footer-item__icon--account %}<img src="{% static 'myvieal/img/account.svg' %}">{% endblock footer-item__icon--account %}</div>
                     <div class="footer-item__text">アカウント</div>
                 </a>

@@ -42,12 +42,14 @@ class MovieEditView(LoginRequiredMixin, UpdateView):
     form_class = MovieEditForm
 
     def get_success_url(self):
-        return reverse('MovieDetail', kwargs={'pk': self.object.pk})
+        return reverse('Profile', kwargs={'pk': self.request.user.pk})
 
 class MovieDeleteView(LoginRequiredMixin, DeleteView):
     model = Movie
     template_name = "myvieal/delete.html"
-    success_url = reverse_lazy("top")
+
+    def get_success_url(self):
+        return reverse('Profile', kwargs={'pk': self.request.user.pk})
 
 
 class Following(ListView):

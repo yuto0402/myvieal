@@ -1,5 +1,6 @@
 from allauth.account.forms import SignupForm
 from django import forms
+from .models import CustomUser
 
 
 class BaseCustomForm(forms.Form):
@@ -18,3 +19,12 @@ class CustomSignupForm(BaseCustomForm, SignupForm):
         user.icon_image = self.cleaned_data.get("icon_image")
         user.save()
         return user
+
+class ProfileEditForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = (
+            "icon_image",
+            "username",
+            "introduction",
+        )

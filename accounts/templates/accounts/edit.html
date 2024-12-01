@@ -1,0 +1,44 @@
+{% extends "myvieal/base.html" %}
+{% load static %}
+
+{% block extra-style %}
+  <link rel="stylesheet" href="{% static 'accounts/css/edit.css' %}">
+{% endblock %}
+
+{% block header-container %}
+  <a href="{% url 'Profile' user.pk %}" class="top">×</a>
+  <h3>プロフィールの編集</h3>
+  <p class="post">投稿</p>
+{% endblock %}
+
+{% block content %}
+<main>
+  <form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="user-icon">
+      <div class="icon-container">
+        <label for="image-input"><img src="{% static 'myvieal/img/image.svg' %}" alt="" class="fa-image"></label>
+      </div>
+      <input type="file" id="image-input" name="icon_image" style="display: none;">
+      <div class="icon"><img class="icon-preview" src="{{ user.icon_image.url }}"></div>
+    </div>
+
+    <div class="username">
+      <p>ユーザー名 <span class="requirement">必須</span><span class="username-length">0/50</span></p>
+      <textarea name="username" required>{{ object.username }}</textarea>
+    </div>
+
+    <div class="introduction">
+      <p>紹介文<span class="introduction-length">0/500</span></p>
+      <textarea name="introduction">{{ object.introduction }}</textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">保存</button>
+  </form>
+</main>
+<script src="{% static 'accounts/js/edit.js' %}"></script>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
