@@ -1,5 +1,6 @@
 /* 全体 */
-html, body {
+html,
+body {
   overflow-x: hidden;
 }
 /* ここまで全体 */
@@ -55,15 +56,15 @@ video {
 }
 
 .information {
- color: #9b9b9b;
- margin-bottom: 5px;
+  color: #9b9b9b;
+  margin-bottom: 5px;
 }
 
 .creater {
   display: flex;
   gap: 15px;
   padding-bottom: 15px;
-  border-bottom: solid 1px #9b9b9b;;
+  border-bottom: solid 1px #9b9b9b;
 }
 
 .creater div {

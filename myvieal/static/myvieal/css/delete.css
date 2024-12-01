@@ -22,7 +22,8 @@ p {
   margin: 40px 0 10px 120px;
 }
 
-.edit, .delete {
+.edit,
+.delete {
   display: flex;
   justify-content: center;
   align-items: center;
