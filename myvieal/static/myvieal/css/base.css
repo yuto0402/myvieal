@@ -11,6 +11,7 @@ html {
 }
 
 body {
+  overflow-x: hidden;
   margin: 0;
 }
 
@@ -45,7 +46,8 @@ body {
 }
 
 .header-container__new-video {
-  margin: auto 12px;
+  position: absolute;
+  left: 90%;
 }
 
 /* ここまで header */

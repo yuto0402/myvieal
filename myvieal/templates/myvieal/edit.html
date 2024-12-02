@@ -16,26 +16,33 @@
   <form action="" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
 
-    <img class="thumbnail-preview" src="{{ object.thumbnail.url }}">
     <div class="thumbnail">
-      <input type="file" id="image-input" name="thumbnail" class="thumbnail" style="display: none;" required>
-      <div class="button-container">
-        <label for="image-input" class="thumbnail-select">サムネイルを変更</label>
+      <div class="icon-container">
+        <label for="image-input"><img src="{% static 'myvieal/img/image.svg' %}" alt="" class="fa-image"></label>
       </div>
+      <input type="file" id="image-input" name="thumbnail" style="display: none;">
+      {% if object.thumbnail %}
+      <img class="thumbnail-preview" src="{{ object.thumbnail.url }}">
+      {% else %}
+      <img class="thumbnail-preview" style="display:none">
+      {% endif %}
     </div>
 
     <div class="title">
-      <p>タイトル <span class="requirement">必須</span></p>
-      {{ form.title }}
+      <p>タイトル <span class="requirement">必須</span><span class="title-length">0/50</span></p>
+      <textarea name="title" required>{{ object.title }}</textarea>
     </div>
 
     <div class="explanation">
-      <p>詳細文 <span class="requirement">必須</span></p>
-      {{ form.explanation }}
+      <p>詳細文 <span class="requirement">必須</span><span class="explanation-length">0/500</span></p>
+      <textarea name="explanation" required>{{ object.explanation }}</textarea>
     </div>
 
     <button type="submit" class="btn btn-primary">保存</button>
   </form>
 </main>
 <script src="{% static 'myvieal/js/edit.js' %}"></script>
+{% endblock %}
+
+{% block footer %}
 {% endblock %}

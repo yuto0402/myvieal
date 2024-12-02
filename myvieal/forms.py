@@ -22,19 +22,3 @@ class MovieEditForm(forms.ModelForm):
             "explanation",
             "thumbnail",
         )
-
-    title = forms.CharField(
-        widget=forms.Textarea(
-            attrs={
-                "rows": 1,
-            }
-        )
-    )
-
-    explanation = forms.CharField(
-        widget=forms.Textarea(
-            attrs={
-                "rows": 1,
-            }
-        ),
-    )

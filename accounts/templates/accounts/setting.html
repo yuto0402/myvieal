@@ -1,0 +1,29 @@
+{% extends "myvieal/base.html" %}
+{% load static %}
+
+{% block extra-style %}
+  <link rel="stylesheet" href="{% static 'accounts/css/setting.css' %}">
+{% endblock %}
+
+{% block header-container %}
+  <a href="{% url 'Profile' user.pk %}" class="top">×</a>
+  <h3>設定</h3>
+{% endblock %}
+
+{% block content %}
+<main>
+  <div class="setting">
+    <p class="green">アカウントの設定</p>
+    <a href=""><img src="{% static 'myvieal/img/envelope.svg' %}" alt="">メールアドレスの変更</a>
+    <a href=""><img src="{% static 'myvieal/img/password.svg' %}" alt="">パスワードの変更</a>
+  </div>
+  <div class="guidance">
+    <p><a href="">利用規約</a>・<a href="">プライバシーポリシー</a></p>
+    <a href="" class="green">ログアウト</a>
+    <p>アカウントの削除は <a href="" class="green">こちら</a></p>
+  </div>
+</main>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

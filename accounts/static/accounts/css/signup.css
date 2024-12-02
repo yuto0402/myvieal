@@ -1,0 +1,87 @@
+input {
+  display: block;
+  width: 812px;
+  max-width: 90vw;
+  padding: 12px 8px;
+  border: 1px #ccc solid;
+  border-radius: 6px;
+  margin: 30px auto;
+}
+
+.message {
+  display: block;
+  width: 812px;
+  max-width: 90vw;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.resend {
+  position: relative;
+  transform: translateX(-6px);
+  text-align: unset;
+  font-size: small;
+}
+
+input::placeholder {
+  font-family: "Yu Gothic", "Noto Sans JP", "Helvetica", "Arial", sans-serif;
+  font-weight: 500;
+  color: #333;
+}
+
+.checkbox {
+  display: flex;
+  justify-content: center;
+  width: 812px;
+  max-width: 90vw;
+  margin: 0 auto;
+}
+
+.checkbox input {
+  all: revert;
+  margin-right: 15px;
+}
+
+.checkbox label {
+  width: 270px;
+  font-weight: 500;
+}
+
+.checkbox a:any-link,
+.resend a:any-link {
+  color: #2b8f38;
+}
+
+.error_container {
+  display: block;
+  width: 812px;
+  max-width: 90vw;
+  margin: 30px auto;
+}
+
+.errorlist {
+  list-style-type: none;
+  line-height: 2;
+  padding: 0;
+  margin: 0;
+}
+
+button {
+  display: block;
+  width: 812px;
+  max-width: 95vw;
+  background-color: #fff;
+  padding: 0;
+  border: none;
+  margin: 30px auto;
+}
+
+button div {
+  font-family: "Yu Gothic", "Noto Sans JP", "Helvetica", "Arial", sans-serif;
+  text-align: center;
+  font-size: 16px;
+  color: #fff;
+  background-color: #2b8f38;
+  line-height: 2;
+  border-radius: 20px;
+}
