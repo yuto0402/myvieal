@@ -171,6 +171,8 @@ PIPELINE = {
 
 AUTH_USER_MODEL = "accounts.CustomUser"
 
+LOGIN_REDIRECT_URL = "/top"
+
 # Related to allauth
 
 AUTHENTICATION_BACKENDS = [
@@ -180,10 +182,16 @@ AUTHENTICATION_BACKENDS = [
 
 ACCOUNT_FORMS = {
     "signup": "accounts.forms.CustomSignupForm",
+    "login": "accounts.forms.CustomLoginForm",
+    "reset_password": "accounts.forms.CustomResetPasswordForm",
+    "reset_password_from_key": "accounts.forms.CustomResetPasswordKeyForm",
 }
+
+ACCOUNT_ADAPTER = "accounts.adapter.CustomAccountAdapter"
 
 SITE_ID = 1
 
 ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION_BY_CODE_ENABLED = True

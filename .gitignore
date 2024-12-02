@@ -307,4 +307,6 @@ dist
 staticfiles/
 
 # Django user-uploaded files
-media/
+media/images
+media/user
+media/videos
