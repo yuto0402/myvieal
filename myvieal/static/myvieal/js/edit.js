@@ -15,3 +15,18 @@ document.getElementById("image-input").addEventListener("change", function(event
   // 動画ファイルを読み込む
   reader.readAsDataURL(file);
 });
+
+const titleForm = document.querySelector('textarea[name="title"]');
+const titleLength = document.querySelector('.title-length');
+titleLength.textContent = titleLength.textContent = `${titleForm.value.length}/50`;
+titleForm.addEventListener('input', function() {
+  titleLength.textContent = `${titleForm.value.length}/50`;
+});
+
+const explanationForm = document.querySelector('textarea[name="explanation"]');
+const explanationLength = document.querySelector('.explanation-length');
+explanationLength.textContent = `${explanationForm.value.length}/50`;
+explanationForm.addEventListener('input', function() {
+  explanationLength.textContent = `${explanationForm.value.length}/500`;
+});
+

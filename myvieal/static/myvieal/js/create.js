@@ -27,3 +27,14 @@ document.getElementById("file-input").addEventListener("change", function(event)
   reader.readAsDataURL(file);
 });
 
+const titleForm = document.querySelector('textarea[name="title"]');
+const titleLength = document.querySelector('.title-length');
+titleForm.addEventListener('input', function() {
+  titleLength.textContent = `${titleForm.value.length}/50`;
+});
+
+const explanationForm = document.querySelector('textarea[name="explanation"]');
+const explanationLength = document.querySelector('.explanation-length');
+explanationForm.addEventListener('input', function() {
+  explanationLength.textContent = `${explanationForm.value.length}/500`;
+});
