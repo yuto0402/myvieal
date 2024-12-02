@@ -19,14 +19,14 @@ class CustomSignupForm(BaseCustomForm, SignupForm):
         self.fields["password2"].widget.attrs["placeholder"] = "パスワード(確認)"
 
 """
-icon_image = forms.ImageField(required=True)
-
-    def save(self, request):
-        user = super().save(request)
-        user.icon_image = self.cleaned_data.get("icon_image")
-        user.save()
-        return user
-
+    icon_image = forms.ImageField(required=True)
+    
+        def save(self, request):
+            user = super().save(request)
+            user.icon_image = self.cleaned_data.get("icon_image")
+            user.save()
+            return user
+"""
 
 class ProfileEditForm(forms.ModelForm):
     class Meta:
@@ -37,7 +37,6 @@ class ProfileEditForm(forms.ModelForm):
             "introduction",
         )
         
-"""
 
 
 class CustomLoginForm(BaseCustomForm, LoginForm):
