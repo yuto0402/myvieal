@@ -8,3 +8,9 @@ document.querySelector(".detail").addEventListener("click", function () {
     detail.textContent = "...もっと見る";
   }
 });
+
+// ここは必要なのかわからないので一旦コメントアウトします
+// if (description.scrollHeight <= description.offsetHeight) {
+//   detail.style.display = 'none'
+// }
+
