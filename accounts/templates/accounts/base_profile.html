@@ -11,7 +11,7 @@
   <div class="profile">
     <div class="icon"><img src="{{ user.icon_image.url }}" alt=""></div>
     <div class="username">{{ user.username }}</div>
-    <div class="movie_and_follower">{{ movie_count }}本の動画・{{ follower_count }}フォロワー</div>
+    <div class="movie_and_follower">{{ movie_count }}本の動画・<span id="follower_count">{{ follower_count }}フォロワー</span></div>
     <div class="introduction">{{ user.introduction }}</div>
     <span class="detail">...もっと見る</span>
     {% block setting %}
@@ -44,6 +44,7 @@
 
 
   <script src="{% static 'accounts/js/profile.js' %}"></script>
+  {% block extra-js %}{% endblock extra-js %}
 </main>
 
 {% endblock %}

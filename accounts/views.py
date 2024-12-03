@@ -3,7 +3,7 @@
 from typing import Any
 
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import redirect
+from django.http import JsonResponse
 from django.urls import reverse
 from django.views.generic import DetailView, TemplateView, UpdateView
 
@@ -17,7 +17,7 @@ class ProfileView(LoginRequiredMixin, DetailView):
     template_name = "accounts/profile.html"
 
     def get_object(self, queryset=None):
-        # リターンの前の宣言がいらないとruff-checkに言われました
+        # リターンの前の宣言がいらないとruff-checkに言われた
         return super().get_object(queryset)
 
     def get_context_data(self, **kwargs):
@@ -67,9 +67,14 @@ class ProfileOthersView(LoginRequiredMixin, DetailView):
         return context
 
     def post(self, request, *args, **kwargs):
+        json_context = {}
         if self.is_following:
             request.user.following.remove(self.object)
+            json_context["method"] = "unfollow"
         else:
             request.user.following.add(self.object)
+            json_context["method"] = "follow"
 
-        return redirect(request.path)
+        json_context["follower_count"] = self.object.followed_by.count()
+
+        return JsonResponse(json_context)
