@@ -14,7 +14,6 @@ function getCookie(name) {
   }
   return cookieValue;
 }
-const csrftoken = getCookie("csrftoken");
 
 document.querySelector(".follow-btn").onclick = function (event) {
   event.preventDefault();
@@ -24,7 +23,7 @@ document.querySelector(".follow-btn").onclick = function (event) {
     body: "",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
-      "X-CSRFToken": csrftoken,
+      "X-CSRFToken": getCookie("csrftoken"),
     },
   })
     .then((response) => {
@@ -37,10 +36,10 @@ document.querySelector(".follow-btn").onclick = function (event) {
       // アイコンの状態を変更する
       const followBtn = document.querySelector(".follow-btn");
       if (response.method == "follow") {
-        followBtn.classList.add("follow-btn--unfollow");
+        followBtn.classList.add("follow-btn--following");
         followBtn.textContent = "フォロー中";
       } else {
-        followBtn.classList.remove("follow-btn--unfollow");
+        followBtn.classList.remove("follow-btn--following");
         followBtn.textContent = "フォロー";
       }
     })
