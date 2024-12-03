@@ -37,12 +37,12 @@ document.querySelector(".follow-btn").onclick = function (event) {
       // フォロワー数を更新
       document.getElementById("follower_count").textContent =
         response.follower_count + "フォロワー";
-      // アイコンの状態を変更する
+      // ボタンの状態を変更する
       const followBtn = document.querySelector(".follow-btn");
       if (response.method == "follow") {
         followBtn.classList.add("follow-btn--following");
         followBtn.textContent = "フォロー中";
-      } else {
+      } else if (response.method == "unfollow") {
         followBtn.classList.remove("follow-btn--following");
         followBtn.textContent = "フォロー";
       }
