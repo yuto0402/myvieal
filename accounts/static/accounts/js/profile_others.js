@@ -17,8 +17,7 @@ function getCookie(name) {
 
 document.querySelector(".follow-btn").onclick = function (event) {
   event.preventDefault();
-  console.log("動いたよ");
-  fetch(window.location.pathname, {
+  fetch(location.pathname, {
     method: "POST",
     body: "",
     headers: {
@@ -26,8 +25,13 @@ document.querySelector(".follow-btn").onclick = function (event) {
       "X-CSRFToken": getCookie("csrftoken"),
     },
   })
+    // ステータスがokかチェックする処理
     .then((response) => {
-      return response.json();
+      if (!response.ok) {
+        throw new Error(`Response status: ${response.status}`);
+      } else {
+        return response.json();
+      }
     })
     .then((response) => {
       // フォロワー数を更新
