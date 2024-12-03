@@ -1,4 +1,9 @@
 /* 全体 */
+html,
+body {
+  overflow-x: hidden;
+}
+
 /* ここまで全体 */
 
 /* header */
@@ -67,7 +72,8 @@ form > div:not(.thumbnail) {
   justify-content: center;
 }
 
-.movie-select {
+.movie-select,
+.thumbnail-select {
   display: flex;
   justify-content: center;
   align-items: center;

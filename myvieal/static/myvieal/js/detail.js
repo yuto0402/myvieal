@@ -1,5 +1,6 @@
 const detail = document.querySelector(".detail");
 const description = document.querySelector(".description");
+
 document.querySelector(".detail").addEventListener("click", function () {
   description.classList.toggle("expanded");
   if (description.classList.contains("expanded")) {
@@ -9,6 +10,7 @@ document.querySelector(".detail").addEventListener("click", function () {
   }
 });
 
-if (description.scrollHeight <= description.offsetHeight) {
-  detail.style.display = "none";
-}
+// ここは必要なのかわからないので一旦コメントアウトします
+// if (description.scrollHeight <= description.offsetHeight) {
+//   detail.style.display = 'none'
+// }
