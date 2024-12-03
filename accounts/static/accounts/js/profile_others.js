@@ -1,4 +1,20 @@
-import Cookies from "/js-cookie";
+// djangoのdocument(https://docs.djangoproject.com/ja/5.1/howto/csrf/)からコピペ
+function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== "") {
+    const cookies = document.cookie.split(";");
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      // Does this cookie string begin with the name we want?
+      if (cookie.substring(0, name.length + 1) === name + "=") {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
+  }
+  return cookieValue;
+}
+const csrftoken = getCookie("csrftoken");
 
 document.querySelector(".follow-btn").onclick = function (event) {
   event.preventDefault();
@@ -8,7 +24,7 @@ document.querySelector(".follow-btn").onclick = function (event) {
     body: "",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
-      "X-CSRFToken": Cookies.get("csrftoken"),
+      "X-CSRFToken": csrftoken,
     },
   })
     .then((response) => {

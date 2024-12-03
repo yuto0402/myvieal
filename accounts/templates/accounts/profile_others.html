@@ -26,33 +26,5 @@
 {% endblock extra-content %}
 
 {% block extra-js %}
-<script>
-  document.querySelector(".follow-btn").onclick = function (event) {
-    event.preventDefault();
-    fetch(window.location.pathname, {
-      method: 'POST',
-      body: '',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
-        'X-CSRFToken': '{{ csrf_token }}',
-      },
-    }).then(response => {
-      return response.json();
-    }).then(response => {
-      // フォロワー数を更新
-      document.getElementById('follower_count').textContent = response.follower_count + 'フォロワー';
-      // アイコンの状態を変更する
-      const followBtn = document.querySelector('.follow-btn')
-      if (response.method == 'follow') {
-        followBtn.classList.add('follow-btn--following');
-        followBtn.textContent = "フォロー中";
-      } else {
-        followBtn.classList.remove('follow-btn--following');
-        followBtn.textContent = "フォロー";
-      }
-    }).catch(error => {
-      console.log(error);
-    });
-  }
-</script>
+<script src="{% static 'accounts/js/profile_others.js' %}"></script>
 {% endblock extra-js %}
