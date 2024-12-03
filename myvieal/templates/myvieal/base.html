@@ -45,7 +45,7 @@
               </a>
             </div>
             <div class="footer-container__item">
-                <a href="{% url 'Profile' user.pk %}" class="footer-item__link">
+                <a href="{% url 'Profile' request.user.pk %}" class="footer-item__link">
                     <div class="footer-item__icon">{% block footer-item__icon--account %}<img src="{% static 'myvieal/img/account.svg' %}">{% endblock footer-item__icon--account %}</div>
                     <div class="footer-item__text">アカウント</div>
                 </a>

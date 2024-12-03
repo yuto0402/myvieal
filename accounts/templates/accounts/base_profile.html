@@ -1,0 +1,51 @@
+{% extends "myvieal/base.html" %}
+{% load static %}
+{% load myvieal_extras %}
+
+{% block extra-style %}
+  <link rel="stylesheet" href="{% static 'accounts/css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+<main>
+  <div class="profile">
+    <div class="icon"><img src="{{ user.icon_image.url }}" alt=""></div>
+    <div class="username">{{ user.username }}</div>
+    <div class="movie_and_follower">{{ movie_count }}本の動画・{{ follower_count }}フォロワー</div>
+    <div class="introduction">{{ user.introduction }}</div>
+    <span class="detail">...もっと見る</span>
+    {% block setting %}
+    <div class="setting">
+      <a href="{% url 'ProfileEdit' user.pk %}" class="profile_edit">プロフィールを編集</a>
+      <a href="{% url 'UserSetting' %}" class="user_setting"><img src="{% static 'myvieal/img/gear.svg' %}" alt=""></a>
+    </div>
+    {% endblock setting %}
+    {% block profile-extra-content %}{% endblock profile-extra-content %}
+  </div>
+  {% for movie in movies %}
+  <div class="movie">
+    <a href="{% url 'MovieDetail' movie.pk %}" class="list">
+      {% if movie.thumbnail %}
+      <div class="thumbnail"><img src="{{ movie.thumbnail.url }}" alt=""></div>
+      {% else %}
+      <div class="thumbnail"><video src="{{ movie.movie_file.url }}" type="video/mp4"></video></div>
+      {% endif %}
+      <div class="information">
+        <div class="title">{{ movie.title|truncatechars:30 }}</div>
+        <div class="view_and_time">{{ movie.number_of_views }}回視聴・{{ movie.created_at|timesince|upto:',' }}前</div>
+      </div>
+    </a>
+    {% block movie-edit %}
+    <a href="{% url 'MovieEdit' movie.pk %}" class="movie_edit"><img src="{% static 'myvieal/img/pen.svg' %}" alt=""></a>
+  </div>
+    {% endblock movie-edit %}
+  {% endfor %}
+  {% block extra-content %}{% endblock extra-content %}
+
+
+  <script src="{% static 'accounts/js/profile.js' %}"></script>
+</main>
+
+{% endblock %}
+
+{% block footer-item__icon--account %}<img src="{% static 'myvieal/img/account_fill.svg' %}">{% endblock footer-item__icon--account %}

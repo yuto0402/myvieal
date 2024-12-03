@@ -1,0 +1,24 @@
+{% extends "./base_profile.html" %}
+{% load static %}
+
+{% block extra-style %}
+<link rel="stylesheet" href="{% static 'accounts/css/profile.css' %}">
+<link rel="stylesheet" href="{% static 'accounts/css/profile_others.css' %}">
+{% endblock extra-style %}
+
+
+{% block setting %}{% endblock setting %}
+
+{% block profile-extra-content %}
+<form action="" method="post" class="follow-form">
+  {% csrf_token %}
+  {% if is_following %}
+  <input type="submit" value="フォロー中" class="follow-btn follow-btn--unfollow">
+  {% else %}
+  <input type="submit" value="フォロー" class="follow-btn">
+  {% endif %}
+
+</form>
+{% endblock profile-extra-content %}
+
+{% block movie-edit %}{% endblock movie-edit %}
