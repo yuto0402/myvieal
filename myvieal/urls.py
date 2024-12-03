@@ -13,5 +13,6 @@ urlpatterns = [
     path("detail/<int:pk>/", views.MovieDetailView.as_view(), name="MovieDetail"),
     path("delete/<int:pk>/", views.MovieDeleteView.as_view(), name="MovieDelete"),
     path("search/", views.SearchView.as_view(), name="search"),
+    path("search/history", views.SearchHistory.as_view(), name="search_history"),
     path("following", Following.as_view(), name="following"),
 ]

@@ -1,10 +1,12 @@
 # Create your views here.
+import datetime
+
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
 
-from .forms import MovieEditForm, MovieForm
-from .models import CustomUser, Movie
+from .forms import MovieEditForm, MovieForm, SearchHistoryForm
+from .models import CustomUser, Movie, Search
 
 
 # Create your views here.
@@ -71,8 +73,39 @@ class SearchView(LoginRequiredMixin, ListView):
             obj = obj.filter(title__icontains=search)
         return obj
 
-    # コンテクストデータのキーは標準では"videos_list"(モデル名_list)なので"objects"に変更
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.GET.get("search") is not None:
+            context["search_text"] = self.request.GET.get("search")
+        return context
+
+    # コンテクストデータのキーは標準では"videos_list"(モデル名_list)なので"movies"に変更
     context_object_name = "movies"
+
+
+class SearchHistory(LoginRequiredMixin, CreateView):
+    model = Search
+    form_class = SearchHistoryForm
+    template_name = "myvieal/search_history.html"
+
+    def get_success_url(self):
+        return reverse("search") + "?search=" + self.request.POST.get("search_word")
+
+    def form_valid(self, form):
+        instance = form.save(commit=False)
+        instance.searched_by = self.request.user
+        instance.searched_at = datetime.datetime.now(tz="Asia/Tokyo")
+        instance.save()
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        print("フォームinvalid")
+        return super().form_invalid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["histories"] = Search.objects.filter(searched_by=self.request.user)
+        return context
 
 
 class Following(ListView):
