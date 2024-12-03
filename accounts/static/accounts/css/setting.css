@@ -1,0 +1,49 @@
+/* header */
+.top {
+  text-decoration: none;
+  color: #fff;
+  font-size: 30px;
+  position: absolute;
+  left: 5%;
+}
+
+h3 {
+  position: absolute;
+  left: 15%;
+  font-size: 20px;
+}
+/* ここまで header */
+
+/* body */
+a:not(.green) {
+  text-decoration: none;
+  color: inherit;
+}
+
+.setting {
+  padding: 10px 20px 20px;
+  border-bottom: 1px solid grey;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.green {
+  text-decoration: none;
+  color: #2b8f38;
+}
+
+.setting a {
+  font-size: 20px;
+  display: flex;
+  gap: 20px;
+}
+
+.guidance {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+/* ここまで body */

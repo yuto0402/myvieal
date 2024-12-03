@@ -1,0 +1,103 @@
+/* header */
+.top {
+  text-decoration: none;
+  color: #fff;
+  font-size: 30px;
+  position: absolute;
+  left: 5%;
+}
+
+h3 {
+  position: absolute;
+  left: 15%;
+  font-size: 20px;
+}
+
+.post {
+  text-decoration: none;
+  color: #fff;
+  font-size: 15px;
+  position: absolute;
+  left: 85%;
+}
+/* ここまで header */
+
+/* body */
+form > div {
+  padding: 10px 10px 20px;
+  border-bottom: 1px solid grey;
+}
+
+.icon-container {
+  z-index: 2;
+  display: grid;
+  place-content: center;
+  position: absolute;
+  top: 58px;
+  left: 10px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.fa-image {
+  cursor: pointer;
+}
+
+.icon-preview {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  position: relative;
+}
+
+.requirement {
+  color: red;
+  font-size: 12px;
+}
+
+.username p, .introduction p {
+  position: relative;
+}
+
+.username-length, .introduction-length {
+  position: absolute;
+  right: 0%
+}
+
+textarea {
+  width: 100%;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  resize: none;
+}
+
+textarea:focus {
+  outline: none;
+  box-shadow: none;
+  border: none;
+}
+
+.btn {
+  margin: 20px 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 95%;
+  height: 38px;
+  font-size: 15px;
+  color: #2b8f38;
+  background-color: #fff;
+  border-radius: 20px;
+  border: 1px solid #2b8f38;
+  cursor: pointer;
+}
+
+.btn:hover {
+  color: #fff;
+  background-color: #2b8f38;
+}
+/* ここまで body */

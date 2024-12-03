@@ -1,0 +1,125 @@
+/* header */
+/* ここまで header */
+
+/* body */
+.profile {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: center;
+  margin: 20px 20px 0;
+}
+
+.icon img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.username {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.movie_and_follower {
+  color: gray;
+  font-size: 14px;
+}
+
+.introduction {
+  padding-top: 15px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  text-align: center;
+}
+
+.introduction.expanded {
+  -webkit-line-clamp: unset;
+  overflow: visible;
+}
+
+.detail {
+  cursor: pointer;
+  display: inline;
+}
+
+.setting {
+  width: 100%;
+  display: flex;
+  gap: 40px;
+  align-items: center;
+  margin: 20px 20px 20px 10px;
+}
+
+.profile_edit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  height: 38px;
+  font-size: 15px;
+  color: #2b8f38;
+  background-color: #fff;
+  border-radius: 20px;
+  border: 1px solid #2b8f38;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.profile_edit:hover {
+  color: #fff;
+  background-color: #2b8f38;
+}
+
+.movie {
+  display: flex;
+  margin: 10px 10px 5px;
+}
+
+.list {
+  flex: 10;
+  display: flex;
+  gap: 10px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.thumbnail {
+  width: 100%;
+  flex: 1;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  margin-bottom: 10px;
+  border-radius: 10px;
+}
+
+.thumbnail img, .thumbnail video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.information {
+  flex: 1;
+}
+
+.title {
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+.view_and_time {
+  color: gray;
+  font-size: 14px;
+}
+
+.movie_edit {
+  flex: 1;
+  display: inline-block;
+  text-decoration: none;
+  color: inherit;
+}
+/* ここまで body */

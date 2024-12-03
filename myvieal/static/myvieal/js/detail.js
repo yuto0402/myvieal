@@ -8,3 +8,7 @@ document.querySelector(".detail").addEventListener("click", function () {
     detail.textContent = "...もっと見る";
   }
 });
+
+if (description.scrollHeight <= description.offsetHeight) {
+  detail.style.display = "none";
+}

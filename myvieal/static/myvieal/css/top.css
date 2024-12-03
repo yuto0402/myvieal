@@ -1,31 +1,13 @@
 /* header */
-.top {
-  font-size: 18px;
-  text-decoration: none;
-  color: #fff;
-  position: absolute;
-  left: 5%;
-}
-
-.edit {
-  text-decoration: none;
-  color: #fff;
-  font-size: 30px;
-  position: absolute;
-  left: 90%;
-}
 /* ここまで header */
 
 /* body */
-body {
-  overflow-x: hidden;
-}
-
 .list {
   display: grid;
   grid-template-columns: 1fr 6fr;
   text-decoration: none;
   color: inherit;
+  margin-bottom: 10px;
 }
 
 .list div {
@@ -67,6 +49,7 @@ body {
   grid-column: 2 / 3;
   align-items: center;
   word-wrap: break-word;
+  word-break: break-word;
 }
 
 .information {

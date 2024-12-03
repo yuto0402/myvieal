@@ -3,10 +3,10 @@
 {% block extra-style %}
   <link rel="stylesheet" href="{% static 'myvieal/css/top.css' %}">
 {% endblock %}
-
 {% block header-container %}
-  <a href="{% url 'top' %}" class="top">Myvieal</a>
-  <a href="{% url 'MovieCreate' %}" class="edit">+</a>
+<div class="search-bar">
+  <p>動画を検索</p>
+</div>
 {% endblock %}
 {% block content %}
 <form method="get" action="/search/">
