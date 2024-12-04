@@ -69,7 +69,22 @@
   text-decoration: none;
 }
 
-.profile_edit:hover {
+.follow-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 38px;
+  font-size: 15px;
+  color: #2b8f38;
+  background-color: #fff;
+  border-radius: 20px;
+  border: 1px solid #2b8f38;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.profile_edit:hover, .follow-button:hover {
   color: #fff;
   background-color: #2b8f38;
 }
