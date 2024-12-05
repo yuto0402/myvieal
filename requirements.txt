@@ -17,7 +17,7 @@ gunicorn==23.0.0
 identify==2.6.1
 jmespath==1.0.1
 nodeenv==1.9.1
-packaging==24.1
+packaging==24.2
 pillow==11.0.0
 platformdirs==4.3.6
 pre_commit==4.0.1
