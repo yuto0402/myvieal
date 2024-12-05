@@ -8,7 +8,7 @@ body {
   flex-direction: column;
   height: 100%;
   position: relative;
-  transform: translateX(calc((100vw - 100%)/2));
+  transform: translateX(calc((100vw - 100%) / 2));
   overflow-x: hidden;
   margin: 0;
 }
@@ -32,7 +32,7 @@ header h3 {
   margin: 30px auto;
 }
 
-.menu a>div {
+.menu a > div {
   text-align: center;
   color: #fff;
   background-color: #2b8f38;
@@ -47,7 +47,7 @@ footer {
   flex: 1;
 }
 
-footer>div {
+footer > div {
   width: 100%;
   font-size: small;
   text-align: center;

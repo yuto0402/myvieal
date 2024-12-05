@@ -1,24 +1,24 @@
-document.getElementById("image-input").addEventListener("change", (e) => {
-  let file = event.target.files[0];
-  let thumbnailPreview = document.querySelector(".thumbnail-preview");
+document.getElementById("image-input").addEventListener("change", function(event) {
+  var file = event.target.files[0];
+  var thumbnailPreview = document.querySelector(".thumbnail-preview");
 
   let reader = new FileReader();
 
-  reader.onload = (e) => {
+  reader.onload = function(e) {
     thumbnailPreview.src = reader.result;
     thumbnailPreview.style.display = "block";
-  }
+  };
   reader.readAsDataURL(file);
 });
 
 document.getElementById("file-input").addEventListener("change", function(event) {
-  let file = event.target.files[0];
-  let videoPreview = document.querySelector(".video-preview");
+  var file = event.target.files[0];
+  var videoPreview = document.querySelector(".video-preview");
 
 // FileReaderで動画のURLを作成
-  let reader = new FileReader();
+  var reader = new FileReader();
 
-  reader.onload = (e) => {
+  reader.onload = function(e) {
     videoPreview.src = reader.result;  // 動画のプレビューを表示
     videoPreview.style.display = "block";  // プレビューを表示
   }
@@ -29,12 +29,12 @@ document.getElementById("file-input").addEventListener("change", function(event)
 
 const titleForm = document.querySelector('textarea[name="title"]');
 const titleLength = document.querySelector('.title-length');
-titleForm.addEventListener('input', () => {
+titleForm.addEventListener('input', function() {
   titleLength.textContent = `${titleForm.value.length}/50`;
 });
 
 const explanationForm = document.querySelector('textarea[name="explanation"]');
 const explanationLength = document.querySelector('.explanation-length');
-explanationForm.addEventListener('input', () => {
+explanationForm.addEventListener('input', function() {
   explanationLength.textContent = `${explanationForm.value.length}/500`;
 });

@@ -1,5 +1,6 @@
 from allauth.account.forms import LoginForm, ResetPasswordForm, ResetPasswordKeyForm, SignupForm
 from django import forms
+
 from .models import CustomUser
 from django.contrib.auth.forms import PasswordChangeForm
 
@@ -18,6 +19,7 @@ class CustomSignupForm(BaseCustomForm, SignupForm):
         self.fields["password1"].widget.attrs["placeholder"] = "パスワード"
         self.fields["password2"].widget.attrs["placeholder"] = "パスワード(確認)"
 
+
 """
     icon_image = forms.ImageField(required=True)
 
@@ -28,6 +30,7 @@ class CustomSignupForm(BaseCustomForm, SignupForm):
             return user
 """
 
+
 class ProfileEditForm(forms.ModelForm):
     class Meta:
         model = CustomUser
@@ -37,8 +40,7 @@ class ProfileEditForm(forms.ModelForm):
             "introduction",
         )
 
-
-
+        
 class CustomLoginForm(BaseCustomForm, LoginForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
