@@ -14,7 +14,9 @@
 {% endblock %}
 {% block content %}
 {% for history in histories %}
-<p>{{history}}</p>
+<div class="history_wrapper">
+  <p>{{history.search_word}}</p>
+</div>
 {% endfor %}
 {% endblock content %}
 
