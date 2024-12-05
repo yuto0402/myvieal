@@ -58,13 +58,15 @@ form > div {
   font-size: 12px;
 }
 
-.username p, .introduction p {
+.username p,
+.introduction p {
   position: relative;
 }
 
-.username-length, .introduction-length {
+.username-length,
+.introduction-length {
   position: absolute;
-  right: 0%
+  right: 0%;
 }
 
 textarea {

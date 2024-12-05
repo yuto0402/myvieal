@@ -75,8 +75,14 @@ class SearchView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        order = self.request.GET.get("display_order")
         if self.request.GET.get("search") is not None:
             context["search_text"] = self.request.GET.get("search")
+        if order == "created_at":
+            context["is_searched_by_created_at"] = True
+        elif order == "number_of_views":
+            context["is_searched_by_numbers_of_views"] = True
+        print(context)
         return context
 
     # コンテクストデータのキーは標準では"videos_list"(モデル名_list)なので"movies"に変更

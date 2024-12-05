@@ -30,10 +30,19 @@
 
     <div class="icon"><img src="{{ movie.created_by.icon_image.url }}" alt=""></div>
     <div class="title">{{ movie.title|truncatechars:30 }}</div>
-    <div class="information">{{ movie.created_by.username }}・{{ movie.number_of_views }}回視聴・{{ movie.created_at|timesince }} ago</div>
+    <div class="information">{{ movie.created_by.username }}・{{ movie.number_of_views }}回視聴・{{ movie.created_at|timesince }} 前</div>
   </a>
   {% endfor %}
 </main>
+<script>
+  document.addEventListener('load',(e)=>{
+    alert('chin')
+    {% if is_searched_by_created_at %}
+      document.querySelector(".query-button.created_at").classList.add("target")
+      alert('chin')
+    {% endif %}
+  })
+</script>
 {% comment %} <script>
   const search_text = document.querySelector("#search-bar");
   search_text.addEventListener('click', (e) => {
