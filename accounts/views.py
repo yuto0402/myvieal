@@ -1,15 +1,16 @@
 # Create your views here.
-
 from typing import Any
-
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
+from django.shortcuts import render
+from django.urls import reverse_lazy, reverse
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
+from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
 from django.views.generic import DetailView, TemplateView, UpdateView
-
-from .forms import ProfileEditForm
 from .models import CustomUser
-
+from .forms import BaseCustomForm, CustomSignupForm, ProfileEditForm, PasswordChangeForm
 
 class ProfileView(LoginRequiredMixin, DetailView):
     model = CustomUser
@@ -78,3 +79,9 @@ class ProfileOthersView(LoginRequiredMixin, DetailView):
         json_context["follower_count"] = self.object.followed_by.count()
 
         return JsonResponse(json_context)
+
+
+class PasswordChangeView(LoginRequiredMixin, PasswordChangeView):
+    template_name = 'accounts/password_change.html'
+    form_class = PasswordChangeForm
+    success_url = reverse_lazy('UserSetting')

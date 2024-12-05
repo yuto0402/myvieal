@@ -10,7 +10,7 @@ document.querySelector(".detail").addEventListener("click", function () {
   }
 });
 
-// ここは必要なのかわからないので一旦コメントアウトします
-// if (description.scrollHeight <= description.offsetHeight) {
-//   detail.style.display = 'none'
-// }
+//もし動画の説明文があまり長くない(3行以下)なら「もっと見る」を表示しない
+if (description.scrollHeight <= description.offsetHeight) {
+  detail.style.display = "none";
+}

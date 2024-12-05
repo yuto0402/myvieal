@@ -14,10 +14,18 @@
     <div class="movie_and_follower">{{ movie_count }}本の動画・{{ follower_count }}フォロワー</div>
     <div class="introduction">{{ user.introduction }}</div>
     <span class="detail">...もっと見る</span>
+
+    {% if user == request.user %}
     <div class="setting">
       <a href="{% url 'ProfileEdit' user.pk %}" class="profile_edit">プロフィールを編集</a>
       <a href="{% url 'UserSetting' %}" class="user_setting"><img src="{% static 'myvieal/img/gear.svg' %}" alt=""></a>
     </div>
+
+    {% else %}
+    <button class="follow-button">フォロー</button>
+
+    {% endif %}
+
   </div>
   {% for movie in movies %}
   <div class="movie">

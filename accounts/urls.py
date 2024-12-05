@@ -8,4 +8,5 @@ urlpatterns = [
     path("edit/<int:pk>/", views.ProfileEditView.as_view(), name="ProfileEdit"),
     path("setting/", views.UserSettingView.as_view(), name="UserSetting"),
     path("profile-others/<int:pk>", views.ProfileOthersView.as_view(), name="ProfileOthers"),
+    path('password_change', views.PasswordChangeView.as_view(), name='PasswordChange'),
 ]

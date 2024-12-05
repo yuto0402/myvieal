@@ -1,0 +1,21 @@
+{% extends "myvieal/base.html" %}
+{% load static %}
+{% block extra-style %}
+  <link rel="stylesheet" href="{% static 'myvieal/css/top.css' %}">
+  <link rel="stylesheet" href="{% static 'myvieal/css/search.css' %}">
+{% endblock %}
+{% block header-container %}
+<div class="search-bar-container history">
+  <form method="POST">
+    {% csrf_token %}
+    <input id ="search-bar" type="text" name="search_word" value="{{search_text}}" placeholder="動画を検索">
+  </form>
+</div>
+{% endblock %}
+{% block content %}
+{% for history in histories %}
+<p>{{history}}</p>
+{% endfor %}
+{% endblock content %}
+
+

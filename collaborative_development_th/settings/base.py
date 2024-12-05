@@ -171,7 +171,8 @@ PIPELINE = {
 
 AUTH_USER_MODEL = "accounts.CustomUser"
 
-LOGIN_REDIRECT_URL = "/top"
+LOGIN_REDIRECT_URL = "/top/"
+ACCOUNT_LOGOUT_REDIRECT_URL = "/accounts/login/"
 
 # Related to allauth
 
@@ -191,7 +192,4 @@ ACCOUNT_ADAPTER = "accounts.adapter.CustomAccountAdapter"
 
 SITE_ID = 1
 
-ACCOUNT_AUTHENTICATION_METHOD = "email"
-ACCOUNT_EMAIL_VERIFICATION = "mandatory"
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION_BY_CODE_ENABLED = True
+
