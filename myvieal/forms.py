@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Movie
+from .models import Movie, Search
 
 
 class MovieForm(forms.ModelForm):
@@ -22,3 +22,9 @@ class MovieEditForm(forms.ModelForm):
             "explanation",
             "thumbnail",
         )
+
+
+class SearchHistoryForm(forms.ModelForm):
+    class Meta:
+        model = Search
+        fields = ("search_word",)
