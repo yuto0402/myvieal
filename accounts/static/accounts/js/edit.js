@@ -1,5 +1,5 @@
-document.getElementById("image-input").addEventListener("change", function(event) {
-  var file = event.target.files[0];
+document.getElementById("image-input").addEventListener("change", (e) => {
+  var file = e.target.files[0];
   var iconPreview = document.querySelector(".icon-preview");
 
 
@@ -7,7 +7,7 @@ document.getElementById("image-input").addEventListener("change", function(event
   // FileReaderで動画のURLを作成
   var reader = new FileReader();
 
-  reader.onload = function(e) {
+  reader.onload = () => {
     iconPreview.src = reader.result;  // 動画のプレビューを表示
   }
 
@@ -18,13 +18,13 @@ document.getElementById("image-input").addEventListener("change", function(event
 const usernameForm = document.querySelector('textarea[name="username"]');
 const usernameLength = document.querySelector('.username-length');
 usernameLength.textContent = usernameLength.textContent = `${usernameForm.value.length}/50`;
-usernameForm.addEventListener('input', function() {
+usernameForm.addEventListener('input', () => {
   usernameLength.textContent = `${usernameForm.value.length}/50`;
 });
 
 const introductionForm = document.querySelector('textarea[name="introduction"]');
 const introductionLength = document.querySelector('.introduction-length');
 introductionLength.textContent = introductionLength.textContent = `${introductionForm.value.length}/500`;
-introductionForm.addEventListener('input', function() {
+introductionForm.addEventListener('input', () => {
   introductionLength.textContent = `${introductionForm.value.length}/500`;
 });

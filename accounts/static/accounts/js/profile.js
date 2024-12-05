@@ -1,6 +1,6 @@
 const detail = document.querySelector('.detail');
 const introduction = document.querySelector('.introduction');
-document.querySelector('.detail').addEventListener('click', function() {
+document.querySelector('.detail').addEventListener('click', () => {
 
   introduction.classList.toggle('expanded');
   if (introduction.classList.contains('expanded')) {

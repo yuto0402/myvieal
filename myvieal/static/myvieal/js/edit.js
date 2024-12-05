@@ -1,13 +1,13 @@
 document.getElementById("image-input").addEventListener("change", function(event) {
-  var file = event.target.files[0];
-  var thumbnailPreview = document.querySelector(".thumbnail-preview");
+  let file = event.target.files[0];
+  let thumbnailPreview = document.querySelector(".thumbnail-preview");
 
 
 
   // FileReaderで動画のURLを作成
-  var reader = new FileReader();
+  const reader = new FileReader();
 
-  reader.onload = function(e) {
+  reader.onload = (e) => {
     thumbnailPreview.src = reader.result;  // 動画のプレビューを表示
     thumbnailPreview.style.display = "block";  // プレビューを表示
   }
@@ -19,14 +19,14 @@ document.getElementById("image-input").addEventListener("change", function(event
 const titleForm = document.querySelector('textarea[name="title"]');
 const titleLength = document.querySelector('.title-length');
 titleLength.textContent = titleLength.textContent = `${titleForm.value.length}/50`;
-titleForm.addEventListener('input', function() {
+titleForm.addEventListener('input', () => {
   titleLength.textContent = `${titleForm.value.length}/50`;
 });
 
 const explanationForm = document.querySelector('textarea[name="explanation"]');
 const explanationLength = document.querySelector('.explanation-length');
 explanationLength.textContent = `${explanationForm.value.length}/50`;
-explanationForm.addEventListener('input', function() {
+explanationForm.addEventListener('input', () => {
   explanationLength.textContent = `${explanationForm.value.length}/500`;
 });
 
