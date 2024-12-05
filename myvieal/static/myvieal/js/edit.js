@@ -25,7 +25,7 @@ titleForm.addEventListener('input', function() {
 
 const explanationForm = document.querySelector('textarea[name="explanation"]');
 const explanationLength = document.querySelector(".explanation-length");
-explanationLength.textContent = `${explanationForm.value.length}/50`;
+explanationLength.textContent = `${explanationForm.value.length}/500`;
 explanationForm.addEventListener('input', function() {
   explanationLength.textContent = `${explanationForm.value.length}/500`;
 });
