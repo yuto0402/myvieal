@@ -2,7 +2,7 @@ from allauth.account.forms import LoginForm, ResetPasswordForm, ResetPasswordKey
 from django import forms
 
 from .models import CustomUser
-
+from django.contrib.auth.forms import PasswordChangeForm
 
 class BaseCustomForm(forms.Form):
     def __init__(self, *args, **kwargs):
@@ -22,6 +22,7 @@ class CustomSignupForm(BaseCustomForm, SignupForm):
 
 """
     icon_image = forms.ImageField(required=True)
+
         def save(self, request):
             user = super().save(request)
             user.icon_image = self.cleaned_data.get("icon_image")
@@ -39,7 +40,7 @@ class ProfileEditForm(forms.ModelForm):
             "introduction",
         )
 
-
+        
 class CustomLoginForm(BaseCustomForm, LoginForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -58,3 +59,11 @@ class CustomResetPasswordKeyForm(BaseCustomForm, ResetPasswordKeyForm):
         super().__init__(*args, **kwargs)
         self.fields["password1"].widget.attrs["placeholder"] = "新しいパスワード"
         self.fields["password2"].widget.attrs["placeholder"] = "新しいパスワード(確認)"
+
+class PasswordChangeForm(PasswordChangeForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['old_password'].widget.attrs['placeholder'] = '現在のパスワード'
+        self.fields['new_password1'].widget.attrs['placeholder'] = '新しいパスワード'
+        self.fields['new_password2'].widget.attrs['placeholder'] = '新しいパスワード(確認)'
