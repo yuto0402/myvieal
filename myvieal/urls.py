@@ -1,8 +1,6 @@
 from django.urls import path
 from django.views.generic.base import TemplateView
 
-from myvieal.views import Following
-
 from . import views
 
 urlpatterns = [
@@ -12,7 +10,7 @@ urlpatterns = [
     path("edit/<int:pk>/", views.MovieEditView.as_view(), name="MovieEdit"),
     path("detail/<int:pk>/", views.MovieDetailView.as_view(), name="MovieDetail"),
     path("delete/<int:pk>/", views.MovieDeleteView.as_view(), name="MovieDelete"),
+    path("following/", views.Following.as_view(), name="following"),
     path("search/", views.SearchView.as_view(), name="search"),
     path("search/history", views.SearchHistory.as_view(), name="search_history"),
-    path("following", Following.as_view(), name="following"),
 ]
