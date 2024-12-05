@@ -1,6 +1,6 @@
 from allauth.account.forms import LoginForm, ResetPasswordForm, ResetPasswordKeyForm, SignupForm
 from django import forms
-
+from .models import CustomUser
 from .models import CustomUser
 from django.contrib.auth.forms import PasswordChangeForm
 
@@ -39,7 +39,7 @@ class ProfileEditForm(forms.ModelForm):
             "username",
             "introduction",
         )
-
+        
         
 class CustomLoginForm(BaseCustomForm, LoginForm):
     def __init__(self, *args, **kwargs):
