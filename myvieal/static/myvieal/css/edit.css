@@ -1,4 +1,8 @@
 /* 全体 */
+html,
+body {
+  overflow-x: hidden;
+}
 /* ここまで全体 */
 
 /* header */
@@ -22,6 +26,7 @@ h3 {
   text-decoration: none;
   color: #fff;
 }
+
 /* ここまで header */
 
 /* body */
@@ -65,13 +70,15 @@ form > div:not(.thumbnail) {
   font-size: 12px;
 }
 
-.title p, .explanation p {
+.title p,
+.explanation p {
   position: relative;
 }
 
-.title-length, .explanation-length {
+.title-length,
+.explanation-length {
   position: absolute;
-  right: 0%
+  right: 0%;
 }
 
 textarea {
@@ -107,4 +114,5 @@ textarea:focus {
   color: #fff;
   background-color: #2b8f38;
 }
+
 /* ここまで body */

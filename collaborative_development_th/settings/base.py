@@ -173,7 +173,8 @@ PIPELINE = {
 
 AUTH_USER_MODEL = "accounts.CustomUser"
 
-LOGIN_REDIRECT_URL = "/top"
+LOGIN_REDIRECT_URL = "/top/"
+ACCOUNT_LOGOUT_REDIRECT_URL = "/accounts/login/"
 
 # Related to allauth
 

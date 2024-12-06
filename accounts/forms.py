@@ -1,7 +1,7 @@
 from allauth.account.forms import LoginForm, ResetPasswordForm, ResetPasswordKeyForm, SignupForm
 from django import forms
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import PasswordResetForm, SetPasswordForm
+from django.contrib.auth.forms import PasswordChangeForm, PasswordResetForm, SetPasswordForm
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.exceptions import ValidationError
@@ -160,3 +160,11 @@ class CustomPasswordResetForm(PasswordResetForm):
                 user_email,
                 html_email_template_name=html_email_template_name,
             )
+
+
+class PasswordChangeForm(PasswordChangeForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["old_password"].widget.attrs["placeholder"] = "現在のパスワード"
+        self.fields["new_password1"].widget.attrs["placeholder"] = "新しいパスワード"
+        self.fields["new_password2"].widget.attrs["placeholder"] = "新しいパスワード(確認)"

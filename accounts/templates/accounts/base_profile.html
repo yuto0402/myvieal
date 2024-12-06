@@ -11,21 +11,16 @@
   <div class="profile">
     <div class="icon"><img src="{{ user.icon_image.url }}" alt=""></div>
     <div class="username">{{ user.username }}</div>
-    <div class="movie_and_follower">{{ movie_count }}本の動画・{{ follower_count }}フォロワー</div>
+    <div class="movie_and_follower">{{ movie_count }}本の動画・<span id="follower_count">{{ follower_count }}フォロワー</span></div>
     <div class="introduction">{{ user.introduction }}</div>
     <span class="detail">...もっと見る</span>
-
-    {% if user == request.user %}
+    {% block setting %}
     <div class="setting">
       <a href="{% url 'ProfileEdit' user.pk %}" class="profile_edit">プロフィールを編集</a>
       <a href="{% url 'UserSetting' %}" class="user_setting"><img src="{% static 'myvieal/img/gear.svg' %}" alt=""></a>
     </div>
-
-    {% else %}
-    <button class="follow-button">フォロー</button>
-
-    {% endif %}
-
+    {% endblock setting %}
+    {% block profile-extra-content %}{% endblock profile-extra-content %}
   </div>
   {% for movie in movies %}
   <div class="movie">
@@ -40,11 +35,18 @@
         <div class="view_and_time">{{ movie.number_of_views }}回視聴・{{ movie.created_at|timesince|upto:',' }}前</div>
       </div>
     </a>
+    {% block movie-edit %}
     <a href="{% url 'MovieEdit' movie.pk %}" class="movie_edit"><img src="{% static 'myvieal/img/pen.svg' %}" alt=""></a>
   </div>
+    {% endblock movie-edit %}
   {% endfor %}
-<script src="{% static 'accounts/js/profile.js' %}"></script>
+  {% block extra-content %}{% endblock extra-content %}
+
+
+  <script src="{% static 'accounts/js/profile.js' %}"></script>
+  {% block extra-js %}{% endblock extra-js %}
 </main>
+
 {% endblock %}
 
 {% block footer-item__icon--account %}<img src="{% static 'myvieal/img/account_fill.svg' %}">{% endblock footer-item__icon--account %}
