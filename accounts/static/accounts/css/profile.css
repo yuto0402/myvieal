@@ -84,7 +84,8 @@
   text-decoration: none;
 }
 
-.profile_edit:hover, .follow-button:hover {
+.profile_edit:hover,
+.follow-button:hover {
   color: #fff;
   background-color: #2b8f38;
 }
