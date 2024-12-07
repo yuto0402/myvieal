@@ -1,16 +1,33 @@
 # Create your views here.
+
+
 from typing import Any
+
+from allauth.account.models import EmailAddress
+from allauth.account.utils import send_email_confirmation
+from allauth.account.views import SignupView
+from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.tokens import default_token_generator
+from django.contrib.auth.views import PasswordChangeView
 from django.http import JsonResponse
-from django.shortcuts import render
-from django.urls import reverse_lazy, reverse
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
-from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse
+from django.shortcuts import redirect, render
+from django.urls import reverse, reverse_lazy
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode
 from django.views.generic import DetailView, TemplateView, UpdateView
+
+from .forms import PasswordChangeForm, ProfileEditForm, VerificationCodeForm
 from .models import CustomUser
-from .forms import BaseCustomForm, CustomSignupForm, ProfileEditForm, PasswordChangeForm
+
+
+class CustomSignupView(SignupView):
+    def form_valid(self, form):
+        email = form.cleaned_data.get("email")
+        if email:
+            self.request.session["email_for_verification"] = email
+        return super().form_valid(form)
+
 
 class ProfileView(LoginRequiredMixin, DetailView):
     model = CustomUser
@@ -41,6 +58,43 @@ class ProfileEditView(LoginRequiredMixin, UpdateView):
 
 class UserSettingView(LoginRequiredMixin, TemplateView):
     template_name = "accounts/setting.html"
+
+
+def code_verification_view(request):
+    email = request.session.get("password_reset_email")
+
+    if request.method == "POST":
+        form = VerificationCodeForm(request.POST, request=request)
+        if form.is_valid():
+            email = request.session.get("password_reset_email")
+            user = get_user_model().objects.get(email=email)
+            uid = urlsafe_base64_encode(force_bytes(user.pk))
+            token = default_token_generator.make_token(user)
+            del request.session["verification_code"]
+            del request.session["password_reset_email"]
+            return redirect(reverse("password_reset_confirm", kwargs={"uidb64": uid, "token": token}))
+    else:
+        form = VerificationCodeForm()
+
+    return render(request, "account/password_reset_done.html", {"form": form, "email": email})
+
+
+def resend_otp(request):
+    post_success = False
+    if request.method != "POST":
+        return JsonResponse({"error": "無効なリクエストメソッドです。"}, status=405)
+    email = request.session.get("email_for_verification")
+    if not email:
+        return JsonResponse({"error": "セッションにメールアドレスがありません。"}, status=400)
+    email_address = EmailAddress.objects.filter(email=email, verified=False).first()
+    if not email_address:
+        return JsonResponse({"error": "未確認のメールアドレスが見つかりません。"}, status=400)
+    send_email_confirmation(request, email_address.user, signup=False)
+    post_success = True
+
+    return render(
+        request, "account/confirm_email_verification_code.html", {"post_success": post_success, "email": email}
+    )
 
 
 class ProfileOthersView(LoginRequiredMixin, DetailView):
@@ -82,6 +136,6 @@ class ProfileOthersView(LoginRequiredMixin, DetailView):
 
 
 class PasswordChangeView(LoginRequiredMixin, PasswordChangeView):
-    template_name = 'accounts/password_change.html'
+    template_name = "accounts/password_change.html"
     form_class = PasswordChangeForm
-    success_url = reverse_lazy('UserSetting')
+    success_url = reverse_lazy("UserSetting")

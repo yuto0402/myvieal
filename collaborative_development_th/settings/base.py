@@ -43,6 +43,8 @@ MIDDLEWARE = [
     "allauth.account.middleware.AccountMiddleware",
 ]
 
+SESSION_ENGINE = "django.contrib.sessions.backends.db"
+
 ROOT_URLCONF = "collaborative_development_th.urls"
 
 TEMPLATES = [
@@ -192,4 +194,7 @@ ACCOUNT_ADAPTER = "accounts.adapter.CustomAccountAdapter"
 
 SITE_ID = 1
 
-
+ACCOUNT_AUTHENTICATION_METHOD = "email"
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION_BY_CODE_ENABLED = True
