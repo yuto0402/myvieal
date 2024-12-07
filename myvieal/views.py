@@ -1,8 +1,7 @@
 # Create your views here.
-import datetime
-
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse, reverse_lazy
+from django.utils import timezone
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
 
 from .forms import MovieEditForm, MovieForm, SearchHistoryForm
@@ -82,7 +81,6 @@ class SearchView(LoginRequiredMixin, ListView):
             context["is_searched_by_created_at"] = True
         elif order == "number_of_views":
             context["is_searched_by_numbers_of_views"] = True
-        print(context)
         return context
 
     # コンテクストデータのキーは標準では"videos_list"(モデル名_list)なので"movies"に変更
@@ -100,7 +98,7 @@ class SearchHistory(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         instance = form.save(commit=False)
         instance.searched_by = self.request.user
-        instance.searched_at = datetime.datetime.now(tz="Asia/Tokyo")
+        instance.searched_at = timezone.now()
         instance.save()
         return super().form_valid(form)
 
