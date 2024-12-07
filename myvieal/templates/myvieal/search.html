@@ -8,7 +8,7 @@
 <div class="search-bar-container">
   <form method="get">
     <a class="search-text-link" href="{% url "search_history" %}">
-      <input id ="search-bar" class="top" type="text" name="search" value="{{search_text}}" placeholder="動画を検索">
+      <input id ="search-bar" class="top" type="text" name="search" value="{{search_text}}" placeholder="動画を検索" readonly>
     </a>
   </form>
 </div>
@@ -35,13 +35,12 @@
   {% endfor %}
 </main>
 <script>
-  document.addEventListener('load',(e)=>{
-    alert('chin')
-    {% if is_searched_by_created_at %}
-      document.querySelector(".query-button.created_at").classList.add("target")
-      alert('chin')
-    {% endif %}
-  })
+  {% if is_searched_by_created_at %}
+    document.querySelector(".query-button.created_at").classList.add("target")
+  {% endif %}
+  {% if is_searched_by_numbers_of_views %}
+    document.querySelector(".query-button.number_of_views").classList.add("target")
+  {% endif %}
 </script>
 {% comment %} <script>
   const search_text = document.querySelector("#search-bar");

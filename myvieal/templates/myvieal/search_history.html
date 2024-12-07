@@ -5,16 +5,23 @@
   <link rel="stylesheet" href="{% static 'myvieal/css/search.css' %}">
 {% endblock %}
 {% block header-container %}
+<div class="back_button_container">
+  <a href= {% url "search" %}>
+    <img src={% static "myvieal/img/戻るボタン.svg" %} alt="">
+  </a>
+</div>
 <div class="search-bar-container history">
   <form method="POST">
     {% csrf_token %}
-    <input id ="search-bar" type="text" name="search_word" value="{{search_text}}" placeholder="動画を検索">
+    <input id ="search-bar" class="history" type="text" name="search_word" value="{{search_text}}" placeholder="動画を検索">
   </form>
 </div>
 {% endblock %}
 {% block content %}
 {% for history in histories %}
-<p>{{history}}</p>
+<p>
+  <a href= {% url "search" %}?search={{history.search_word}}>{{history.search_word}}</a>
+</p>
 {% endfor %}
 {% endblock content %}
 
