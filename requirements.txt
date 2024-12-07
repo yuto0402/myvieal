@@ -14,7 +14,7 @@ django-pipeline==3.1.0
 django-storages==1.14.4
 filelock==3.16.1
 gunicorn==23.0.0
-identify==2.6.1
+identify==2.6.3
 jmespath==1.0.1
 nodeenv==1.9.1
 packaging==24.2
