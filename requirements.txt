@@ -30,8 +30,8 @@ PyYAML==6.0.2
 ruff==0.7.2
 s3transfer==0.10.3
 six==1.16.0
-sqlparse==0.5.2
-toml-sort==0.23.1
+sqlparse==0.5.1
+toml-sort==0.24.2
 tomlkit==0.13.2
 typing_extensions==4.12.2
 urllib3==2.2.3
