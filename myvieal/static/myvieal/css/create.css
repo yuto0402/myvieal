@@ -1,5 +1,6 @@
 /* 全体 */
-html, body {
+html,
+body {
   overflow-x: hidden;
 }
 /* ここまで全体 */
@@ -26,12 +27,43 @@ h3 {
   position: absolute;
   left: 85%;
 }
+
 /* ここまで header */
 
 /* body */
-form > div {
+form > div:not(.thumbnail) {
   padding: 10px 10px 20px;
   border-bottom: 1px solid grey;
+}
+
+.thumbnail {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+.thumbnail-preview {
+  width: 100%;
+  object-fit: cover;
+  position: relative;
+}
+
+.icon-container {
+  z-index: 2;
+  display: grid;
+  place-content: center;
+  position: absolute;
+  top: 60px;
+  left: 10px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.7);
+  cursor: pointer;
+}
+
+.fa-image {
+  cursor: pointer;
 }
 
 .button-container {
@@ -39,7 +71,8 @@ form > div {
   justify-content: center;
 }
 
-.movie-select, .thumbnail-select {
+.movie-select,
+.thumbnail-select {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -65,10 +98,15 @@ form > div {
   margin-top: 20px;
 }
 
-.thumbnail-preview {
-  width: 100%;
-  height: 56.25%;
-  object-fit: cover;
+.title p,
+.explanation p {
+  position: relative;
+}
+
+.title-length,
+.explanation-length {
+  position: absolute;
+  right: 0%;
 }
 
 textarea {
@@ -86,7 +124,7 @@ textarea:focus {
 }
 
 .btn {
-  margin: 20px 10px ;
+  margin: 20px 10px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -100,10 +138,11 @@ textarea:focus {
   cursor: pointer;
 }
 
-.movie-select:hover, .thumbnail-select:hover, .btn:hover {
+.movie-select:hover,
+.thumbnail-select:hover,
+.btn:hover {
   color: #fff;
   background-color: #2b8f38;
 }
 
 /* ここまで body */
-

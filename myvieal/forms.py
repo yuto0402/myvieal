@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Movie
+from .models import Movie, Search
 
 
 class MovieForm(forms.ModelForm):
@@ -23,18 +23,8 @@ class MovieEditForm(forms.ModelForm):
             "thumbnail",
         )
 
-    title = forms.CharField(
-        widget=forms.Textarea(
-            attrs={
-                "rows": 1,
-            }
-        )
-    )
 
-    explanation = forms.CharField(
-        widget=forms.Textarea(
-            attrs={
-                "rows": 1,
-            }
-        ),
-    )
+class SearchHistoryForm(forms.ModelForm):
+    class Meta:
+        model = Search
+        fields = ("search_word",)

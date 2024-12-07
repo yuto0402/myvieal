@@ -1,14 +1,17 @@
 /* 全体 */
+@import url(http://fonts.googleapis.com/earlyaccess/notosansjp.css);
+
 :root {
   --main-green: #2b8f38;
 }
 
 html {
   font-size: 16px;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Noto Sans JP", Arial, Helvetica, sans-serif;
 }
 
 body {
+  overflow-x: hidden;
   margin: 0;
 }
 
@@ -35,13 +38,16 @@ body {
 
 .header-container__title {
   margin: auto 12px;
+
+  font-family: Futura, "Noto Sans JP", Arial, Helvetica, sans-serif;
   color: white;
   font-weight: bold;
   text-decoration: none;
 }
 
 .header-container__new-video {
-  margin: auto 12px;
+  position: absolute;
+  left: 90%;
 }
 
 /* ここまで header */

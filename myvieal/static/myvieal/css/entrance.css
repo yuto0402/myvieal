@@ -1,0 +1,59 @@
+html {
+  height: 100%;
+  font-family: "Yu Gothic", "Noto Sans JP", "Helvetica", "Arial", sans-serif;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+  transform: translateX(calc((100vw - 100%) / 2));
+  overflow-x: hidden;
+  margin: 0;
+}
+
+a:any-link {
+  text-decoration: none;
+}
+
+header {
+  text-align: center;
+}
+
+header h3 {
+  margin-top: 100px;
+}
+
+.menu a {
+  display: block;
+  width: 812px;
+  max-width: 95vw;
+  margin: 30px auto;
+}
+
+.menu a > div {
+  text-align: center;
+  color: #fff;
+  background-color: #2b8f38;
+  line-height: 2;
+  border-radius: 20px;
+}
+
+footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  flex: 1;
+}
+
+footer > div {
+  width: 100%;
+  font-size: small;
+  text-align: center;
+  margin: 40px 0;
+}
+
+footer a:any-link {
+  color: #000;
+}

@@ -1,0 +1,67 @@
+{% extends "myvieal/base.html" %}
+{% load static %}
+{% block extra-style %}
+  <link rel="stylesheet" href="{% static 'myvieal/css/top.css' %}">
+  <link rel="stylesheet" href="{% static 'myvieal/css/search.css' %}">
+{% endblock %}
+{% block header-container %}
+<div class="search-bar-container">
+  <form method="get">
+    <a class="search-text-link" href="{% url "search_history" %}">
+      <input id ="search-bar" class="top" type="text" name="search" value="{{search_text}}" placeholder="動画を検索" readonly>
+    </a>
+  </form>
+</div>
+{% endblock %}
+{% block content %}
+<form class="query-button-container" method="get" action="/search/">
+  <button class="query-button created_at" type="submit" name="display_order" value="created_at">新着の動画</button>
+  <button class="query-button number_of_views" type="submit" name="display_order" value="number_of_views">人気の動画</button>
+</form>
+<main>
+  {% for movie in movies %}
+
+  <a href="{% url 'MovieDetail' movie.pk %}" class="list">
+    {% if movie.thumbnail %}
+    <div class="thumbnail"><img src="{{ movie.thumbnail.url }}" alt=""></div>
+    {% else %}
+    <div class="thumbnail"><video src="{{ movie.movie_file.url }}" type="video/mp4"></video></div>
+    {% endif %}
+
+    <div class="icon"><img src="{{ movie.created_by.icon_image.url }}" alt=""></div>
+    <div class="title">{{ movie.title|truncatechars:30 }}</div>
+    <div class="information">{{ movie.created_by.username }}・{{ movie.number_of_views }}回視聴・{{ movie.created_at|timesince }} 前</div>
+  </a>
+  {% endfor %}
+</main>
+<script>
+  {% if is_searched_by_created_at %}
+    document.querySelector(".query-button.created_at").classList.add("target")
+  {% endif %}
+  {% if is_searched_by_numbers_of_views %}
+    document.querySelector(".query-button.number_of_views").classList.add("target")
+  {% endif %}
+</script>
+{% comment %} <script>
+  const search_text = document.querySelector("#search-bar");
+  search_text.addEventListener('click', (e) => {
+    e.preventDefault
+    // const url = {% url "search" %};
+  const showUsers = async () => {
+    try {
+      const response = await fetch(`${url}/?search=${search_text.value}`, {
+        method: 'GET',
+        body: '',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+          'X-CSRFToken': '{{ csrf_token }}',
+        }
+      })
+      const jsonresponse = await response.json()
+      console.log(jsonresponse)
+    } catch (err) {
+      console.log('Error log: ' + err);
+    }
+  }})
+</script> {% endcomment %}
+{% endblock content %}

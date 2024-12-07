@@ -1,5 +1,19 @@
-from allauth.account.forms import SignupForm
+from allauth.account.forms import LoginForm, ResetPasswordForm, ResetPasswordKeyForm, SignupForm
 from django import forms
+from django.contrib.auth import get_user_model
+from django.contrib.auth.forms import PasswordChangeForm, PasswordResetForm, SetPasswordForm
+from django.contrib.auth.tokens import default_token_generator
+from django.contrib.sites.shortcuts import get_current_site
+from django.core.exceptions import ValidationError
+from django.core.mail import send_mail
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode
+from django.utils.translation import gettext_lazy as _
+
+from .adapter import CustomAccountAdapter
+from .models import CustomUser
+
+UserModel = get_user_model()
 
 
 class BaseCustomForm(forms.Form):
@@ -7,14 +21,150 @@ class BaseCustomForm(forms.Form):
         super().__init__(*args, **kwargs)
         for field in self.fields.values():
             field.widget.attrs["autocomplete"] = "off"
-            field.widget.attrs["placeholder"] = ""
 
 
 class CustomSignupForm(BaseCustomForm, SignupForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["email"].widget.attrs["placeholder"] = "メールアドレス"
+        self.fields["username"].widget.attrs["placeholder"] = "ユーザー名"
+        self.fields["password1"].widget.attrs["placeholder"] = "パスワード"
+        self.fields["password2"].widget.attrs["placeholder"] = "パスワード(確認)"
+
+
+"""
     icon_image = forms.ImageField(required=True)
 
-    def save(self, request):
-        user = super().save(request)
-        user.icon_image = self.cleaned_data.get("icon_image")
-        user.save()
-        return user
+        def save(self, request):
+            user = super().save(request)
+            user.icon_image = self.cleaned_data.get("icon_image")
+            user.save()
+            return user
+"""
+
+
+class ProfileEditForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = (
+            "icon_image",
+            "username",
+            "introduction",
+        )
+
+
+class CustomLoginForm(BaseCustomForm, LoginForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["login"].widget.attrs["placeholder"] = "メールアドレス"
+        self.fields["password"].widget.attrs["placeholder"] = "パスワード"
+
+
+class CustomResetPasswordForm(BaseCustomForm, ResetPasswordForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["email"].widget.attrs["placeholder"] = "メールアドレス"
+
+
+class CustomResetPasswordKeyForm(BaseCustomForm, ResetPasswordKeyForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["password1"].widget.attrs["placeholder"] = "新しいパスワード"
+        self.fields["password2"].widget.attrs["placeholder"] = "新しいパスワード(確認)"
+
+
+class CustomSetPasswordForm(BaseCustomForm, SetPasswordForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["new_password1"].widget.attrs["placeholder"] = "新しいパスワード"
+        self.fields["new_password2"].widget.attrs["placeholder"] = "新しいパスワード(確認)"
+
+
+class VerificationCodeForm(forms.Form):
+    verification_code = forms.CharField(
+        label="Verification Code", max_length=4, widget=forms.TextInput(attrs={"placeholder": "認証コード(４ケタ)"})
+    )
+
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop("request", None)
+        super().__init__(*args, **kwargs)
+
+    def clean_verification_code(self):
+        code = self.cleaned_data["verification_code"]
+        stored_code = self.request.session.get("verification_code")
+        if not stored_code or code != stored_code:
+            raise ValidationError("Invalid verification code")
+        return code
+
+
+class CustomPasswordResetForm(PasswordResetForm):
+    email = forms.EmailField(
+        label=_("Email"),
+        max_length=254,
+        widget=forms.EmailInput(attrs={"autocomplete": "email", "placeholder": "メールアドレス"}),
+    )
+
+    def send_verification_code(self, user_email, verification_code):
+        """認証コードを含むメールを送信"""
+        subject = "Your password reset verification code"
+        message = f"Your verification code is: {verification_code}"
+        send_mail(subject, message, "no-reply@yourdomain.com", [user_email])
+
+    def save(
+        self,
+        domain_override=None,
+        subject_template_name="registration/password_reset_subject.txt",
+        email_template_name="registration/password_reset_email.html",
+        use_https=False,
+        token_generator=default_token_generator,
+        from_email=None,
+        request=None,
+        html_email_template_name=None,
+        extra_email_context=None,
+    ):
+        """
+        Generate a one-use only link for resetting password and send it to the
+        user.
+        """
+        email = self.cleaned_data["email"]
+        if not domain_override:
+            current_site = get_current_site(request)
+            site_name = current_site.name
+            domain = current_site.domain
+        else:
+            site_name = domain = domain_override
+        email_field_name = UserModel.get_email_field_name()
+        for user in self.get_users(email):
+            user_email = getattr(user, email_field_name)
+            verification_code = CustomAccountAdapter._generate_code(self)
+            self.send_verification_code(user.email, verification_code)
+
+            request.session["verification_code"] = verification_code
+            request.session["password_reset_email"] = user_email
+
+            context = {
+                "email": user_email,
+                "domain": domain,
+                "site_name": site_name,
+                "uid": urlsafe_base64_encode(force_bytes(user.pk)),
+                "user": user,
+                "token": token_generator.make_token(user),
+                "protocol": "https" if use_https else "http",
+                **(extra_email_context or {}),
+            }
+            self.send_mail(
+                subject_template_name,
+                email_template_name,
+                context,
+                from_email,
+                user_email,
+                html_email_template_name=html_email_template_name,
+            )
+
+
+class PasswordChangeForm(PasswordChangeForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["old_password"].widget.attrs["placeholder"] = "現在のパスワード"
+        self.fields["new_password1"].widget.attrs["placeholder"] = "新しいパスワード"
+        self.fields["new_password2"].widget.attrs["placeholder"] = "新しいパスワード(確認)"

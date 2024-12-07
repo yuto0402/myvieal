@@ -1,33 +1,11 @@
 /* 全体 */
-html, body {
+html,
+body {
   overflow-x: hidden;
 }
 /* ここまで全体 */
 
 /* header */
-.top {
-  font-size: 18px;
-  text-decoration: none;
-  color: #fff;
-  position: absolute;
-  left: 5%;
-}
-
-.create {
-  text-decoration: none;
-  color: #fff;
-  font-size: 30px;
-  position: absolute;
-  left: 90%;
-}
-
-.edit {
-  text-decoration: none;
-  color: #fff;
-  position: absolute;
-  left: 75%;
-}
-
 /* ここまで header */
 
 /* body */
@@ -55,15 +33,17 @@ video {
 }
 
 .information {
- color: #9b9b9b;
- margin-bottom: 5px;
+  color: #9b9b9b;
+  margin-bottom: 5px;
 }
 
 .creater {
   display: flex;
   gap: 15px;
   padding-bottom: 15px;
-  border-bottom: solid 1px #9b9b9b;;
+  border-bottom: solid 1px #9b9b9b;
+  text-decoration: none;
+  color: inherit;
 }
 
 .creater div {
@@ -93,5 +73,7 @@ video {
 
 .detail {
   cursor: pointer;
+  display: inline;
 }
+
 /* ここまで body */

@@ -1,0 +1,41 @@
+/* 全体 */
+@import url(http://fonts.googleapis.com/earlyaccess/notosansjp.css);
+
+html {
+  font-size: 16px;
+  font-family: "Noto Sans JP", Arial, Helvetica, sans-serif;
+}
+
+.app-name {
+  margin-top: 60px;
+  text-align: center;
+
+  font-family: Futura, "Noto Sans JP", Arial, Helvetica, sans-serif;
+  font-size: 1.2rem;
+}
+
+.article-title {
+  margin: 40px auto;
+
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.4rem;
+}
+
+.article-content {
+  margin-top: 40px;
+  font-weight: 400;
+}
+
+.policy-section {
+  margin: 2rem 0;
+}
+
+.policy-section__content {
+  margin: 0;
+}
+
+.ordered-list {
+  margin-top: 0;
+  padding-left: 1.5rem;
+}
