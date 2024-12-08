@@ -12,3 +12,12 @@ search_text.addEventListener("click", (e) => {
     }
   };
 });
+
+const cancel = document.querySelector(".cancel-button");
+const search = document.querySelector("#search-bar");
+
+cancel.setAttribute();
+
+search.addEventListener("input", () => {
+  cancel.setAttribute("display", "none");
+});

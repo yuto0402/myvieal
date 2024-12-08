@@ -15,14 +15,32 @@
     {% csrf_token %}
     <input id ="search-bar" class="history" type="text" name="search_word" value="{{search_text}}" placeholder="動画を検索">
   </form>
+  <img src={% static "myvieal/img/キャンセルボタン.svg" %} class="cancel-button" style = "display : none;">
 </div>
 {% endblock %}
 {% block content %}
 {% for history in histories %}
-<p>
-  <a href= {% url "search" %}?search={{history.search_word}}>{{history.search_word}}</a>
-</p>
+  <a href= {% url "search" %}?search={{history.search_word}} class="history-container">
+    <img src={% static "myvieal/img/検索履歴.svg" %}  alt="">{{history.search_word}}
+  </a>
 {% endfor %}
+<script>
+  const cancel = document.querySelector(".cancel-button")
+  const search = document.querySelector("#search-bar")
+
+  search.addEventListener('input', ()=>{
+    if (search.value == ""){
+    cancel.style.display = "none"
+    } else {
+    cancel.style.display = "block"
+    }
+  })
+
+  cancel.addEventListener('click', ()=>{
+    search.value = ""
+    cancel.style.display = "none"
+  })
+</script>
 {% endblock content %}
 
 
