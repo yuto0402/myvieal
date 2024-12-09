@@ -1,10 +1,9 @@
 document.getElementById("image-input").addEventListener("change", function (event) {
   var file = event.target.files[0];
   var thumbnailPreview = document.querySelector(".thumbnail-preview");
-
   var reader = new FileReader();
 
-  reader.onload = function (e) {
+  reader.onload = function () {
     thumbnailPreview.src = reader.result;
     thumbnailPreview.style.display = "block";
   };
@@ -18,7 +17,8 @@ document.getElementById("file-input").addEventListener("change", function (event
   // FileReaderで動画のURLを作成
   var reader = new FileReader();
 
-  reader.onload = function (e) {
+
+  reader.onload = function () {
     videoPreview.src = reader.result; // 動画のプレビューを表示
     videoPreview.style.display = "block"; // プレビューを表示
   };

@@ -19,7 +19,10 @@
   </div>
   <div class="guidance">
     <p><a href="">利用規約</a>・<a href="">プライバシーポリシー</a></p>
-    <a href="{% url 'account_logout' %}" class="green">ログアウト</a>
+    <form method="POST" action="{% url "account_logout" %}">
+      {% csrf_token %}
+      <button type="submit" style="all: unset;"><div href="" class="green">ログアウト</div></button>
+    </form>
     <p>アカウントの削除は <a href="" class="green">こちら</a></p>
   </div>
 </main>

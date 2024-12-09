@@ -26,6 +26,7 @@ h3 {
   text-decoration: none;
   color: #fff;
 }
+
 /* ここまで header */
 
 /* body */
@@ -113,4 +114,5 @@ textarea:focus {
   color: #fff;
   background-color: #2b8f38;
 }
+
 /* ここまで body */

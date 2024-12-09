@@ -112,7 +112,7 @@ class SearchHistory(LoginRequiredMixin, CreateView):
         return context
 
 
-class Following(ListView):
+class Following(LoginRequiredMixin, ListView):
     model = CustomUser
     template_name = "myvieal/following.html"
 

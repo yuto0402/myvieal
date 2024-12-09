@@ -1,11 +1,10 @@
 document.getElementById("image-input").addEventListener("change", function (event) {
   var file = event.target.files[0];
   var iconPreview = document.querySelector(".icon-preview");
-
   // FileReaderで動画のURLを作成
   var reader = new FileReader();
 
-  reader.onload = function (e) {
+  reader.onload = function () {
     iconPreview.src = reader.result; // 動画のプレビューを表示
   };
 
