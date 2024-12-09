@@ -17,7 +17,8 @@ from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from django.views.generic import DetailView, TemplateView, UpdateView
 
-from .forms import PasswordChangeForm, ProfileEditForm, VerificationCodeForm
+from .adapter import CustomAccountAdapter
+from .forms import CustomPasswordResetForm, PasswordChangeForm, ProfileEditForm, VerificationCodeForm
 from .models import CustomUser
 
 
@@ -94,6 +95,25 @@ def resend_otp(request):
 
     return render(
         request, "account/confirm_email_verification_code.html", {"post_success": post_success, "email": email}
+    )
+
+
+def resend_password_reset(request):
+    post_success = False
+    form = CustomPasswordResetForm
+    if request.method != "POST":
+        return JsonResponse({"error": "無効なリクエストメソッドです。"}, status=405)
+    email = request.session.get("password_reset_email")
+    if not email:
+        return JsonResponse({"error": "セッションにメールアドレスがありません。"}, status=400)
+    for user in CustomPasswordResetForm().get_users(email):
+        verification_code = CustomAccountAdapter()._generate_code()
+        CustomPasswordResetForm().send_verification_code(user.email, verification_code)
+        request.session["verification_code"] = verification_code
+    post_success = True
+
+    return render(
+        request, "account/password_reset_done.html", {"form": form, "post_success": post_success, "email": email}
     )
 
 

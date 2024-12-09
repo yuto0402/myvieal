@@ -47,6 +47,7 @@ urlpatterns = [
         name="password_reset_complete",
     ),
     path("resend/", views.resend_otp, name="resend"),
+    path("resend/password", views.resend_password_reset, name="resend_password"),
     path("profile/<int:pk>/", views.ProfileView.as_view(), name="Profile"),
     path("edit/<int:pk>/", views.ProfileEditView.as_view(), name="ProfileEdit"),
     path("setting/", views.UserSettingView.as_view(), name="UserSetting"),
