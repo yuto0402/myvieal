@@ -15,7 +15,7 @@
     {{ form.password }}
   </div>
   <div class="message resend">アカウントをお持ちでないですか？<a href="{% url "account_signup" %}">新規登録</a></div>
-  <div class="message resend"><a href="{% url "account_reset_password" %}"><p>パスワードリセット</p></a></div>
+  <div class="message resend"><a href="{% url "password_reset" %}"><p>パスワードリセット</p></a></div>
   <div class="error_container">
     {% for field in form %}
     {{ field.errors }}

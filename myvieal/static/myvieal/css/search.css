@@ -3,6 +3,11 @@
   height: 100%;
 }
 
+.back_button_container {
+  flex: 0.05 1 0;
+  text-align: center;
+}
+
 .search-bar-container > form {
   height: 100%;
 }
@@ -40,6 +45,11 @@
 
 #search-bar.top {
   cursor: default;
+}
+
+#search-bar.history {
+  width: 100%;
+  margin-right: 2%;
 }
 
 #search-bar::placeholder {
