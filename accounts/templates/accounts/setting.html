@@ -14,7 +14,7 @@
 <main>
   <div class="setting">
     <p class="green">アカウントの設定</p>
-    <a href=""><img src="{% static 'myvieal/img/envelope.svg' %}" alt="">メールアドレスの変更</a>
+    <a href="{% url "EmailChange" %}"><img src="{% static 'myvieal/img/envelope.svg' %}" alt="">メールアドレスの変更</a>
     <a href="{% url 'PasswordChange' %}"><img src="{% static 'myvieal/img/password.svg' %}" alt="">パスワードの変更</a>
   </div>
   <div class="guidance">

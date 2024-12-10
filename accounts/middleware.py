@@ -6,9 +6,9 @@ class SessionChangeMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
-        previous_email = request.session.get("signup_email")
+        previous_email = request.session.get("signup_email_true")
         response = self.get_response(request)
-        new_email = request.session.get("signup_email")
+        new_email = request.session.get("signup_email_true")
         if previous_email != new_email and previous_email:
             user_model = get_user_model()
             user = user_model.objects.filter(email=previous_email, is_active=False).first()
