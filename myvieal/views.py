@@ -6,7 +6,7 @@ from django.views.generic import CreateView, DeleteView, DetailView, ListView, U
 
 from .forms import MovieEditForm, MovieForm, SearchHistoryForm
 from .models import CustomUser, Movie, Search
-import pytz
+
 
 # Create your views here.
 class MovieListView(LoginRequiredMixin, ListView):

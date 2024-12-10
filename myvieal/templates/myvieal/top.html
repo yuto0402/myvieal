@@ -17,23 +17,12 @@
       <div class="thumbnail"><video src="{{ movie.movie_file.url }}" type="video/mp4"></video></div>
       {% endif %}
 
-      <div class="icon"><img src="{{ movie.created_by.icon_image.url }}" alt="" data-url="{% url 'Profile' movie.created_by.pk %}"></div>
-      <div class="title">{{ movie.title }}</div>
+      <div class="icon"><img src="{{ movie.created_by.icon_image.url }}" alt=""></div>
+      <div class="title">{{ movie.title|truncatechars:50 }}</div>
       <div class="information">{{ movie.created_by.username }}・{{ movie.number_of_views }}回視聴・{{ movie.created_at|timesince|upto:',' }}前</div>
     </a>
     {% endfor %}
   </main>
-<script>
-const icons = document.querySelectorAll('.icon img');
-icons.forEach(icon => {
-  icon.addEventListener('click', e => {
-  e.stopPropagation();
-  e.preventDefault();
-  location.href=icon.dataset.url;
-  })
-})
-</script>
 {% endblock %}
 
 {% block footer-item__icon--home %}<img src="{% static 'myvieal/img/home_fill.svg' %}">{% endblock footer-item__icon--home %}
-

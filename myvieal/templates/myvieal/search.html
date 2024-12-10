@@ -1,6 +1,5 @@
 {% extends "myvieal/base.html" %}
 {% load static %}
-{% load myvieal_extras %}
 {% block extra-style %}
   <link rel="stylesheet" href="{% static 'myvieal/css/top.css' %}">
   <link rel="stylesheet" href="{% static 'myvieal/css/search.css' %}">
@@ -83,5 +82,3 @@ icons.forEach(icon => {
   }})
 </script> {% endcomment %}
 {% endblock content %}
-
-{% block footer-item__icon--search %}<img src="{% static 'myvieal/img/search_fill.svg' %}">{% endblock footer-item__icon--search %}
