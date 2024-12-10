@@ -1,7 +1,7 @@
 // 表示・非表示の切り替え
 const show = document.querySelectorAll('.eye')
 show.forEach(button => {
-  button.addEventListener('click', () => {
+  button.addEventListener('click', function () {
     const input = this.previousElementSibling;
     const type = input.getAttribute('type')
     if (type === 'password') {

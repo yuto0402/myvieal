@@ -29,6 +29,8 @@
 
 .introduction {
   padding-top: 15px;
+  width: 300px;
+  overflow-wrap: break-word;
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -123,8 +125,11 @@
 }
 
 .title {
-  word-wrap: break-word;
   word-break: break-word;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
 
 .view_and_time {

@@ -11,7 +11,6 @@
 }
 
 .list div {
-  display: grid;
   font-size: 14px;
 }
 
@@ -35,6 +34,8 @@
   grid-row: 2 / 4;
   grid-column: 1 / 2;
   justify-content: center;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .icon img {
@@ -47,9 +48,13 @@
 .title {
   grid-row: 2 / 3;
   grid-column: 2 / 3;
+  margin-right: 10px;
   align-items: center;
-  word-wrap: break-word;
-  word-break: break-word;
+  overflow: hidden;
+  overflow-wrap: break-word;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
 .information {

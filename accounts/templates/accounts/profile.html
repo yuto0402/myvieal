@@ -38,7 +38,7 @@
       <div class="thumbnail"><video src="{{ movie.movie_file.url }}" type="video/mp4"></video></div>
       {% endif %}
       <div class="information">
-        <div class="title">{{ movie.title|truncatechars:30 }}</div>
+        <div class="title">{{ movie.title }}</div>
         <div class="view_and_time">{{ movie.number_of_views }}回視聴・{{ movie.created_at|timesince|upto:',' }}前</div>
       </div>
     </a>
