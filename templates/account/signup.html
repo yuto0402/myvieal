@@ -6,16 +6,13 @@
 <style>footer > div { margin-top: 35px; }</style>
 {% endblock style %}
 
-{% block header %}アカウント作成{% endblock header %}
+{% block header %}アカウント作成を完了する{% endblock header %}
 
 {% block main %}
 <form method="post" enctype="multipart/form-data">
   {% csrf_token %}
   <div class="form-group">
     {{ form.username }}
-  </div>
-  <div class="form-group">
-    {{ form.email }}
   </div>
   <div class="form-group">
     {{ form.password1 }}
@@ -33,7 +30,6 @@
     {% endfor %}
     {{ form.non_field_errors }}
   </div>
-  <button type="submit"><div>認証コードを送信</div></button>
-  <div class="message resend">アカウントをすでにお持ちですか？<a href="{% url "account_login" %}">ログイン</a></div>
+  <button type="submit"><div>アカウント作成を完了</div></button>
 </form>
 {% endblock main %}

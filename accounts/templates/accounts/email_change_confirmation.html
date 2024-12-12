@@ -1,0 +1,80 @@
+{% extends "myvieal/base.html" %}
+{% load static %}
+
+{% block extra-style %}
+  <link rel="stylesheet" href="{% static 'accounts/css/password_change.css' %}">
+{% endblock %}
+
+{% block header-container %}
+  <a href="{% url 'UserSetting' %}" class="top"><img src="{% static 'myvieal/img/arrow.svg' %}" alt=""></a>
+  <h3>メールアドレスの変更の完了</h3>
+{% endblock %}
+
+{% block content %}
+<main>
+  <div class="error_container" style="margin-top: 100px;">
+    {{ email }}に数字４ケタの認証コードを送信しました。<br>下のテキストボックスに記入してください。
+  </div>
+  <form method="post" action="{% url "EmailChangeConfirmation" %}">
+    {% csrf_token %}
+    <div class="form-group">
+      {% for field in form %}
+      <div class="form">
+        {{ field }}
+      </div>
+      {% endfor %}
+    </div>
+    <div class="error_container" id="parent">
+      {% if post_success %}
+      <div class="errorlist" id="marker">メールを再送しました。</div>
+      {% endif %}
+      {% for field in form %}
+      {{ field.errors }}
+      {% endfor %}
+      {{ form.non_field_errors }}
+    </div>
+    <div class="error_container" style="font-size: small;">メールが届きませんか？<span id="postLink" style="color: #2b8f38;">再送する</span></div>
+    <button type="submit" class="submit"><div>認証して変更を完了</div></button>
+  </form>
+  <form method="post" action="{% url 'trickpath' %}">
+    {% csrf_token %}
+    <button class="cancel" type="submit" style="border: none; background-color: white; margin: 0 auto; display: block; font-size: 16px;">
+      <p style="font-size: 16px; font-family: Noto Sans JP, Arial, Helvetica, sans-serif; margin: 0 auto;">キャンセル</p>
+    </button>
+  </form>
+</main>
+{% endblock %}
+
+{% block footer %}
+<script>
+  let last_click_time = new Date();
+  document.getElementById('postLink').addEventListener('click', function(event) {
+    event.preventDefault();
+    const current_time = new Date();
+    if (document.getElementById('marker')) {
+      document.getElementById('marker').remove();
+    }
+    if ((current_time - last_click_time) < 12000) {
+      const parent = document.getElementById('parent');
+      const div = document.createElement('div');
+      div.textContent = 'しばらく待ってからもう一度お試しください。';
+      div.classList.add('errorlist');
+      div.id = 'marker';
+      parent.appendChild(div);
+    } else {
+      const form = document.createElement('form');
+      form.method = 'POST';
+      form.action = '{% url "resend_email" %}';
+      form.innerHTML = '{% csrf_token %}';
+      const input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = 'key';
+      input.value = 'value';
+      form.appendChild(input);
+      document.body.appendChild(form);
+      form.submit();
+      last_click_time = new Date();
+    }
+  });
+</script>
+{% endblock %}
