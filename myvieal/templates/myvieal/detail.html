@@ -12,9 +12,9 @@
     <video src="{{ movie.movie_file.url }}" controls autoplay type="video/mp4"></video>
   </div>
   <div class="overview">
-    <div class="title">{{ movie.title|truncatechars:50 }}</div>
+    <div class="title">{{ movie.title }}</div>
     <div class="information">{{ movie.number_of_views }}回視聴・{{ movie.created_at|timesince|upto:',' }}前・{{ movie.created_at }}</div>
-    <a href="{% url 'Profile' user.pk %}" class="creater">
+    <a href="{% url 'Profile' movie.created_by.pk %}" class="creater">
       <div class="icon"><img src="{{ movie.created_by.icon_image.url }}" alt=""></div>
       <div class="createrName">{{ movie.created_by.username }}</div>
     </a>

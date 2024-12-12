@@ -50,12 +50,14 @@
   align-items: center;
   word-wrap: break-word;
   word-break: break-word;
+  margin-right: 10px;
 }
 
 .information {
   grid-row: 3 / 4;
   grid-column: 2 / 3;
   align-items: center;
+  margin-right: 10px;
 }
 
 @media (min-width: 768px) {
