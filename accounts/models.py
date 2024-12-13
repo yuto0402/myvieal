@@ -11,3 +11,4 @@ class CustomUser(AbstractUser):
     )
     introduction = models.TextField(blank=True)
     following = models.ManyToManyField("self", related_name="followed_by", symmetrical=False, blank=True)
+    terms_of_service_version = models.IntegerField(default=0)
