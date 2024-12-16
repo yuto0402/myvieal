@@ -1,6 +1,7 @@
 from allauth.account.urls import urlpatterns as account_urlpatterns
 from django.contrib.auth.views import LogoutView, PasswordResetCompleteView, PasswordResetConfirmView, PasswordResetView
 from django.urls import include, path
+from django.views.generic import TemplateView
 
 from . import views
 from .forms import CustomPasswordResetForm, CustomSetPasswordForm
@@ -58,4 +59,6 @@ urlpatterns = [
     path("email/change/confirmation", views.email_change_confirmation_view, name="EmailChangeConfirmation"),
     path("redirect/setting/", views.session_initializer, name="trickpath"),
     path("password_change", views.PasswordChangeView.as_view(), name="PasswordChange"),
+    path("delete/<int:pk>", views.AccountDeleteView.as_view(), name="account_delete"),
+    path("deleted", TemplateView.as_view(template_name="accounts/deleted.html"), name="deleted"),
 ]

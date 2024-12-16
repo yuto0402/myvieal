@@ -17,7 +17,6 @@ document.getElementById("file-input").addEventListener("change", function (event
   // FileReaderで動画のURLを作成
   var reader = new FileReader();
 
-
   reader.onload = function () {
     videoPreview.src = reader.result; // 動画のプレビューを表示
     videoPreview.style.display = "block"; // プレビューを表示

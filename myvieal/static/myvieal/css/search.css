@@ -4,7 +4,7 @@
 }
 
 .back_button_container {
-  flex: 0.05 1 0;
+  flex: 0.1 1 0;
   text-align: center;
 }
 
@@ -56,6 +56,16 @@
   color: gainsboro;
 }
 
+.cancel-button {
+  position: absolute;
+  top: 50%;
+  right: calc(
+    2% + 1em
+  ); /* 入力エリアの右端が2%で指定されているため、そこからさらに1emだけ左の位置を指定する。 */
+  transform: translateY(-50%);
+  z-index: 1; /* z-indexが規定値のままだとそもそもクリックできないので、イベントを起こせなかった。 */
+}
+
 .query-button-container {
   margin: 0.7em 0.7em;
 }
@@ -70,4 +80,16 @@
 .query-button.target {
   background-color: black;
   color: white;
+}
+
+.history-container {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  margin: 1em;
+  color: black;
+}
+
+.history-container img {
+  margin-right: 0.5em;
 }

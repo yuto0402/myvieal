@@ -1,6 +1,5 @@
 # Create your views here.
 
-
 from typing import Any
 
 from allauth.account.views import SignupView
@@ -14,7 +13,7 @@ from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
-from django.views.generic import DetailView, TemplateView, UpdateView
+from django.views.generic import DeleteView, DetailView, TemplateView, UpdateView
 
 from .adapter import CustomAccountAdapter
 from .forms import (
@@ -361,3 +360,9 @@ class PasswordChangeView(LoginRequiredMixin, PasswordChangeView):
     template_name = "accounts/password_change.html"
     form_class = PasswordChangeForm
     success_url = reverse_lazy("UserSetting")
+
+
+class AccountDeleteView(DeleteView):
+    model = CustomUser
+    template_name = "accounts/account_delete.html"
+    success_url = reverse_lazy("deleted")

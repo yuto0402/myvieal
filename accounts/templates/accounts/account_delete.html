@@ -1,0 +1,42 @@
+{% extends "myvieal/base.html" %}
+{% load static %}
+
+{% block extra-style %}
+<link rel="stylesheet" href="{% static 'accounts/css/account_delete.css' %}">
+{% endblock %}
+
+{% block header-container %}
+<a href="{% url 'Profile' user.pk %}" class="top"><img src="{% static 'myvieal/img/arrow.svg' %}" alt=""></a>
+<h3>アカウントの削除</h3>
+{% endblock header-container %}
+
+{% block content %}
+<main>
+  <div class="confirmation">
+    <p>アカウントを削除すると、アカウントに紐づいたデータがすべて削除されます。</p>
+    <div class="profile">
+      <div class="icon"><img src="{{ user.icon_image.url }}" alt=""></div>
+      <div class="username">{{user.username}}</div>
+    </div>
+  </div>
+  <div class="account_delete_button">アカウントを削除</div>
+</main>
+
+<dialog id="modalDialog" class="dialog">
+  <div id="dialog_container">
+    <h2>アカウントを削除しますか？</h2>
+    <div class="button_container">
+      <div class="cancel_button">キャンセル</div>
+      <form method="post">
+        {% csrf_token %}
+        <button type="submit">削除する</button>
+      </form>
+    </div>
+  </div>
+</dialog>
+
+<script src="{% static "accounts/js/account_delete.js" %}"></script>
+{% endblock content %}
+
+{% block footer %}
+{% endblock footer %}

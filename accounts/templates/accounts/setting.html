@@ -23,7 +23,7 @@
       {% csrf_token %}
       <button type="submit" style="all: unset;"><div href="" class="green">ログアウト</div></button>
     </form>
-    <p>アカウントの削除は <a href="" class="green">こちら</a></p>
+    <p>アカウントの削除は <a href={% url "account_delete" user.pk %} class="green">こちら</a></p>
   </div>
 </main>
 {% endblock %}
