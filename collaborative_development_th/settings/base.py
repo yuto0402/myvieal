@@ -41,6 +41,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "allauth.account.middleware.AccountMiddleware",
+    "accounts.middleware.SessionChangeMiddleware",
 ]
 
 SESSION_ENGINE = "django.contrib.sessions.backends.db"
@@ -195,6 +196,5 @@ ACCOUNT_ADAPTER = "accounts.adapter.CustomAccountAdapter"
 SITE_ID = 1
 
 ACCOUNT_AUTHENTICATION_METHOD = "email"
-ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+ACCOUNT_EMAIL_VERIFICATION = "none"
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION_BY_CODE_ENABLED = True

@@ -1,0 +1,39 @@
+{% extends "myvieal/base.html" %}
+{% load static %}
+
+{% block extra-style %}
+  <link rel="stylesheet" href="{% static 'accounts/css/password_change.css' %}">
+{% endblock %}
+
+{% block header-container %}
+  <a href="{% url 'UserSetting' %}" class="top"><img src="{% static 'myvieal/img/arrow.svg' %}" alt=""></a>
+  <h3>メールアドレスの変更</h3>
+{% endblock %}
+
+{% block content %}
+<main>
+  <div class="error_container" style="font-size: small; margin: 100px auto 10px;">アカウントのメールアドレス</div>
+  <div class="error_container" style="margin-top: 0;">{{ email }}</div>
+  <form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      {% for field in form %}
+      <div class="form">
+        {{ field }}
+      </div>
+      {% endfor %}
+    </div>
+    <div class="error_container">
+      {% for field in form %}
+      {{ field.errors }}
+      {% endfor %}
+      {{ form.non_field_errors }}
+    </div>
+    <button type="submit" class="submit"><div>認証コードを送信</div></button>
+    <a href="{% url 'UserSetting' %}" class="cancel"><p>キャンセル</p></a>
+  </form>
+</main>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
