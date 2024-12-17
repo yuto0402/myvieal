@@ -40,6 +40,15 @@ class MovieDetailView(LoginRequiredMixin, DetailView):
         movie.save()
         return movie
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        is_following = self.object.created_by in self.request.user.following.all()
+        extra_context = {"is_following": is_following}
+        context.update(extra_context)
+
+        return context
+
 
 class MovieEditView(LoginRequiredMixin, UpdateView):
     model = Movie

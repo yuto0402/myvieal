@@ -20,14 +20,26 @@
       <div class="createrName">{{ movie.created_by.username }}</div>
     </a>
     {% else %}
-    <a href="{% url 'ProfileOthers' movie.created_by.id %}" class="creater">
-      <div class="icon"><img src="{{ movie.created_by.icon_image.url }}" alt=""></div>
-      <div class="createrName">{{ movie.created_by.username }}</div>
-    </a>
+    <div class="creater-container">
+      <a href="{% url 'ProfileOthers' movie.created_by.id %}" class="creater">
+        <div class="icon"><img src="{{ movie.created_by.icon_image.url }}" alt=""></div>
+        <div class="createrName">{{ movie.created_by.username }}</div>
+      </a>
+        {% if is_following %}
+        <button type="button" class="follow-btn follow-btn--following">フォロー中</button>
+        {% else %}
+        <button type="button" class="follow-btn">フォロー</button>
+        {% endif %}
+      </div>
     {% endif %}
+
     <div class="description">{{ movie.explanation }}</div>
     <span class="detail">...もっと見る</span>
   </div>
 </main>
+<script>
+  const url = "{% url "follow_button" %}"
+  const target_user_pk = {{ movie.created_by.pk }}
+</script>
 <script src="{% static 'myvieal/js/detail.js' %}"></script>
 {% endblock %}
