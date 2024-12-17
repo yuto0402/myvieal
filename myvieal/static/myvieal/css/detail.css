@@ -100,4 +100,14 @@ video {
   background-color: white;
 }
 
+.favorite-container {
+  display: flex;
+  margin: 10px 0;
+}
+
+.favorite-btn {
+  border: none;
+  background: none;
+}
+
 /* ここまで body */

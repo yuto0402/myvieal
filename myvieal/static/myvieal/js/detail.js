@@ -36,10 +36,9 @@ function getCookie(name) {
 
 document.querySelector(".follow-btn").addEventListener("click", function (event) {
   event.preventDefault();
-  console.log("ここは実行されている");
-  fetch(url, {
+  fetch(followBtnUrl, {
     method: "POST",
-    body: "target_user_pk=" + target_user_pk,
+    body: "target_user_pk=" + targetUserPk,
     headers: {
       "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
       "X-CSRFToken": getCookie("csrftoken"),
@@ -62,6 +61,40 @@ document.querySelector(".follow-btn").addEventListener("click", function (event)
       } else if (response.method == "unfollow") {
         followBtn.classList.remove("follow-btn--following");
         followBtn.textContent = "フォロー";
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
+
+document.getElementById("favorite-btn").addEventListener("click", function (event) {
+  event.preventDefault();
+  fetch(favoriteBtnUrl, {
+    method: "POST",
+    body: "target_movie_pk=" + targetMoviePk,
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
+      "X-CSRFToken": getCookie("csrftoken"),
+    },
+  })
+    // ステータスがokかチェックする処理
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`Response status: ${response.status}`);
+      } else {
+        return response.json();
+      }
+    })
+    .then((response) => {
+      // フォロワー数を更新
+      document.getElementById("favorite_count").textContent = response.like_count;
+      // ボタンの状態を変更する
+      const favoriteBtnImage = document.getElementById("favorite-btn__image");
+      if (response.method == "favorite") {
+        favoriteBtnImage.src = favoriteFillSrc;
+      } else if (response.method == "unfavorite") {
+        favoriteBtnImage.src = favoriteSrc;
       }
     })
     .catch((error) => {
