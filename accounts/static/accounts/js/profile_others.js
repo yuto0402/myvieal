@@ -19,7 +19,7 @@ document.querySelector(".follow-btn").onclick = function (event) {
   event.preventDefault();
   fetch(url, {
     method: "POST",
-    body: "target_user_pk=" + target_user_pk,
+    body: "target_user_pk=" + targetUserPk,
     headers: {
       "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
       "X-CSRFToken": getCookie("csrftoken"),
