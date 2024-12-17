@@ -17,9 +17,9 @@ function getCookie(name) {
 
 document.querySelector(".follow-btn").onclick = function (event) {
   event.preventDefault();
-  fetch(location.pathname, {
+  fetch(url, {
     method: "POST",
-    body: "",
+    body: "target_user_pk=" + target_user_pk,
     headers: {
       "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
       "X-CSRFToken": getCookie("csrftoken"),

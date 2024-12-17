@@ -17,6 +17,7 @@
   {% endif %}
 
 </form>
+
 {% endblock profile-extra-content %}
 
 {% block movie-edit %}{% endblock movie-edit %}
@@ -26,5 +27,9 @@
 {% endblock extra-content %}
 
 {% block extra-js %}
+<script>
+  const url = "{% url "follow_button" %}";
+  const target_user_pk = "{{ user.pk }}";
+</script>
 <script src="{% static 'accounts/js/profile_others.js' %}"></script>
 {% endblock extra-js %}
