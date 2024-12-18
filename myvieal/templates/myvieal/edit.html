@@ -38,10 +38,18 @@
       <textarea name="explanation" required>{{ object.explanation }}</textarea>
     </div>
 
+    <div>
+      <p>位置情報 <span class="requirement">必須</p>
+      <div class="address"><img src="{% static 'myvieal/img/pin.svg' %}" alt=""><input name="name" id="pac-input" placeholder="スポット" required value="{{ object.name }}"></div>
+      <input name="place_id" id="place_id" hidden required value="{{ object.place_id }}">
+      <input name="address" id="address" hidden required value="{{ object.address}}">
+    </div>
+
     <button type="submit" class="btn btn-primary">保存</button>
   </form>
 </main>
 <script src="{% static 'myvieal/js/edit.js' %}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCqp7gtBAc-qtH5vUI5wxTPSIo5D89IMN0&callback=initMap&libraries=places&v=weekly" async defer></script>
 {% endblock %}
 
 {% block footer %}

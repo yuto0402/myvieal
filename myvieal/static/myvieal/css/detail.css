@@ -41,6 +41,12 @@ video {
   margin-bottom: 5px;
 }
 
+.address-information {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
 .creater {
   display: flex;
   gap: 15px;

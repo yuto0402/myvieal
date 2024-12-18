@@ -1,7 +1,7 @@
 # Create your views here.
 
 from typing import Any
-
+from django.contrib.auth.decorators import login_required
 from allauth.account.models import EmailAddress
 from allauth.account.utils import send_email_confirmation
 from allauth.account.views import SignupView
@@ -13,7 +13,7 @@ from django.urls import reverse, reverse_lazy
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.views.generic import DeleteView, DetailView, TemplateView, UpdateView
-
+from django.contrib.auth.views import PasswordChangeView
 from .adapter import CustomAccountAdapter
 from .forms import (
     CustomPasswordResetForm,

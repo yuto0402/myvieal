@@ -29,3 +29,21 @@ explanationLength.textContent = `${explanationForm.value.length}/500`;
 explanationForm.addEventListener('input', function() {
   explanationLength.textContent = `${explanationForm.value.length}/500`;
 });
+
+let autocomplete;
+function initMap() {
+  const input = document.getElementById('pac-input');
+  autocomplete = new google.maps.places.Autocomplete(input, {
+    fields: ["place_id", "name", "formatted_address"]
+  });
+
+  autocomplete.addListener('place_changed', function() {
+    const place = autocomplete.getPlace();
+
+    if (place.place_id) {
+      input.value = place.name;
+      document.getElementById('place_id').value = place.place_id;
+      document.getElementById('address').value = place.formatted_address;
+  }
+  });
+}

@@ -14,6 +14,17 @@
   <div class="overview">
     <div class="title">{{ movie.title }}</div>
     <div class="information">{{ movie.number_of_views }}回視聴・{{ movie.created_at|timesince|upto:',' }}前・{{ movie.created_at }}</div>
+    <div class="tags">
+      {% for tag in movie.tag_list.all %}
+          <span class="tag">{{ tag.name }}</span>
+      {% endfor %}
+    </div>
+    {% if movie.name %}
+    <div class='address-information'>
+      <img src="{% static 'myvieal/img/pin.svg' %}" class='pin'>
+      <p class='address-name-name'>{{ movie.name }}</p>
+    </div>
+    {% endif %}
     {% if movie.created_by == user %}
     <a href="{% url 'Profile' movie.created_by.id %}" class="creater">
       <div class="icon"><img src="{{ movie.created_by.icon_image.url }}" alt=""></div>
