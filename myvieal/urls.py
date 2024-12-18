@@ -16,6 +16,7 @@ urlpatterns = [
     path("search/history", views.SearchHistory.as_view(), name="search_history"),
     path("map/history/", views.MapHistoryView.as_view(), name="MapHistory"),
     path("map/result/", views.MapResult.as_view(), name="MapResult"),
+    path("favorite-button", views.FavoriteButtonView.as_view(), name="favorite_button"),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
