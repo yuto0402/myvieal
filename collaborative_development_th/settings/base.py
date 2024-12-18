@@ -41,6 +41,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "allauth.account.middleware.AccountMiddleware",
+    "accounts.middleware.SessionChangeMiddleware",
 ]
 
 ROOT_URLCONF = "collaborative_development_th.urls"
@@ -192,4 +193,6 @@ ACCOUNT_ADAPTER = "accounts.adapter.CustomAccountAdapter"
 
 SITE_ID = 1
 
-
+ACCOUNT_AUTHENTICATION_METHOD = "email"
+ACCOUNT_EMAIL_VERIFICATION = "none"
+ACCOUNT_EMAIL_REQUIRED = True
