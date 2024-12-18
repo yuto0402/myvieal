@@ -1,10 +1,12 @@
 # Create your views here.
+
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
 from django.utils import timezone
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
 
-from .forms import MovieEditForm, MovieForm, SearchHistoryForm
+from .forms import CommentForm, MovieEditForm, MovieForm, SearchHistoryForm
 from .models import CustomUser, Movie, Search
 
 
@@ -39,6 +41,23 @@ class MovieDetailView(LoginRequiredMixin, DetailView):
         movie.number_of_views += 1
         movie.save()
         return movie
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        comments = self.object.comment_set.all().order_by("-commented_at")
+        context.update({"comments": comments, "user": self.request.user, "form": CommentForm})
+        return context
+
+    def post(self, request, *args, **kwargs):
+        movie = self.get_object()
+        form = CommentForm(request.POST)
+
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.commented_on = movie
+            comment.commented_by = request.user
+            comment.save()
+        return redirect(reverse("MovieDetail", kwargs={"pk": movie.pk}))
 
 
 class MovieEditView(LoginRequiredMixin, UpdateView):

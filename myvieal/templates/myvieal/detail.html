@@ -28,6 +28,28 @@
     <div class="description">{{ movie.explanation }}</div>
     <span class="detail">...もっと見る</span>
   </div>
+  <div class="send_section">
+    <div class="creater" style="border-bottom: none;">
+      <div class="icon" style="align-items: baseline;"><img src="{{ user.icon_image.url }}" alt=""></div>
+      <form method="POST" class="comment_form">
+      {% csrf_token %}
+      {{ form.content }}
+      <button type="submit"><img src="{% static "myvieal/img/send_message.svg" %}" alt="send"></button>
+      </form>
+    </div>
+  </div>
+  <div class="comment_section">
+    {% for comment in comments %}
+    <div class="creater2">
+      <div class="icon" style="align-items: baseline;"><img src="{{ comment.commented_by.icon_image.url }}" alt=""></div>
+      <div class="comment_container">
+        <div class="description description2">{{ comment.content }}</div>
+        <span class="detail detail2">...もっと見る</span>
+        <div class="commented_at">{{ comment.commented_at|timesince|upto:',' }}前</div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
 </main>
 <script src="{% static 'myvieal/js/detail.js' %}"></script>
 {% endblock %}
