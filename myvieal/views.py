@@ -1,7 +1,9 @@
 # Create your views here.
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import JsonResponse
 from django.urls import reverse, reverse_lazy
 from django.utils import timezone
+from django.views import View
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
 
 from .forms import MovieEditForm, MovieForm, SearchHistoryForm
@@ -39,6 +41,22 @@ class MovieDetailView(LoginRequiredMixin, DetailView):
         movie.number_of_views += 1
         movie.save()
         return movie
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        is_following = self.object.created_by in self.request.user.following.all()
+        is_favorite = self.object in self.request.user.movie_like.all()
+        like_count = self.object.like.count()
+
+        extra_context = {
+            "is_following": is_following,
+            "is_favorite": is_favorite,
+            "like_count": like_count,
+        }
+        context.update(extra_context)
+
+        return context
 
 
 class MovieEditView(LoginRequiredMixin, UpdateView):
@@ -119,3 +137,20 @@ class Following(LoginRequiredMixin, ListView):
     def get_queryset(self):
         # returnしたのを宣言するとruff-checkにやめろと言われた
         return self.request.user.following.all()
+
+
+class FavoriteButtonView(LoginRequiredMixin, View):
+    def post(self, request, *args, **kwargs):
+        target_movie = Movie.objects.get(pk=request.POST.get("target_movie_pk"))
+        is_favorite = target_movie in request.user.movie_like.all()
+        json_context = {}
+        if is_favorite:
+            request.user.movie_like.remove(target_movie)
+            json_context["method"] = "unfavorite"
+        else:
+            request.user.movie_like.add(target_movie)
+            json_context["method"] = "favorite"
+
+        json_context["like_count"] = target_movie.like.count()
+
+        return JsonResponse(json_context)

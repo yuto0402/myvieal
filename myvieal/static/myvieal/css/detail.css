@@ -3,6 +3,7 @@ html,
 body {
   overflow-x: hidden;
 }
+
 /* ここまで全体 */
 
 /* header */
@@ -74,6 +75,39 @@ video {
 .detail {
   cursor: pointer;
   display: inline;
+}
+
+.creater-container {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: solid 1px #9b9b9b;
+}
+
+.follow-btn {
+  width: 6rem;
+  height: 2.5rem;
+  /* border-radiusは大きくするとトラックみたいな長方形を半円で挟む形になる */
+  border-radius: 9999px;
+  border: 0;
+
+  color: white;
+  background-color: var(--main-green);
+}
+
+.follow-btn--following {
+  border: 1px solid var(--main-green);
+  color: var(--main-green);
+  background-color: white;
+}
+
+.favorite-container {
+  display: flex;
+  margin: 10px 0;
+}
+
+.favorite-btn {
+  border: none;
+  background: none;
 }
 
 /* ここまで body */

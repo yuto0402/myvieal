@@ -13,4 +13,5 @@ urlpatterns = [
     path("following/", views.Following.as_view(), name="following"),
     path("search/", views.SearchView.as_view(), name="search"),
     path("search/history", views.SearchHistory.as_view(), name="search_history"),
+    path("favorite-button", views.FavoriteButtonView.as_view(), name="favorite_button"),
 ]

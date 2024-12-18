@@ -55,6 +55,7 @@ urlpatterns = [
     path("edit/<int:pk>/", views.ProfileEditView.as_view(), name="ProfileEdit"),
     path("setting/", views.UserSettingView.as_view(), name="UserSetting"),
     path("profile-others/<int:pk>", views.ProfileOthersView.as_view(), name="ProfileOthers"),
+    path("follow_button", views.FollowButtonView.as_view(), name="follow_button"),
     path("email/change", views.email_change_view, name="EmailChange"),
     path("email/change/confirmation", views.email_change_confirmation_view, name="EmailChangeConfirmation"),
     path("redirect/setting/", views.session_initializer, name="trickpath"),
