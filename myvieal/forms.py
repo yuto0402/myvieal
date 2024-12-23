@@ -11,6 +11,7 @@ class MovieForm(forms.ModelForm):
             "explanation",
             "movie_file",
             "thumbnail",
+            "tag_list",
         )
 
 

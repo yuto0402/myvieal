@@ -3,6 +3,7 @@ html,
 body {
   overflow-x: hidden;
 }
+
 /* ここまで全体 */
 
 /* header */
@@ -146,3 +147,12 @@ textarea:focus {
 }
 
 /* ここまで body */
+
+/* ここからタグ機能 */
+
+.tag_input {
+  display: flex;
+  gap: 8px;
+}
+
+/* ここまでタグ機能 */

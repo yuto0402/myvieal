@@ -37,3 +37,12 @@ const explanationLength = document.querySelector(".explanation-length");
 explanationForm.addEventListener("input", function () {
   explanationLength.textContent = `${explanationForm.value.length}/500`;
 });
+
+// タグ機能 ここから
+
+const tag_create_button = document.querySelector(".tag_create_button");
+tag_create_button.addEventListener("click", () => {
+  console.log("いいね！");
+});
+
+// タグ機能 ここまで

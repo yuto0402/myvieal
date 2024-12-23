@@ -5,7 +5,7 @@ from django.utils import timezone
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
 
 from .forms import MovieEditForm, MovieForm, SearchHistoryForm
-from .models import CustomUser, Movie, Search
+from .models import CustomUser, Movie, Search, Tag
 
 
 # Create your views here.
@@ -27,6 +27,11 @@ class MovieCreateView(LoginRequiredMixin, CreateView):
         instance.created_by = self.request.user
         instance.save()
         return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["tag_list"] = Tag.objects.all()
+        return context
 
 
 class MovieDetailView(LoginRequiredMixin, DetailView):

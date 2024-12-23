@@ -43,6 +43,18 @@
       <textarea name="explanation" required placeholder="詳細文を入力"></textarea>
     </div>
 
+    <div class="tag">
+      <p>タグ <span class="requirement">必須</span><span class="explanation-length">0/500</span></p>
+      <div class="tag_input">
+        <select name="tag_list" id="">
+          {% for i in tag_list %}
+            <option value={{ i.pk }}>{{i}}</option>
+          {% endfor %}
+        </select>
+        <img class="tag_create_button" src={% static "myvieal/img/plus.svg" %} alt="" width="16px">
+      </div>
+    </div>
+
     <button type="submit" class="btn btn-primary">投稿</button>
     {% for field in form %}
     {{ field.errors }}
