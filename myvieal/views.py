@@ -1,14 +1,17 @@
 # Create your views here.
+
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import redirect
 from django.http import JsonResponse
 from django.urls import reverse, reverse_lazy
 from django.utils import timezone
 from django.views import View
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
 
-from .forms import MovieEditForm, MovieForm, SearchHistoryForm
+from .forms import CommentForm, MovieEditForm, MovieForm, SearchHistoryForm
 from .models import CustomUser, Movie, Search, MapHistory, Tag
 from django.db.models import Q, Count
+
 
 # Create your views here.
 class MovieListView(LoginRequiredMixin, ListView):
@@ -44,7 +47,9 @@ class MovieDetailView(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
+        comments = self.object.comment_set.all().order_by("-commented_at")
+        context.update({"comments": comments, "user": self.request.user, "form": CommentForm})
+    
         is_following = self.object.created_by in self.request.user.following.all()
         is_favorite = self.object in self.request.user.movie_like.all()
         like_count = self.object.like.count()
@@ -55,8 +60,18 @@ class MovieDetailView(LoginRequiredMixin, DetailView):
             "like_count": like_count,
         }
         context.update(extra_context)
-
         return context
+
+    def post(self, request, *args, **kwargs):
+        movie = self.get_object()
+        form = CommentForm(request.POST)
+
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.commented_on = movie
+            comment.commented_by = request.user
+            comment.save()
+        return redirect(reverse("MovieDetail", kwargs={"pk": movie.pk}))
 
 
 class MovieEditView(LoginRequiredMixin, UpdateView):
