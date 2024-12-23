@@ -49,7 +49,7 @@ video {
 }
 
 .creater,
-.creater2{
+.creater2 {
   display: flex;
   gap: 15px;
   padding-bottom: 15px;
@@ -160,6 +160,7 @@ video {
   bottom: -20px;
   color: #9b9b9b;
   font-size: small;
+}
 
 .creater-container {
   display: flex;
