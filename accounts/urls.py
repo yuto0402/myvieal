@@ -1,14 +1,13 @@
-from allauth.account.urls import urlpatterns as account_urlpatterns
-from django.contrib.auth.views import LogoutView, PasswordResetCompleteView, PasswordResetConfirmView, PasswordResetView
 from django.urls import include, path
 from django.views.generic import TemplateView
-
+from allauth.account.urls import urlpatterns
+from django.contrib.auth.views import LogoutView, PasswordResetView, PasswordResetConfirmView, PasswordResetCompleteView
 from . import views
 from .forms import CustomPasswordResetForm, CustomSetPasswordForm
 
 filtered_account_urlpatterns = [
     url
-    for url in account_urlpatterns
+    for url in urlpatterns
     if url.name
     not in [
         "account_logout",
@@ -55,6 +54,7 @@ urlpatterns = [
     path("edit/<int:pk>/", views.ProfileEditView.as_view(), name="ProfileEdit"),
     path("setting/", views.UserSettingView.as_view(), name="UserSetting"),
     path("profile-others/<int:pk>", views.ProfileOthersView.as_view(), name="ProfileOthers"),
+    path("follow_button", views.FollowButtonView.as_view(), name="follow_button"),
     path("email/change", views.email_change_view, name="EmailChange"),
     path("email/change/confirmation", views.email_change_confirmation_view, name="EmailChangeConfirmation"),
     path("redirect/setting/", views.session_initializer, name="trickpath"),

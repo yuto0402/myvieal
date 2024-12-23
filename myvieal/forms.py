@@ -21,6 +21,9 @@ class MovieEditForm(forms.ModelForm):
             "title",
             "explanation",
             "thumbnail",
+            "address",
+            "name",
+            "place_id",
         )
 
 

@@ -44,8 +44,6 @@ MIDDLEWARE = [
     "accounts.middleware.SessionChangeMiddleware",
 ]
 
-SESSION_ENGINE = "django.contrib.sessions.backends.db"
-
 ROOT_URLCONF = "collaborative_development_th.urls"
 
 TEMPLATES = [
@@ -195,6 +193,4 @@ ACCOUNT_ADAPTER = "accounts.adapter.CustomAccountAdapter"
 
 SITE_ID = 1
 
-ACCOUNT_AUTHENTICATION_METHOD = "email"
-ACCOUNT_EMAIL_VERIFICATION = "none"
-ACCOUNT_EMAIL_REQUIRED = True
+

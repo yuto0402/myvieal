@@ -1,5 +1,6 @@
 {% extends "myvieal/base.html" %}
 {% load static %}
+{% load myvieal_extras %}
 {% block extra-style %}
   <link rel="stylesheet" href="{% static 'myvieal/css/top.css' %}">
   <link rel="stylesheet" href="{% static 'myvieal/css/search.css' %}">
@@ -14,6 +15,11 @@
 </div>
 {% endblock %}
 {% block content %}
+<div class="orders">
+  <a href="{% url 'search' %}" class="movie-search">動画</a>
+  <a href="{% url 'MapHistory' %}">スポット</a>
+  <a href="">タグ</a>
+</div>
 <form class="query-button-container" method="get" action="/search/">
   <button class="query-button created_at" type="submit" name="display_order" value="created_at">新着の動画</button>
   <button class="query-button number_of_views" type="submit" name="display_order" value="number_of_views">人気の動画</button>
@@ -28,13 +34,30 @@
     <div class="thumbnail"><video src="{{ movie.movie_file.url }}" type="video/mp4"></video></div>
     {% endif %}
 
-    <div class="icon"><img src="{{ movie.created_by.icon_image.url }}" alt=""></div>
-    <div class="title">{{ movie.title|truncatechars:30 }}</div>
-    <div class="information">{{ movie.created_by.username }}・{{ movie.number_of_views }}回視聴・{{ movie.created_at|timesince }} 前</div>
+    <div class="icon"><img src="{{ movie.created_by.icon_image.url }}" alt="" data-url="{% url 'Profile' movie.created_by.pk %}"></div>
+    <div class="title">{{ movie.title }}</div>
+    <div class="information">{{ movie.created_by.username }}・{{ movie.number_of_views }}回視聴・{{ movie.created_at|timesince|upto:',' }}前</div>
   </a>
   {% endfor %}
 </main>
 <script>
+  document.addEventListener('load',(e)=>{
+    alert('chin')
+    {% if is_searched_by_created_at %}
+      document.querySelector(".query-button.created_at").classList.add("target")
+      alert('chin')
+    {% endif %}
+  })
+
+const icons = document.querySelectorAll('.icon img');
+icons.forEach(icon => {
+  icon.addEventListener('click', e => {
+  e.stopPropagation();
+  e.preventDefault();
+  location.href=icon.dataset.url;
+  })
+})
+
   {% if is_searched_by_created_at %}
     document.querySelector(".query-button.created_at").classList.add("target")
   {% endif %}
