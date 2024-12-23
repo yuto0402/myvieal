@@ -192,5 +192,3 @@ ACCOUNT_FORMS = {
 ACCOUNT_ADAPTER = "accounts.adapter.CustomAccountAdapter"
 
 SITE_ID = 1
-
-

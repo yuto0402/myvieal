@@ -1,8 +1,6 @@
-document.getElementById("image-input").addEventListener("change", function(event) {
+document.getElementById("image-input").addEventListener("change", function (event) {
   var file = event.target.files[0];
   var thumbnailPreview = document.querySelector(".thumbnail-preview");
-
-
 
   // FileReaderで動画のURLを作成
   const reader = new FileReader();
@@ -19,31 +17,31 @@ document.getElementById("image-input").addEventListener("change", function(event
 const titleForm = document.querySelector('textarea[name="title"]');
 const titleLength = document.querySelector(".title-length");
 titleLength.textContent = titleLength.textContent = `${titleForm.value.length}/50`;
-titleForm.addEventListener('input', function() {
+titleForm.addEventListener("input", function () {
   titleLength.textContent = `${titleForm.value.length}/50`;
 });
 
 const explanationForm = document.querySelector('textarea[name="explanation"]');
 const explanationLength = document.querySelector(".explanation-length");
 explanationLength.textContent = `${explanationForm.value.length}/500`;
-explanationForm.addEventListener('input', function() {
+explanationForm.addEventListener("input", function () {
   explanationLength.textContent = `${explanationForm.value.length}/500`;
 });
 
 let autocomplete;
 function initMap() {
-  const input = document.getElementById('pac-input');
+  const input = document.getElementById("pac-input");
   autocomplete = new google.maps.places.Autocomplete(input, {
-    fields: ["place_id", "name", "formatted_address"]
+    fields: ["place_id", "name", "formatted_address"],
   });
 
-  autocomplete.addListener('place_changed', function() {
+  autocomplete.addListener("place_changed", function () {
     const place = autocomplete.getPlace();
 
     if (place.place_id) {
       input.value = place.name;
-      document.getElementById('place_id').value = place.place_id;
-      document.getElementById('address').value = place.formatted_address;
-  }
+      document.getElementById("place_id").value = place.place_id;
+      document.getElementById("address").value = place.formatted_address;
+    }
   });
 }

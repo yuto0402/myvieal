@@ -86,7 +86,8 @@ form > div:not(.thumbnail) {
   text-align: center;
 }
 
-textarea, input {
+textarea,
+input {
   width: 100%;
   border: none;
   outline: none;
@@ -94,7 +95,8 @@ textarea, input {
   resize: none;
 }
 
-textarea:focus, input:focus {
+textarea:focus,
+input:focus {
   outline: none;
   box-shadow: none;
   border: none;

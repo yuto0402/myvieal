@@ -16,8 +16,8 @@ class Movie(models.Model):
     thumbnail = models.ImageField(verbose_name="さむね", blank=True, null=True, upload_to="images/")
     like = models.ManyToManyField(CustomUser, related_name="movie_like")
     tag_list = models.ManyToManyField("Tag", related_name="movie")
-    address = models.CharField(verbose_name='住所', max_length=255, null=True)
-    name = models.CharField(verbose_name='施設名', max_length=255, default='Untitled')
+    address = models.CharField(verbose_name="住所", max_length=255, null=True)
+    name = models.CharField(verbose_name="施設名", max_length=255, default="Untitled")
     place_id = models.CharField(max_length=255, null=True)
 
     def __str__(self):
@@ -80,8 +80,9 @@ class Tag(models.Model):
     def __str__(self):
         return f"{self.name}({self.genre})"
 
+
 class MapHistory(models.Model):
-    address = models.CharField(verbose_name='住所', max_length=255, null=True)
+    address = models.CharField(verbose_name="住所", max_length=255, null=True)
     name = models.CharField(max_length=255)
     place_id = models.CharField(max_length=255, null=True)
     map_searched_at = models.DateTimeField(auto_now_add=True)
