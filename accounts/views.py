@@ -1,11 +1,12 @@
 # Create your views here.
 from typing import Any
-from django.contrib.auth.decorators import login_required
-from allauth.account.models import EmailAddress
-from allauth.account.utils import send_email_confirmation
+
 from allauth.account.views import SignupView
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, login
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.tokens import default_token_generator
+from django.contrib.auth.views import PasswordChangeView
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy
@@ -13,7 +14,7 @@ from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.views import View
 from django.views.generic import DeleteView, DetailView, TemplateView, UpdateView
-from django.contrib.auth.views import PasswordChangeView
+
 from .adapter import CustomAccountAdapter
 from .forms import (
     CustomPasswordResetForm,
@@ -356,7 +357,7 @@ def session_initializer(request):
 
 
 class PasswordChangeView(LoginRequiredMixin, PasswordChangeView):
-    template_name = 'accounts/password_change.html'
+    template_name = "accounts/password_change.html"
     form_class = PasswordChangeForm
     success_url = reverse_lazy("UserSetting")
 

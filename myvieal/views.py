@@ -1,16 +1,16 @@
 # Create your views here.
 
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import redirect
+from django.db.models import Count, Q
 from django.http import JsonResponse
+from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
 from django.utils import timezone
 from django.views import View
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
 
 from .forms import CommentForm, MovieEditForm, MovieForm, SearchHistoryForm
-from .models import CustomUser, Movie, Search, MapHistory, Tag
-from django.db.models import Q, Count
+from .models import CustomUser, MapHistory, Movie, Search, Tag
 
 
 # Create your views here.
@@ -49,7 +49,7 @@ class MovieDetailView(LoginRequiredMixin, DetailView):
         context = super().get_context_data(**kwargs)
         comments = self.object.comment_set.all().order_by("-commented_at")
         context.update({"comments": comments, "user": self.request.user, "form": CommentForm})
-    
+
         is_following = self.object.created_by in self.request.user.following.all()
         is_favorite = self.object in self.request.user.movie_like.all()
         like_count = self.object.like.count()
@@ -153,13 +153,15 @@ class Following(LoginRequiredMixin, ListView):
         # returnしたのを宣言するとruff-checkにやめろと言われた
         return self.request.user.following.all()
 
+
 class MapHistoryView(LoginRequiredMixin, ListView):
     model = MapHistory
-    template_name = 'myvieal/map_history.html'
+    template_name = "myvieal/map_history.html"
     context_object_name = "map_histories"
 
     def get_queryset(self):
-        return MapHistory.objects.filter(map_searched_by=self.request.user).order_by('-map_searched_at')
+        return MapHistory.objects.filter(map_searched_by=self.request.user).order_by("-map_searched_at")
+
 
 class MapResult(LoginRequiredMixin, ListView):
     model = Movie
@@ -179,11 +181,11 @@ class MapResult(LoginRequiredMixin, ListView):
                 place_id=place_id,
                 name=name,
                 address=address,
-                map_searched_at=timezone.now()
+                map_searched_at=timezone.now(),
             )
 
-        elif order == 'related':
-            tag_count = Tag.objects.annotate(num_movies=Count('movie',filter=Q(movie__place_id=place_id)))
+        elif order == "related":
+            tag_count = Tag.objects.annotate(num_movies=Count("movie", filter=Q(movie__place_id=place_id)))
             movies = []
             for movie in obj:
                 point = 0
@@ -191,9 +193,9 @@ class MapResult(LoginRequiredMixin, ListView):
                 for tag in tag_count:
                     if tag in movie_tags:
                         point += tag.num_movies
-                movies.append({'movie': movie, 'point': point})
-            obj = sorted(movies, key=lambda m: m['point'], reverse=True)
-            obj = [item['movie'] for item in obj]
+                movies.append({"movie": movie, "point": point})
+            obj = sorted(movies, key=lambda m: m["point"], reverse=True)
+            obj = [item["movie"] for item in obj]
 
         else:
             obj = obj.filter(place_id=place_id).order_by("-" + order)  # queryがstr型なので+演算子で文字列連結を行う
@@ -203,13 +205,13 @@ class MapResult(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         order = self.request.GET.get("display_order")
-        place_id = self.request.GET.get('placeId')
-        tag_count = Tag.objects.annotate(num_movies=Count('movie',filter=Q(movie__place_id=place_id)))
-        top_3tags = tag_count.order_by('-num_movies')[:4]
-        context['name'] = self.request.GET.get('name')
-        context['address'] = self.request.GET.get('address')
-        context['place_id'] = place_id
-        context['tags'] = top_3tags
+        place_id = self.request.GET.get("placeId")
+        tag_count = Tag.objects.annotate(num_movies=Count("movie", filter=Q(movie__place_id=place_id)))
+        top_3tags = tag_count.order_by("-num_movies")[:4]
+        context["name"] = self.request.GET.get("name")
+        context["address"] = self.request.GET.get("address")
+        context["place_id"] = place_id
+        context["tags"] = top_3tags
         if order == "created_at":
             context["is_searched_by_created_at"] = True
         elif order == "number_of_views":
@@ -217,6 +219,7 @@ class MapResult(LoginRequiredMixin, ListView):
         elif order == "related":
             context["is_searched_by_related"] = True
         return context
+
 
 class FavoriteButtonView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):

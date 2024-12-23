@@ -1,7 +1,8 @@
+from allauth.account.urls import urlpatterns
+from django.contrib.auth.views import LogoutView, PasswordResetCompleteView, PasswordResetConfirmView, PasswordResetView
 from django.urls import include, path
 from django.views.generic import TemplateView
-from allauth.account.urls import urlpatterns
-from django.contrib.auth.views import LogoutView, PasswordResetView, PasswordResetConfirmView, PasswordResetCompleteView
+
 from . import views
 from .forms import CustomPasswordResetForm, CustomSetPasswordForm
 

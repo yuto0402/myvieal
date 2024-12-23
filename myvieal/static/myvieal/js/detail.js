@@ -19,13 +19,14 @@ descriptions.forEach(function (description, index) {
   if (description.scrollHeight <= description.offsetHeight) {
     detail.style.display = "none";
   }
-})
+});
 
-const textarea = document.getElementById('id_content');
+const textarea = document.getElementById("id_content");
 
-textarea.addEventListener('input', function () {
-  this.style.height = 'auto';
-  this.style.height = (this.scrollHeight) + 'px';
+textarea.addEventListener("input", function () {
+  this.style.height = "auto";
+  this.style.height = this.scrollHeight + "px";
+});
 
 document.querySelector(".detail").addEventListener("click", function () {
   const detail = document.querySelector(".detail");

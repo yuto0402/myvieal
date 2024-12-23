@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Comment, Movie, Search, Tag, MapHistory
+from .models import Comment, MapHistory, Movie, Search, Tag
 
 
 class MovieAdmin(admin.ModelAdmin):
