@@ -28,25 +28,7 @@ textarea.addEventListener("input", function () {
   this.style.height = this.scrollHeight + "px";
 });
 
-document.querySelector(".detail").addEventListener("click", function () {
-  const detail = document.querySelector(".detail");
-  const description = document.querySelector(".description");
-  description.classList.toggle("expanded");
-  if (description.classList.contains("expanded")) {
-    detail.textContent = "...閉じる";
-  } else {
-    detail.textContent = "...もっと見る";
-  }
-});
-
-//もし動画の説明文があまり長くない(3行以下)なら「もっと見る」を表示しない
-if (description.scrollHeight <= description.offsetHeight) {
-  detail.style.display = "none";
-}
-
-// profile_other_jsからコピペ（動作確認して後でまとめる）
-
-// djangoのdocument(https://docs.djangoproject.com/ja/5.1/howto/csrf/)からコピペ
+// djangoのdocument(https://docs.djangoproject.com/ja/5.1/howto/csrf/)からコピペ、クッキーを取得する関数
 function getCookie(name) {
   let cookieValue = null;
   if (document.cookie && document.cookie !== "") {
