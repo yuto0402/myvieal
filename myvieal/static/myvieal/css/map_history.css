@@ -68,7 +68,8 @@ li {
   display: none;
 }
 
-.history, .prediction {
+.history,
+.prediction {
   text-decoration: none;
   color: inherit;
 }

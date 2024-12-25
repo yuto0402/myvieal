@@ -1,0 +1,125 @@
+.nav {
+  height: 3rem;
+
+  display: flex;
+  justify-content: space-around;
+}
+
+.nav__btn {
+  background: none;
+  border: none;
+}
+
+.nav__btn--selected {
+  color: var(--main-green);
+  border-bottom: 3px solid var(--main-green);
+}
+
+.following-list {
+  overflow-y: scroll;
+}
+
+.link {
+  text-decoration: none;
+
+  &:visited {
+    color: black;
+  }
+}
+
+.following-item {
+  height: 15vh;
+  border-top: 1px solid silver;
+  border-bottom: 1px solid silver;
+
+  display: flex;
+}
+
+.following-item__icon-wrapper {
+  flex: 1;
+
+  /*　アイコンの上下左右中央よせ用　*/
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.following-item__icon {
+  width: 10vh;
+  height: 10vh;
+  border-radius: 50%;
+
+  background-position: center;
+  background-size: contain;
+}
+
+.following-item__username-wrapper {
+  flex: 1;
+
+  /*　ユーザー名の上下左右中央よせ用　*/
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.following-item__username {
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+.movie-list {
+  overflow-y: scroll;
+}
+
+.movie {
+  display: flex;
+  margin: 10px 10px 5px;
+}
+
+.list {
+  flex: 10;
+  display: flex;
+  gap: 10px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.thumbnail {
+  width: 100%;
+  flex: 1;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  margin-bottom: 10px;
+  border-radius: 10px;
+}
+
+.thumbnail img,
+.thumbnail video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.information {
+  flex: 1;
+}
+
+.title {
+  overflow: hidden;
+  word-break: break-word;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.view_and_time {
+  color: gray;
+  font-size: 14px;
+}
+
+.movie_edit {
+  flex: 1;
+  display: inline-block;
+  text-decoration: none;
+  color: inherit;
+}

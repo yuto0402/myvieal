@@ -34,7 +34,7 @@
         {% endif %}
       </button>
       <span id="favorite_count">{{ like_count }}</span>
-    </div
+    </div>
     {% if movie.created_by == user %}
     <a href="{% url 'Profile' movie.created_by.id %}" class="creater">
       <div class="icon"><img src="{{ movie.created_by.icon_image.url }}" alt=""></div>

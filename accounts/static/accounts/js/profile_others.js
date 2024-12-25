@@ -1,4 +1,4 @@
-// djangoのdocument(https://docs.djangoproject.com/ja/5.1/howto/csrf/)からコピペ
+// djangoのdocument(https://docs.djangoproject.com/ja/5.1/howto/csrf/)からコピペ、クッキーを取得する関数
 function getCookie(name) {
   let cookieValue = null;
   if (document.cookie && document.cookie !== "") {

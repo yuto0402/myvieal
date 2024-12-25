@@ -145,13 +145,19 @@ class SearchHistory(LoginRequiredMixin, CreateView):
         return context
 
 
-class Following(LoginRequiredMixin, ListView):
+class LibraryView(LoginRequiredMixin, ListView):
     model = CustomUser
-    template_name = "myvieal/following.html"
+    template_name = "myvieal/library.html"
 
     def get_queryset(self):
         # returnしたのを宣言するとruff-checkにやめろと言われた
         return self.request.user.following.all()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        extra_context = {"movies": self.request.user.movie_like.all()}
+        context.update(extra_context)
+        return context
 
 
 class MapHistoryView(LoginRequiredMixin, ListView):
