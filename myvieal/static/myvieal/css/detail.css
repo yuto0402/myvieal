@@ -3,6 +3,7 @@ html,
 body {
   overflow-x: hidden;
 }
+
 /* ここまで全体 */
 
 /* header */
@@ -26,10 +27,14 @@ video {
 }
 
 .title {
-  font-size: 30px;
+  font-size: 20px;
   font-weight: bold;
   margin-bottom: 5px;
-  word-wrap: break-word;
+  overflow: hidden;
+  word-break: break-word;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
 
 .information {
@@ -37,7 +42,14 @@ video {
   margin-bottom: 5px;
 }
 
-.creater {
+.address-information {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.creater,
+.creater2 {
   display: flex;
   gap: 15px;
   padding-bottom: 15px;
@@ -46,9 +58,18 @@ video {
   color: inherit;
 }
 
+.creater2 {
+  padding-bottom: 25px;
+  border-bottom: none;
+}
+
 .creater div {
   display: grid;
   place-items: center;
+}
+
+.creater2 .icon {
+  display: grid;
 }
 
 .icon img {
@@ -74,6 +95,104 @@ video {
 .detail {
   cursor: pointer;
   display: inline;
+}
+
+.send_section,
+.comment_section {
+  padding: 10px;
+}
+
+.send_section {
+  padding-bottom: 0;
+}
+
+.comment_form {
+  flex: 1;
+  display: flex;
+  align-items: baseline;
+}
+
+#id_content {
+  flex: 1;
+  align-self: center;
+  resize: none;
+  height: 20px;
+  font-size: 16px;
+  font-family: "Noto Sans JP", Arial, Helvetica, sans-serif;
+  line-height: 1.2;
+  border: none;
+  border-bottom: #9b9b9b 1px solid;
+}
+
+#id_content:focus {
+  outline: none;
+  border: none;
+  border-bottom: #9b9b9b 1px solid;
+}
+
+.comment_form button {
+  border: none;
+  background-color: #ffffff;
+  padding-top: 10px;
+}
+
+.comment_container {
+  position: relative;
+  flex: 1;
+  justify-content: flex-start;
+  align-content: center;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  word-wrap: break-word;
+}
+
+.description2 {
+  padding-top: 0;
+}
+
+.detail2 {
+  font-size: small;
+}
+
+.commented_at {
+  position: absolute;
+  right: 0.4%;
+  bottom: -20px;
+  color: #9b9b9b;
+  font-size: small;
+}
+
+.creater-container {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: solid 1px #9b9b9b;
+}
+
+.follow-btn {
+  width: 6rem;
+  height: 2.5rem;
+  /* border-radiusは大きくするとトラックみたいな長方形を半円で挟む形になる */
+  border-radius: 9999px;
+  border: 0;
+
+  color: white;
+  background-color: var(--main-green);
+}
+
+.follow-btn--following {
+  border: 1px solid var(--main-green);
+  color: var(--main-green);
+  background-color: white;
+}
+
+.favorite-container {
+  display: flex;
+  margin: 10px 0;
+}
+
+.favorite-btn {
+  border: none;
+  background: none;
 }
 
 /* ここまで body */

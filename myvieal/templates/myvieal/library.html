@@ -1,0 +1,59 @@
+{% extends "./base.html" %}
+{% load static %}
+{% load  myvieal_extras%}
+{% block extra-style %}
+<link rel="stylesheet" href="{% static 'myvieal/css/library.css' %}">
+{% endblock extra-style %}
+
+{% block content %}
+<nav>
+  <div class="nav">
+    <button class="nav__btn nav__btn--selected" id="nav__btn--following">フォロー中</button>
+    <button class="nav__btn" id="nav__btn--favorite">いいね</button>
+  </div>
+</nav>
+
+<div class="following-list" id="following-list" style="display: block">
+  {% for following_user in object_list %}
+  <a href="" class="link">
+    <div class="following-item">
+      <div class="following-item__icon-wrapper">
+        <div class="following-item__icon" {% if following_user.icon_image %}style="background-image:url({{ following_user.icon_image.url }});"{% endif %}></div>
+      </div>
+      <div class="following-item__username-wrapper">
+        <div class="following-item__username">{{ following_user.username }}</div>
+      </div>
+    </div>
+  </a>
+  {% endfor %}
+</div>
+
+<div class="movie-list" id="movie-list" style="display: none;">
+  {% for movie in movies %}
+    <div class="movie">
+      <a href="{% url 'MovieDetail' movie.pk %}" class="list">
+        {% if movie.thumbnail %}
+        <div class="thumbnail"><img src="{{ movie.thumbnail.url }}" alt=""></div>
+        {% else %}
+        <div class="thumbnail"><video src="{{ movie.movie_file.url }}" type="video/mp4"></video></div>
+        {% endif %}
+        <div class="information">
+          <div class="title">{{ movie.title }}</div>
+          <div class="view_and_time">{{ movie.number_of_views }}回視聴・{{ movie.created_at|timesince|upto:',' }}前</div>
+        </div>
+      </a>
+      {% if movie.created_by == request.user %}
+      <a href="{% url 'MovieEdit' movie.pk %}" class="movie_edit"><img src="{% static 'myvieal/img/pen.svg' %}" alt=""></a>
+      {% endif %}
+    </div>
+    {% endfor %}
+</div>
+
+<script src="{% static 'myvieal/js/library.js' %}"></script>
+{% endblock content %}
+
+{% block footer-item__icon--library %}
+<img src="{% static 'myvieal/img/library_fill.svg' %}">
+{% endblock footer-item__icon--library %}
+
+

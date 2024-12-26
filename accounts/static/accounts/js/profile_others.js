@@ -1,4 +1,4 @@
-// djangoのdocument(https://docs.djangoproject.com/ja/5.1/howto/csrf/)からコピペ
+// djangoのdocument(https://docs.djangoproject.com/ja/5.1/howto/csrf/)からコピペ、クッキーを取得する関数
 function getCookie(name) {
   let cookieValue = null;
   if (document.cookie && document.cookie !== "") {
@@ -17,9 +17,9 @@ function getCookie(name) {
 
 document.querySelector(".follow-btn").onclick = function (event) {
   event.preventDefault();
-  fetch(location.pathname, {
+  fetch(url, {
     method: "POST",
-    body: "",
+    body: "target_user_pk=" + targetUserPk,
     headers: {
       "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
       "X-CSRFToken": getCookie("csrftoken"),

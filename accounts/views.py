@@ -1,5 +1,4 @@
 # Create your views here.
-
 from typing import Any
 
 from allauth.account.views import SignupView
@@ -13,6 +12,7 @@ from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+from django.views import View
 from django.views.generic import DeleteView, DetailView, TemplateView, UpdateView
 
 from .adapter import CustomAccountAdapter
@@ -366,3 +366,20 @@ class AccountDeleteView(DeleteView):
     model = CustomUser
     template_name = "accounts/account_delete.html"
     success_url = reverse_lazy("deleted")
+
+
+class FollowButtonView(LoginRequiredMixin, View):
+    def post(self, request, *args, **kwargs):
+        target_user = CustomUser.objects.get(pk=request.POST.get("target_user_pk"))
+        is_following = target_user in request.user.following.all()
+        json_context = {}
+        if is_following:
+            request.user.following.remove(target_user)
+            json_context["method"] = "unfollow"
+        else:
+            request.user.following.add(target_user)
+            json_context["method"] = "follow"
+
+        json_context["follower_count"] = target_user.followed_by.count()
+
+        return JsonResponse(json_context)

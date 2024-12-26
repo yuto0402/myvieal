@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Movie, Search
+from .models import Comment, Movie, Search
 
 
 class MovieForm(forms.ModelForm):
@@ -22,6 +22,9 @@ class MovieEditForm(forms.ModelForm):
             "title",
             "explanation",
             "thumbnail",
+            "address",
+            "name",
+            "place_id",
         )
 
 
@@ -29,3 +32,20 @@ class SearchHistoryForm(forms.ModelForm):
     class Meta:
         model = Search
         fields = ("search_word",)
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ("content",)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["content"].widget.attrs.update(
+            {
+                "rows": 1,
+                "cols": "",
+                "placeholder": "コメントする",
+                "auto_complete": "off",
+            }
+        )

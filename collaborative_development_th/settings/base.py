@@ -44,8 +44,6 @@ MIDDLEWARE = [
     "accounts.middleware.SessionChangeMiddleware",
 ]
 
-SESSION_ENGINE = "django.contrib.sessions.backends.db"
-
 ROOT_URLCONF = "collaborative_development_th.urls"
 
 TEMPLATES = [

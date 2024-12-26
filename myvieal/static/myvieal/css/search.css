@@ -66,6 +66,29 @@
   z-index: 1; /* z-indexが規定値のままだとそもそもクリックできないので、イベントを起こせなかった。 */
 }
 
+.orders {
+  display: flex;
+  width: 100vw;
+  padding: 10px 0;
+  border-bottom: 1px solid gray;
+}
+
+.orders a:not(.movie-search) {
+  flex: 1;
+  display: grid;
+  place-items: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.movie-search {
+  text-decoration: underline solid #2b8f38;
+  flex: 1;
+  display: grid;
+  place-items: center;
+  color: inherit;
+}
+
 .query-button-container {
   margin: 0.7em 0.7em;
 }

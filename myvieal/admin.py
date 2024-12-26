@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Comment, Movie, Search, Tag
+from .models import Comment, MapHistory, Movie, Search, Tag
 
 
 class MovieAdmin(admin.ModelAdmin):
@@ -23,3 +23,4 @@ admin.site.register(Movie, MovieAdmin)
 admin.site.register(Search, SearchAdmin)
 admin.site.register(Comment, CommentAdmin)
 admin.site.register(Tag, TagAdmin)
+admin.site.register(MapHistory)

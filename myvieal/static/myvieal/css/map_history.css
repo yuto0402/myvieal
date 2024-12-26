@@ -1,0 +1,79 @@
+#map {
+  height: 200px;
+  width: 100%;
+}
+
+.search-bar-container {
+  display: flex;
+  gap: 10px;
+  width: 95vw;
+  justify-content: center;
+  align-items: center;
+  margin-left: 10px;
+}
+
+.top {
+  flex: 1;
+}
+
+#pac-input {
+  flex: 14;
+  background-color: transparent;
+  border: 1px solid white;
+  height: 30px;
+  border-radius: 36px;
+  color: white;
+  padding-left: 1em;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  color: gainsboro;
+  font-size: 12px;
+}
+
+.orders {
+  display: flex;
+  width: 100vw;
+  padding: 10px 0;
+  border-bottom: 1px solid gray;
+}
+
+.orders a:not(.spot) {
+  flex: 1;
+  display: grid;
+  place-items: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.spot {
+  text-decoration: underline solid #2b8f38;
+}
+
+ul {
+  padding-left: 0;
+}
+
+li {
+  list-style: none;
+  padding: 10px 10px;
+  font-size: 15px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  cursor: pointer;
+}
+
+.map-history.hidden {
+  display: none;
+}
+
+.history,
+.prediction {
+  text-decoration: none;
+  color: inherit;
+}
+
+.prediction li {
+  padding: 0;
+}

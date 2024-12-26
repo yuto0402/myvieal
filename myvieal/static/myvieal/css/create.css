@@ -110,7 +110,13 @@ form > div:not(.thumbnail) {
   right: 0%;
 }
 
-textarea {
+.address {
+  display: flex;
+  text-align: center;
+}
+
+textarea,
+input {
   width: 100%;
   border: none;
   outline: none;
@@ -118,7 +124,8 @@ textarea {
   resize: none;
 }
 
-textarea:focus {
+textarea:focus,
+input:focus {
   outline: none;
   box-shadow: none;
   border: none;

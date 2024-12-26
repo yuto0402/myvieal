@@ -4,7 +4,7 @@ document.getElementById("image-input").addEventListener("change", function (even
   // FileReaderで動画のURLを作成
   var reader = new FileReader();
 
-  reader.onload = function () {
+  reader.onload = function (e) {
     iconPreview.src = reader.result; // 動画のプレビューを表示
   };
 

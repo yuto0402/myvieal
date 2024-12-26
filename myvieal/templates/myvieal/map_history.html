@@ -1,0 +1,108 @@
+{% extends "myvieal/base.html" %}
+{% load static %}
+
+{% block extra-style %}
+<link rel="stylesheet" href="{% static 'myvieal/css/map_history.css' %}">
+{% endblock %}
+
+
+{% block header-container %}
+<div class="search-bar-container">
+  <a href="{% url 'search' %}" class="top"><img src="{% static 'myvieal/img/arrow.svg' %}" alt=""></a>
+  <input name="name" id="pac-input" required placeholder="住所を入力">
+</div>
+{% endblock %}
+
+{% block content %}
+<main>
+  <div class="orders">
+    <a href="{% url 'search' %}">動画</a>
+    <a href="{% url 'MapHistory' %}" class="spot">スポット</a>
+    <a href="">タグ</a>
+  </div>
+  <ul id="results" data-image="{% static 'myvieal/img/pin.svg' %}"></ul>
+
+  <ul class="map-history" id="map-history-container">
+  {% for history in map_histories %}
+    <a class="history" href="{% url 'MapResult' %}?name={{history.name}}&address={{history.address}}&placeId={{history.place_id}}">
+    <li>
+      <img src="{% static 'myvieal/img/clock.svg' %}" alt="">{{ history.name }}<br>{{ history.address }}
+    </li>
+    </a>
+  {% endfor %}
+  </ul>
+
+<script>
+  let geocoder;
+  let map;
+  const input = document.getElementById("pac-input");
+  const resultsContainer = document.getElementById("results");
+
+  function initMap() {
+      input.addEventListener('input', () => {
+        const query = input.value
+        resultsContainer.innerHTML = "";
+
+        if (!query.trim()) {
+          resultsContainer.innerHTML = "";
+          return;
+        }
+
+        const displaySuggestions = (predictions, status) => {
+          if (status != google.maps.places.PlacesServiceStatus.OK || !predictions) {
+            resultsContainer.innerHTML = "<li>該当する結果がありません</li>";
+            return;
+          }
+
+          predictions.forEach((prediction) => {
+            const li = document.createElement("li");
+            const imageUrl = resultsContainer.dataset.image;
+            let name;
+            let address = [];
+
+            prediction.terms.forEach((term, index) => {
+              if (index === 0) {
+                name = term.value;
+              } else {
+                address.push(term.value)
+              }
+            })
+
+            address.pop()
+            address = address.reverse().join("");
+
+            li.innerHTML = `
+            <a class="prediction" href="/map/result?name=${name}&address=${address}&placeId=${prediction.place_id}">
+            <li>
+              <img src="${imageUrl}" alt="">${name}<br>${address}
+            </li>
+            </a>`;
+            document.getElementById("results").appendChild(li);
+
+          });
+        };
+
+        const service = new google.maps.places.AutocompleteService();
+        service.getQueryPredictions({ input: query, componentRestrictions: { country: "jp" } }, displaySuggestions);
+      })
+    }
+
+  const historyContainer = document.getElementById("map-history-container");
+
+  input.addEventListener("input", () => {
+    if (input.value.length === 0) {
+      historyContainer.classList.remove("hidden");
+    } else {
+      historyContainer.classList.add("hidden");
+    }
+  });
+
+    window.initMap = initMap;
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap&libraries=places&v=weekly" async defer></script>
+</main>
+{% endblock %}
+
+{% block footer-item__icon--search %}
+<img src={% static "myvieal/img/search_fill.svg" %} alt="">
+{% endblock  %}

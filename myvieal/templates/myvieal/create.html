@@ -43,6 +43,7 @@
       <textarea name="explanation" required placeholder="詳細文を入力"></textarea>
     </div>
 
+<<<<<<< HEAD
     <div class="tag">
       <p>タグ <span class="requirement">必須</span><span class="explanation-length">0/500</span></p>
       <div class="tag_input">
@@ -53,6 +54,13 @@
         </select>
         <img class="tag_create_button" src={% static "myvieal/img/plus.svg" %} alt="" width="16px">
       </div>
+=======
+    <div>
+      <p>位置情報 <span class="requirement">必須</p>
+      <div class="address"><img src="{% static 'myvieal/img/pin.svg' %}" alt=""><input name="name" id="pac-input" placeholder="スポット" required></div>
+      <input  name="place_id" id="place_id" hidden required>
+      <input name="address" id="address" hidden required>
+>>>>>>> main
     </div>
 
     <button type="submit" class="btn btn-primary">投稿</button>
@@ -63,6 +71,7 @@
   </form>
 </main>
 <script src="{% static 'myvieal/js/create.js' %}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap&libraries=places&v=weekly" async defer></script>
 {% endblock %}
 
 {% block footer %}
