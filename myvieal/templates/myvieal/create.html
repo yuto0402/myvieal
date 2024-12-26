@@ -43,26 +43,28 @@
       <textarea name="explanation" required placeholder="詳細文を入力"></textarea>
     </div>
 
-<<<<<<< HEAD
     <div class="tag">
-      <p>タグ <span class="requirement">必須</span><span class="explanation-length">0/500</span></p>
+      <p>タグ <span class="requirement">必須</span></p>
       <div class="tag_input">
-        <select name="tag_list" id="">
-          {% for i in tag_list %}
-            <option value={{ i.pk }}>{{i}}</option>
+        <div class="tag_select_wrapper">
+          <input type="text" name="tag_list" required placeholder="#タグを入力">
+        </div>
+        <div class="genre_list active">
+          {% for value, display in genre %}
+            <p class="display" id="{{value}}">{{display}}</p>
           {% endfor %}
-        </select>
+        </div>
+        <div class="tag_list"></div>
         <img class="tag_create_button" src={% static "myvieal/img/plus.svg" %} alt="" width="16px">
       </div>
-=======
-    <div>
+    </div>
+
+    <div class="location">
       <p>位置情報 <span class="requirement">必須</p>
       <div class="address"><img src="{% static 'myvieal/img/pin.svg' %}" alt=""><input name="name" id="pac-input" placeholder="スポット" required></div>
       <input  name="place_id" id="place_id" hidden required>
       <input name="address" id="address" hidden required>
->>>>>>> main
     </div>
-
     <button type="submit" class="btn btn-primary">投稿</button>
     {% for field in form %}
     {{ field.errors }}
@@ -71,7 +73,7 @@
   </form>
 </main>
 <script src="{% static 'myvieal/js/create.js' %}"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap&libraries=places&v=weekly" async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBzXcKAR-A9HDXwBfXemgidpzqKMq7wiBk&callback=initMap&libraries=places&v=weekly" async defer></script>
 {% endblock %}
 
 {% block footer %}

@@ -36,6 +36,7 @@ class MovieCreateView(LoginRequiredMixin, CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["tag_list"] = Tag.objects.all()
+        context["genre"] = Tag.GENRE_LIST
         return context
 
 
@@ -247,3 +248,13 @@ class FavoriteButtonView(LoginRequiredMixin, View):
         json_context["like_count"] = target_movie.like.count()
 
         return JsonResponse(json_context)
+
+
+# ジャンルの名前を取得して該当するタグを返すview
+def get_tags_by_genre(request, genre_name):
+    if request.method == "GET":
+        tags = Tag.objects.filter(genre=genre_name)
+        tag_list = [tag.name for tag in tags]
+        print(tag_list)
+        return JsonResponse({"tags": tag_list})
+    return None

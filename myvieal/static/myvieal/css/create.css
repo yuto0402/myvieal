@@ -153,13 +153,65 @@ input:focus {
   background-color: #2b8f38;
 }
 
-/* ここまで body */
-
 /* ここからタグ機能 */
+input[name="tag_select"] {
+  display: block;
+  background: #fff;
+  pointer-events: none;
+}
+
+.tag_select_wrapper {
+  z-index: 10;
+}
 
 .tag_input {
+  position: relative;
   display: flex;
   gap: 8px;
 }
 
+.genre_list,
+.tag_list {
+  display: none;
+  height: 10em;
+  overflow-y: scroll;
+}
+
+.genre_list.active,
+.tag_list.active {
+  display: block;
+  padding: 8px;
+  position: absolute;
+  top: 24px;
+  left: 16px;
+  background-color: #fff;
+  box-shadow: 2px 2px 2px black;
+  border: 1px solid #000;
+  border-radius: 8px;
+}
+
+.tag_list.active {
+  top: 24px;
+  left: 128px;
+}
+
+.genre_list p.display {
+  margin: 0;
+}
+
+.genre_list p:hover,
+.tag_list p:hover {
+  background-color: #d0efd4;
+}
+
+.genre_list p.active {
+  background-color: #8ad894;
+}
+
+.tag_list p {
+  margin: 0;
+}
+
 /* ここまでタグ機能 */
+
+/* ここまで body */
