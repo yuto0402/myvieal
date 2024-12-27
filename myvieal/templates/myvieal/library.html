@@ -15,7 +15,7 @@
 
 <div class="following-list" id="following-list" style="display: block">
   {% for following_user in object_list %}
-  <a href="" class="link">
+  <a href="{% url "Profile" following_user.pk %}" class="link">
     <div class="following-item">
       <div class="following-item__icon-wrapper">
         <div class="following-item__icon" {% if following_user.icon_image %}style="background-image:url({{ following_user.icon_image.url }});"{% endif %}></div>
