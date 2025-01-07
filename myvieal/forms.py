@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Comment, Movie, Search
+from .models import Comment, Movie, Search, Tag
 
 
 class MovieForm(forms.ModelForm):
@@ -49,3 +49,9 @@ class CommentForm(forms.ModelForm):
                 "auto_complete": "off",
             }
         )
+
+
+class TagForm(forms.ModelForm):
+    class Meta:
+        model = Tag
+        fields = ("name", "genre")

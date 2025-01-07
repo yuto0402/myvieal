@@ -154,10 +154,19 @@ input:focus {
 }
 
 /* ここからタグ機能 */
-input[name="tag_select"] {
+.tag input {
+  display: none;
+}
+
+.tag_input_text {
   display: block;
-  background: #fff;
-  pointer-events: none;
+  margin: 0;
+  padding: 0;
+  color: #999;
+}
+
+.tag_input_text.added {
+  color: #000;
 }
 
 .tag_select_wrapper {
@@ -167,6 +176,7 @@ input[name="tag_select"] {
 .tag_input {
   position: relative;
   display: flex;
+  align-items: flex-end;
   gap: 8px;
 }
 
@@ -210,6 +220,26 @@ input[name="tag_select"] {
 
 .tag_list p {
   margin: 0;
+}
+
+.tag_create_button {
+  cursor: pointer;
+}
+
+#button_container {
+  display: flex;
+  justify-content: space-around;
+  padding: 8px;
+  border-bottom: none;
+}
+
+.cancel_button {
+  cursor: pointer;
+}
+
+.tag_container {
+  display: flex;
+  justify-content: space-between;
 }
 
 /* ここまでタグ機能 */

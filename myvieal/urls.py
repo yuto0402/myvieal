@@ -19,6 +19,7 @@ urlpatterns = [
     path("map/result/", views.MapResult.as_view(), name="MapResult"),
     path("favorite-button", views.FavoriteButtonView.as_view(), name="favorite_button"),
     path("get_tags/<str:genre_name>", views.get_tags_by_genre, name="get_tags"),
+    path("create-tag/", views.CreateTagView.as_view(), name="create_tag"),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
