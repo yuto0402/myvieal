@@ -42,7 +42,7 @@
     </a>
     {% else %}
     <div class="creater-container">
-      <a href="{% url 'ProfileOthers' movie.created_by.id %}" class="creater">
+      <a href="{% url 'Profile' movie.created_by.id %}" class="creater">
         <div class="icon"><img src="{{ movie.created_by.icon_image.url }}" alt=""></div>
         <div class="createrName">{{ movie.created_by.username }}</div>
       </a>
