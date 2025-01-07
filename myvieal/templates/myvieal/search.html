@@ -41,14 +41,6 @@
   {% endfor %}
 </main>
 <script>
-  document.addEventListener('load',(e)=>{
-    alert('chin')
-    {% if is_searched_by_created_at %}
-      document.querySelector(".query-button.created_at").classList.add("target")
-      alert('chin')
-    {% endif %}
-  })
-
 const icons = document.querySelectorAll('.icon img');
 icons.forEach(icon => {
   icon.addEventListener('click', e => {
