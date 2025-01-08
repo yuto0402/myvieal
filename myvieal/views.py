@@ -3,7 +3,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Count, Q
 from django.http import JsonResponse
-from django.shortcuts import redirect
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
 from django.utils import timezone
 from django.views import View
@@ -229,8 +229,8 @@ class MapResult(LoginRequiredMixin, ListView):
 
 class FavoriteButtonView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
-        target_movie = Movie.objects.get(pk=request.POST.get("target_movie_pk"))
-        is_favorite = target_movie in request.user.movie_like.all()
+        target_movie = get_object_or_404(Movie, pk=request.POST.get("target_movie_pk"))
+        is_favorite = request.user.movie_like.filter(pk=target_movie.pk).exists()
         json_context = {}
         if is_favorite:
             request.user.movie_like.remove(target_movie)
