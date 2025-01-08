@@ -20,6 +20,8 @@ urlpatterns = [
     path("favorite-button", views.FavoriteButtonView.as_view(), name="favorite_button"),
     path("get_tags/<str:genre_name>", views.get_tags_by_genre, name="get_tags"),
     path("create-tag/", views.CreateTagView.as_view(), name="create_tag"),
+    path("privacy-policy", TemplateView.as_view(template_name="myvieal/privacy_policy.html"), name="privacy_policy"),
+    path("term-of-use/", TemplateView.as_view(template_name="myvieal/term_of_use.html"), name="term_of_use"),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

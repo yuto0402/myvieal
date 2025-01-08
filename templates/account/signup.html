@@ -22,7 +22,7 @@
   </div>
   <div class="checkbox">
     <input type="checkbox" name="privacy-policy" required>
-    <label for="privacy-policy"><a href="">利用規約</a>と<a href="">プライバシーポリシー</a>に同意する</label>
+    <label for="privacy-policy"><a href="{% url "privacy_policy" %}">利用規約</a>と<a href="{% url "term_of_use" %}">プライバシーポリシー</a>に同意する</label>
   </div>
   <div class="error_container">
     {% for field in form %}
