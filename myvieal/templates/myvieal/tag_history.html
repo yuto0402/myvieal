@@ -1,0 +1,49 @@
+{% extends "myvieal/base.html" %}
+{% load static %}
+{% block extra-style %}
+  <link rel="stylesheet" href="{% static 'myvieal/css/top.css' %}">
+  <link rel="stylesheet" href="{% static 'myvieal/css/search.css' %}">
+{% endblock %}
+{% block header-container %}
+<div class="back_button_container">
+  <a href= {% url "tag_search" %}>
+    <img src={% static "myvieal/img/戻るボタン.svg" %} alt="">
+  </a>
+</div>
+<div class="search-bar-container history">
+  <form method="POST">
+    {% csrf_token %}
+    <input id ="search-bar" class="history" type="text" name="search_word" value="{{search_text}}" placeholder="動画を検索">
+  </form>
+  <img src={% static "myvieal/img/キャンセルボタン.svg" %} class="cancel-button" style = "display : none;">
+</div>
+{% endblock %}
+{% block content %}
+{% for history in histories %}
+  <a href= {% url "tag_search" %}?search={{history.search_word}} class="history-container">
+    <img src={% static "myvieal/img/検索履歴.svg" %}  alt="">{{history.search_word}}
+  </a>
+{% endfor %}
+<script>
+  const cancel = document.querySelector(".cancel-button")
+  const search = document.querySelector("#search-bar")
+
+  search.addEventListener('input', ()=>{
+    if (search.value == ""){
+    cancel.style.display = "none"
+    } else {
+    cancel.style.display = "block"
+    }
+  })
+
+  cancel.addEventListener('click', ()=>{
+    search.value = ""
+    cancel.style.display = "none"
+  })
+</script>
+{% endblock content %}
+{% block footer-item__icon--search %}
+<img src={% static "myvieal/img/search_fill.svg" %} alt="">
+{% endblock  %}
+
+

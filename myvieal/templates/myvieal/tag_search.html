@@ -8,7 +8,7 @@
 {% block header-container %}
 <div class="search-bar-container">
   <form method="get">
-    <a class="search-text-link" href="{% url "search_history" %}">
+    <a class="search-text-link" href="{% url "tag_history" %}">
       <input id ="search-bar" class="top" type="text" name="search" value="{{search_text}}" placeholder="動画を検索" readonly>
     </a>
   </form>
@@ -16,7 +16,7 @@
 {% endblock %}
 {% block content %}
 <div class="orders">
-  <a href=" class="movie-search">動画</a>
+  <a href="{% url 'search' %}" class="movie-search">動画</a>
   <a href="{% url 'MapHistory' %}">スポット</a>
   <a href="{% url 'tag_search' %}">タグ</a>
 </div>
@@ -41,6 +41,14 @@
   {% endfor %}
 </main>
 <script>
+  document.addEventListener('load',(e)=>{
+    alert('chin')
+    {% if is_searched_by_created_at %}
+      document.querySelector(".query-button.created_at").classList.add("target")
+      alert('chin')
+    {% endif %}
+  })
+
 const icons = document.querySelectorAll('.icon img');
 icons.forEach(icon => {
   icon.addEventListener('click', e => {
