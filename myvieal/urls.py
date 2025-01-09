@@ -18,10 +18,12 @@ urlpatterns = [
     path("map/history/", views.MapHistoryView.as_view(), name="MapHistory"),
     path("map/result/", views.MapResult.as_view(), name="MapResult"),
     path("favorite-button", views.FavoriteButtonView.as_view(), name="favorite_button"),
-    path("tag_search/", views.TagSearchView.as_view(), name="tag_search"),
-    path("tag/history", views.TagHistory.as_view(), name="tag_history"),
+    path("tag_search/", views.SearchView.as_view(), name="tag_search"),
+    path("tag/history", views.MapHistoryView.as_view(), name="tag_history"),
     path("get_tags/<str:genre_name>", views.get_tags_by_genre, name="get_tags"),
     path("create-tag/", views.CreateTagView.as_view(), name="create_tag"),
+    path("privacy-policy/", TemplateView.as_view(template_name="myvieal/privacy_policy.html"), name="privacy_policy"),
+    path("term-of-use/", TemplateView.as_view(template_name="myvieal/term_of_use.html"), name="term_of_use"),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

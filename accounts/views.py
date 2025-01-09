@@ -7,7 +7,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth.views import PasswordChangeView
 from django.http import JsonResponse
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse, reverse_lazy
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
@@ -335,8 +335,14 @@ class AccountDeleteView(DeleteView):
 
 class FollowButtonView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
-        target_user = CustomUser.objects.get(pk=request.POST.get("target_user_pk"))
-        is_following = target_user in request.user.following.all()
+        target_user_pk = request.POST.get("target_user_pk")
+        if request.user.pk == int(target_user_pk):
+            return JsonResponse(
+                {"error": "Bad Request", "message": "自分自身をフォローすることはできません"}, status=400
+            )
+
+        target_user = get_object_or_404(CustomUser, pk=target_user_pk)
+        is_following = request.user.following.filter(pk=target_user_pk).exists()
         json_context = {}
         if is_following:
             request.user.following.remove(target_user)

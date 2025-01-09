@@ -81,6 +81,12 @@
   </div>
 </main>
 <script>
+  {% if movie.created_by == user %}
+  const createdSelf = true
+  {% else %}
+  const createdSelf = false
+  {% endif %}
+
   const followBtnUrl = "{% url "follow_button" %}"
   const targetUserPk = {{ movie.created_by.pk }}
   const favoriteBtnUrl = "{% url "favorite_button" %}"

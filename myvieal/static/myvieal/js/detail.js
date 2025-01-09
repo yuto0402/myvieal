@@ -45,39 +45,41 @@ function getCookie(name) {
   return cookieValue;
 }
 
-document.querySelector(".follow-btn").addEventListener("click", function (event) {
-  event.preventDefault();
-  fetch(followBtnUrl, {
-    method: "POST",
-    body: "target_user_pk=" + targetUserPk,
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
-      "X-CSRFToken": getCookie("csrftoken"),
-    },
-  })
-    // ステータスがokかチェックする処理
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(`Response status: ${response.status}`);
-      } else {
-        return response.json();
-      }
+if (createdSelf == false) {
+  document.querySelector(".follow-btn").addEventListener("click", function (event) {
+    event.preventDefault();
+    fetch(followBtnUrl, {
+      method: "POST",
+      body: "target_user_pk=" + targetUserPk,
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
+        "X-CSRFToken": getCookie("csrftoken"),
+      },
     })
-    .then((response) => {
-      // ボタンの状態を変更する
-      const followBtn = document.querySelector(".follow-btn");
-      if (response.method == "follow") {
-        followBtn.classList.add("follow-btn--following");
-        followBtn.textContent = "フォロー中";
-      } else if (response.method == "unfollow") {
-        followBtn.classList.remove("follow-btn--following");
-        followBtn.textContent = "フォロー";
-      }
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-});
+      // ステータスがokかチェックする処理
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Response status: ${response.status}`);
+        } else {
+          return response.json();
+        }
+      })
+      .then((response) => {
+        // ボタンの状態を変更する
+        const followBtn = document.querySelector(".follow-btn");
+        if (response.method == "follow") {
+          followBtn.classList.add("follow-btn--following");
+          followBtn.textContent = "フォロー中";
+        } else if (response.method == "unfollow") {
+          followBtn.classList.remove("follow-btn--following");
+          followBtn.textContent = "フォロー";
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  });
+}
 
 document.getElementById("favorite-btn").addEventListener("click", function (event) {
   event.preventDefault();
