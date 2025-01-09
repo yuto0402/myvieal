@@ -26,9 +26,14 @@ class FollowButtonTest(TestCase):
     def test_user_is_not_following_target_user(self):
         self.client.force_login(self.tester_user)
         response = self.client.post(reverse("follow_button"), {"target_user_pk": self.test_user_followed.pk})
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json()["method"], "follow")
-        self.assertTrue(self.tester_user.following.filter(pk=self.test_user_followed.pk).exists())
+        with self.subTest(response=response):
+            self.assertEqual(response.status_code, 200)
+        with self.subTest(response=response):
+            self.assertEqual(response.json()["method"], "follow")
+        with self.subTest(response=response):
+            self.assertTrue(self.tester_user.following.filter(pk=self.test_user_followed.pk).exists())
+        with self.subTest(response=response):
+            self.assertEqual(response.json()["follower_count"], 1)
 
     def test_user_is_following_target_user(self):
         self.client.force_login(self.tester_user)
@@ -36,6 +41,7 @@ class FollowButtonTest(TestCase):
         response = self.client.post(reverse("follow_button"), {"target_user_pk": self.test_user_followed.pk})
         self.assertEqual(response.json()["method"], "unfollow")
         self.assertFalse(self.tester_user.following.filter(pk=self.test_user_followed.pk).exists())
+        self.assertEqual(response.json()["follower_count"], 0)
 
     def test_with_not_exist_user(self):
         self.client.force_login(self.tester_user)
