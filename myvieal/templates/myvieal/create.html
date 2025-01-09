@@ -43,22 +43,61 @@
       <textarea name="explanation" required placeholder="詳細文を入力"></textarea>
     </div>
 
-    <div>
+    <div class="tag">
+      <p>タグ <span class="requirement">必須</span></p>
+      <div class="tag_input">
+        <div class="tag_select_wrapper">
+          <input type="text" name="hidden_value">
+          <p class="tag_input_text">#タグを入力</p>
+        </div>
+        <div class="genre_list">
+          {% for value, display in genre %}
+            <p class="display" id="{{value}}">{{display}}</p>
+          {% endfor %}
+        </div>
+        <div class="tag_list"></div>
+        <img class="tag_create_button" src={% static "myvieal/img/plus.svg" %} alt="" width="16px">
+      </div>
+    </div>
+
+    <div class="location">
       <p>位置情報 <span class="requirement">必須</p>
       <div class="address"><img src="{% static 'myvieal/img/pin.svg' %}" alt=""><input name="name" id="pac-input" placeholder="スポット" required></div>
       <input  name="place_id" id="place_id" hidden required>
       <input name="address" id="address" hidden required>
     </div>
-
     <button type="submit" class="btn btn-primary">投稿</button>
     {% for field in form %}
     {{ field.errors }}
     {% endfor %}
     {{ form.non_field_errors }}
   </form>
+  <dialog id="modalDialog" class="dialog">
+    <div id="dialog_container">
+      <h2>タグの新規作成</h2>
+      <form id="tag_create_form" method="post">
+        {% csrf_token %}
+        <input type="text" name="name" id="tag_create_text" placeholder="タグを作成">
+        <select name="genre" id="">
+          {% for value, display in genre %}
+          <option value="{{value}}">{{display}}</option>
+          {% endfor %}
+        </select>
+        <div id="button_container">
+          <div class="cancel_button">キャンセル</div>
+          <button type="submit">作成</button>
+        </div>
+      </form>
+    </div>
+  </dialog>
+  <div class="image_url_indicator" url="{% static "myvieal/img/キャンセルボタン黒.svg" %}"></div>
 </main>
 <script src="{% static 'myvieal/js/create.js' %}"></script>
+<<<<<<< HEAD
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCqp7gtBAc-qtH5vUI5wxTPSIo5D89IMN0&callback=initMap&libraries=places&v=weekly" async defer></script>
+=======
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBzXcKAR-A9HDXwBfXemgidpzqKMq7wiBk&callback=initMap&libraries=places&v=weekly" async defer></script>
+>>>>>>> 6c36dcce1c71c546de05f212bdce0cfa9ad7721d
 {% endblock %}
 
 {% block footer %}

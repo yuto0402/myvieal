@@ -9,7 +9,7 @@ from django.utils import timezone
 from django.views import View
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
 
-from .forms import CommentForm, MovieEditForm, MovieForm, SearchHistoryForm
+from .forms import CommentForm, MovieEditForm, MovieForm, SearchHistoryForm, TagForm
 from .models import CustomUser, MapHistory, Movie, Search, Tag
 
 
@@ -31,7 +31,17 @@ class MovieCreateView(LoginRequiredMixin, CreateView):
         instance = form.save(commit=False)
         instance.created_by = self.request.user
         instance.save()
+        tag_list = form.cleaned_data["tag_list"]
+        for tag in tag_list:
+            tag.number += 1
+            tag.save()
         return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["tag_list"] = Tag.objects.all()
+        context["genre"] = Tag.GENRE_LIST
+        return context
 
 
 class MovieDetailView(LoginRequiredMixin, DetailView):
@@ -243,6 +253,7 @@ class FavoriteButtonView(LoginRequiredMixin, View):
 
         return JsonResponse(json_context)
 
+<<<<<<< HEAD
 class TagSearchView(LoginRequiredMixin, ListView):
     model = Movie
     template_name = "myvieal/tag_search.html"
@@ -294,3 +305,29 @@ class TagHistory(LoginRequiredMixin, CreateView):
         context = super().get_context_data(**kwargs)
         context["histories"] = Search.objects.filter(searched_by=self.request.user)
         return context
+=======
+
+# ジャンルの名前を取得して該当するタグの名前とidを返すview
+def get_tags_by_genre(request, genre_name):
+    if request.method == "GET":
+        tags = Tag.objects.filter(genre=genre_name)
+        tag_list = []
+        for tag in tags:
+            tag_element = {}
+            tag_element["name"] = tag.name
+            tag_element["id"] = tag.id
+            tag_list.append(tag_element)
+        return JsonResponse({"tag_list": tag_list})
+    return None
+
+
+class CreateTagView(View):
+    def post(self, request, *args, **kwargs):
+        form = TagForm(request.POST)
+        if form.is_valid():
+            temp = form.save(commit=False)
+            temp.created_by = request.user
+            temp.save()
+            return JsonResponse({"success": True})
+        return JsonResponse({"success": False, "errors": form.errors})
+>>>>>>> 6c36dcce1c71c546de05f212bdce0cfa9ad7721d

@@ -1,5 +1,4 @@
 # Create your views here.
-from typing import Any
 
 from allauth.account.views import SignupView
 from django.contrib.auth import get_user_model, login
@@ -62,6 +61,10 @@ class ProfileView(LoginRequiredMixin, DetailView):
         context["movies"] = movies
         context["movie_count"] = self.object.movie_set.count()
         context["follower_count"] = self.object.followed_by.count()
+
+        if self.request.user != self.object:
+            context["is_following"] = self.object in self.request.user.following.all()
+
         return context
 
 
@@ -254,44 +257,6 @@ def resend_email_change(request):
     return render(
         request, "accounts/email_change_confirmation.html", {"form": form, "post_success": post_success, "email": email}
     )
-
-
-class ProfileOthersView(LoginRequiredMixin, DetailView):
-    model = CustomUser
-    context_object_name = "user"
-    template_name = "accounts/profile_others.html"
-
-    # 共通して使う変数を設定
-    def setup(self, request, *args, **kwargs):
-        super().setup(request, *args, **kwargs)
-        self.object = self.get_object()
-        self.is_following = self.object in request.user.following.all()
-
-    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
-        context = super().get_context_data(**kwargs)
-        movies = self.object.movie_set.all().order_by("-created_at")
-
-        extra_context = {
-            "is_following": self.is_following,
-            "movies": movies,
-            "movie_count": movies.count(),
-            "follower_count": self.object.followed_by.count(),
-        }
-        context.update(extra_context)
-        return context
-
-    def post(self, request, *args, **kwargs):
-        json_context = {}
-        if self.is_following:
-            request.user.following.remove(self.object)
-            json_context["method"] = "unfollow"
-        else:
-            request.user.following.add(self.object)
-            json_context["method"] = "follow"
-
-        json_context["follower_count"] = self.object.followed_by.count()
-
-        return JsonResponse(json_context)
 
 
 @login_required

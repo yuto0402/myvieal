@@ -11,7 +11,7 @@
   <div class="profile">
     <div class="icon"><img src="{{ user.icon_image.url }}" alt=""></div>
     <div class="username">{{ user.username }}</div>
-    <div class="movie_and_follower">{{ movie_count }}本の動画・{{ follower_count }}フォロワー</div>
+    <div class="movie_and_follower">{{ movie_count }}本の動画・<span id="follower_count">{{ follower_count }}</span>フォロワー</div>
     <div class="introduction">{{ user.introduction }}</div>
     <span class="detail">...もっと見る</span>
 
@@ -22,10 +22,11 @@
     </div>
 
     {% else %}
-    <div class="setting">
-      <button class="follow-button">フォロー</button>
-    </div>
-
+      {% if is_following %}
+      <button type="button" class="follow-btn follow-btn--following">フォロー中</button>
+      {% else %}
+      <button type="button" class="follow-btn">フォロー</button>
+      {% endif %}
     {% endif %}
 
   </div>
@@ -47,6 +48,14 @@
     {% endif %}
   </div>
   {% endfor %}
+
+{% if user != request.user %}
+<script>
+  const url = "{% url "follow_button" %}";
+  const targetUserPk = "{{ user.pk }}";
+</script>
+<script src="{% static 'accounts/js/follow_btn.js' %}"></script>
+{% endif %}
 <script src="{% static 'accounts/js/profile.js' %}"></script>
 </main>
 {% endblock %}

@@ -3,6 +3,7 @@ html,
 body {
   overflow-x: hidden;
 }
+
 /* ここまで全体 */
 
 /* header */
@@ -151,5 +152,96 @@ input:focus {
   color: #fff;
   background-color: #2b8f38;
 }
+
+/* ここからタグ機能 */
+.tag input {
+  display: none;
+}
+
+.tag_input_text {
+  display: block;
+  margin: 0;
+  padding: 0;
+  color: #999;
+}
+
+.tag_input_text.added {
+  color: #000;
+}
+
+.tag_select_wrapper {
+  z-index: 10;
+}
+
+.tag_input {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.genre_list,
+.tag_list {
+  display: none;
+  height: 10em;
+  overflow-y: scroll;
+}
+
+.genre_list.active,
+.tag_list.active {
+  display: block;
+  padding: 8px;
+  position: absolute;
+  top: 24px;
+  left: 16px;
+  background-color: #fff;
+  box-shadow: 2px 2px 2px black;
+  border: 1px solid #000;
+  border-radius: 8px;
+}
+
+.tag_list.active {
+  top: 24px;
+  left: 128px;
+}
+
+.genre_list p.display {
+  margin: 0;
+}
+
+.genre_list p:hover,
+.tag_list p:hover {
+  background-color: #d0efd4;
+}
+
+.genre_list p.active {
+  background-color: #8ad894;
+}
+
+.tag_list p {
+  margin: 0;
+}
+
+.tag_create_button {
+  cursor: pointer;
+}
+
+#button_container {
+  display: flex;
+  justify-content: space-around;
+  padding: 8px;
+  border-bottom: none;
+}
+
+.cancel_button {
+  cursor: pointer;
+}
+
+.tag_container {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* ここまでタグ機能 */
 
 /* ここまで body */
