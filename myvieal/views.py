@@ -221,22 +221,12 @@ class MapResult(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         order = self.request.GET.get("display_order")
-<<<<<<< HEAD
-        place_id = self.request.GET.get("placeId")
-        tag_count = Tag.objects.filter(movie__place_id=place_id).annotate(num_movies=Count("movie", filter=Q(movie__place_id=place_id)))
-        top_3tags = tag_count.order_by("-num_movies")[:4]
-        context["name"] = self.request.GET.get("name")
-        context["address"] = self.request.GET.get("address")
-        context["place_id"] = place_id
-        context["tags"] = top_3tags
-=======
         place_id = self.request.GET.get('placeId')
         top_4tags = Tag.objects.filter(movie__place_id=place_id).annotate(num_movies=Count('movie', filter=Q(movie__place_id=place_id), distinct=True)).order_by('-num_movies')[:4]
         context['name'] = self.request.GET.get('name')
         context['address'] = self.request.GET.get('address')
         context['place_id'] = place_id
         context['tags'] = top_4tags
->>>>>>> aa5527fcb9ae3b3eb90734aa3119a870717c50e2
         if order == "created_at":
             context["is_searched_by_created_at"] = True
         elif order == "number_of_views":
@@ -262,7 +252,6 @@ class FavoriteButtonView(LoginRequiredMixin, View):
 
         return JsonResponse(json_context)
 
-<<<<<<< HEAD
 class TagSearchView(LoginRequiredMixin, ListView):
     model = Movie
     template_name = "myvieal/tag_search.html"
@@ -314,7 +303,6 @@ class TagHistory(LoginRequiredMixin, CreateView):
         context = super().get_context_data(**kwargs)
         context["histories"] = Search.objects.filter(searched_by=self.request.user)
         return context
-=======
 
 # ジャンルの名前を取得して該当するタグの名前とidを返すview
 def get_tags_by_genre(request, genre_name):
@@ -339,4 +327,3 @@ class CreateTagView(View):
             temp.save()
             return JsonResponse({"success": True})
         return JsonResponse({"success": False, "errors": form.errors})
->>>>>>> 6c36dcce1c71c546de05f212bdce0cfa9ad7721d
