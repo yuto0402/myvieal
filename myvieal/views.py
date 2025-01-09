@@ -212,7 +212,7 @@ class MapResult(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         order = self.request.GET.get("display_order")
         place_id = self.request.GET.get("placeId")
-        tag_count = Tag.objects.annotate(num_movies=Count("movie", filter=Q(movie__place_id=place_id)))
+        tag_count = Tag.objects.filter(movie__place_id=place_id).annotate(num_movies=Count("movie", filter=Q(movie__place_id=place_id)))
         top_3tags = tag_count.order_by("-num_movies")[:4]
         context["name"] = self.request.GET.get("name")
         context["address"] = self.request.GET.get("address")
@@ -242,3 +242,55 @@ class FavoriteButtonView(LoginRequiredMixin, View):
         json_context["like_count"] = target_movie.like.count()
 
         return JsonResponse(json_context)
+
+class TagSearchView(LoginRequiredMixin, ListView):
+    model = Movie
+    template_name = "myvieal/tag_search.html"
+
+    def get_queryset(self):
+        obj = Movie.objects.all()
+        order = self.request.GET.get("display_order")
+        search = self.request.GET.get("search")
+        if order is not None:
+            obj = obj.order_by("-" + order)
+        if search is not None:
+            obj = obj.filter(tag_list__name=search).distinct()
+        return obj
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        order = self.request.GET.get("display_order")
+        if self.request.GET.get("search") is not None:
+            context["search_text"] = self.request.GET.get("search")
+        if order == "created_at":
+            context["is_searched_by_created_at"] = True
+        elif order == "number_of_views":
+            context["is_searched_by_numbers_of_views"] = True
+        return context
+
+    # コンテクストデータのキーは標準では"videos_list"(モデル名_list)なので"movies"に変更
+    context_object_name = "movies"
+
+class TagHistory(LoginRequiredMixin, CreateView):
+    model = Search
+    form_class = SearchHistoryForm
+    template_name = "myvieal/tag_history.html"
+
+    def get_success_url(self):
+        return reverse("tag_search") + "?search=" + self.request.POST.get("search_word")
+
+    def form_valid(self, form):
+        instance = form.save(commit=False)
+        instance.searched_by = self.request.user
+        instance.searched_at = timezone.now()
+        instance.save()
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        print("フォームinvalid")
+        return super().form_invalid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["histories"] = Search.objects.filter(searched_by=self.request.user)
+        return context
