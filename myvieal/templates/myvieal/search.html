@@ -16,7 +16,7 @@
 {% endblock %}
 {% block content %}
 <div class="orders">
-  <a href=" class="movie-search">動画</a>
+  <a href="{% url 'search' %}" class="movie-search">動画</a>
   <a href="{% url 'MapHistory' %}">スポット</a>
   <a href="{% url 'tag_search' %}">タグ</a>
 </div>
