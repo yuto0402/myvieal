@@ -1,5 +1,4 @@
 # Create your views here.
-from typing import Any
 
 from allauth.account.views import SignupView
 from django.contrib.auth import get_user_model, login
@@ -8,7 +7,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth.views import PasswordChangeView
 from django.http import JsonResponse
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse, reverse_lazy
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
@@ -62,6 +61,10 @@ class ProfileView(LoginRequiredMixin, DetailView):
         context["movies"] = movies
         context["movie_count"] = self.object.movie_set.count()
         context["follower_count"] = self.object.followed_by.count()
+
+        if self.request.user != self.object:
+            context["is_following"] = self.object in self.request.user.following.all()
+
         return context
 
 
@@ -256,44 +259,6 @@ def resend_email_change(request):
     )
 
 
-class ProfileOthersView(LoginRequiredMixin, DetailView):
-    model = CustomUser
-    context_object_name = "user"
-    template_name = "accounts/profile_others.html"
-
-    # 共通して使う変数を設定
-    def setup(self, request, *args, **kwargs):
-        super().setup(request, *args, **kwargs)
-        self.object = self.get_object()
-        self.is_following = self.object in request.user.following.all()
-
-    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
-        context = super().get_context_data(**kwargs)
-        movies = self.object.movie_set.all().order_by("-created_at")
-
-        extra_context = {
-            "is_following": self.is_following,
-            "movies": movies,
-            "movie_count": movies.count(),
-            "follower_count": self.object.followed_by.count(),
-        }
-        context.update(extra_context)
-        return context
-
-    def post(self, request, *args, **kwargs):
-        json_context = {}
-        if self.is_following:
-            request.user.following.remove(self.object)
-            json_context["method"] = "unfollow"
-        else:
-            request.user.following.add(self.object)
-            json_context["method"] = "follow"
-
-        json_context["follower_count"] = self.object.followed_by.count()
-
-        return JsonResponse(json_context)
-
-
 @login_required
 def email_change_view(request):
     email = request.user.email
@@ -370,8 +335,14 @@ class AccountDeleteView(DeleteView):
 
 class FollowButtonView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
-        target_user = CustomUser.objects.get(pk=request.POST.get("target_user_pk"))
-        is_following = target_user in request.user.following.all()
+        target_user_pk = request.POST.get("target_user_pk")
+        if request.user.pk == int(target_user_pk):
+            return JsonResponse(
+                {"error": "Bad Request", "message": "自分自身をフォローすることはできません"}, status=400
+            )
+
+        target_user = get_object_or_404(CustomUser, pk=target_user_pk)
+        is_following = request.user.following.filter(pk=target_user_pk).exists()
         json_context = {}
         if is_following:
             request.user.following.remove(target_user)

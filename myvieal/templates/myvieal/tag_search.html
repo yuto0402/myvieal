@@ -8,7 +8,7 @@
 {% block header-container %}
 <div class="search-bar-container">
   <form method="get">
-    <a class="search-text-link" href="{% url "search_history" %}">
+    <a class="search-text-link" href="{% url "tag_history" %}">
       <input id ="search-bar" class="top" type="text" name="search" value="{{search_text}}" placeholder="動画を検索" readonly>
     </a>
   </form>
@@ -21,7 +21,6 @@
   <a href="{% url 'tag_search' %}">タグ</a>
 </div>
 <form class="query-button-container" method="get" action="/search/">
-  <button class="query-button word_search" type="submit" disabled>関連度順</button>
   <button class="query-button created_at" type="submit" name="display_order" value="created_at">新着の動画</button>
   <button class="query-button number_of_views" type="submit" name="display_order" value="number_of_views">人気の動画</button>
 </form>
@@ -42,6 +41,14 @@
   {% endfor %}
 </main>
 <script>
+  document.addEventListener('load',(e)=>{
+    alert('chin')
+    {% if is_searched_by_created_at %}
+      document.querySelector(".query-button.created_at").classList.add("target")
+      alert('chin')
+    {% endif %}
+  })
+
 const icons = document.querySelectorAll('.icon img');
 icons.forEach(icon => {
   icon.addEventListener('click', e => {
@@ -50,18 +57,36 @@ icons.forEach(icon => {
   location.href=icon.dataset.url;
   })
 })
-{% if search_text %}
-document.querySelector(".query-button.word_search").classList.add("target")
-{% else %}
-document.querySelector(".query-button.word_search").style.display="none"
-{% endif %}
-{% if is_searched_by_created_at %}
-  document.querySelector(".query-button.created_at").classList.add("target")
-{% endif %}
-{% if is_searched_by_numbers_of_views %}
-  document.querySelector(".query-button.number_of_views").classList.add("target")
-{% endif %}
+
+  {% if is_searched_by_created_at %}
+    document.querySelector(".query-button.created_at").classList.add("target")
+  {% endif %}
+  {% if is_searched_by_numbers_of_views %}
+    document.querySelector(".query-button.number_of_views").classList.add("target")
+  {% endif %}
 </script>
+{% comment %} <script>
+  const search_text = document.querySelector("#search-bar");
+  search_text.addEventListener('click', (e) => {
+    e.preventDefault
+    // const url = {% url "search" %};
+  const showUsers = async () => {
+    try {
+      const response = await fetch(`${url}/?search=${search_text.value}`, {
+        method: 'GET',
+        body: '',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+          'X-CSRFToken': '{{ csrf_token }}',
+        }
+      })
+      const jsonresponse = await response.json()
+      console.log(jsonresponse)
+    } catch (err) {
+      console.log('Error log: ' + err);
+    }
+  }})
+</script> {% endcomment %}
 {% endblock content %}
 {% block footer-item__icon--search %}
 <img src={% static "myvieal/img/search_fill.svg" %} alt="">

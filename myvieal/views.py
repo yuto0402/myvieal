@@ -3,13 +3,13 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Count, Q
 from django.http import JsonResponse
-from django.shortcuts import redirect
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
 from django.utils import timezone
 from django.views import View
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
 
-from .forms import CommentForm, MovieEditForm, MovieForm, SearchHistoryForm
+from .forms import CommentForm, MovieEditForm, MovieForm, SearchHistoryForm, TagForm
 from .models import CustomUser, MapHistory, Movie, Search, Tag
 
 
@@ -31,7 +31,17 @@ class MovieCreateView(LoginRequiredMixin, CreateView):
         instance = form.save(commit=False)
         instance.created_by = self.request.user
         instance.save()
+        tag_list = form.cleaned_data["tag_list"]
+        for tag in tag_list:
+            tag.number += 1
+            tag.save()
         return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["tag_list"] = Tag.objects.all()
+        context["genre"] = Tag.GENRE_LIST
+        return context
 
 
 class MovieDetailView(LoginRequiredMixin, DetailView):
@@ -212,12 +222,15 @@ class MapResult(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         order = self.request.GET.get("display_order")
         place_id = self.request.GET.get("placeId")
-        tag_count = Tag.objects.annotate(num_movies=Count("movie", filter=Q(movie__place_id=place_id)))
-        top_3tags = tag_count.order_by("-num_movies")[:4]
+        top_4tags = (
+            Tag.objects.filter(movie__place_id=place_id)
+            .annotate(num_movies=Count("movie", filter=Q(movie__place_id=place_id), distinct=True))
+            .order_by("-num_movies")[:4]
+        )
         context["name"] = self.request.GET.get("name")
         context["address"] = self.request.GET.get("address")
         context["place_id"] = place_id
-        context["tags"] = top_3tags
+        context["tags"] = top_4tags
         if order == "created_at":
             context["is_searched_by_created_at"] = True
         elif order == "number_of_views":
@@ -229,8 +242,8 @@ class MapResult(LoginRequiredMixin, ListView):
 
 class FavoriteButtonView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
-        target_movie = Movie.objects.get(pk=request.POST.get("target_movie_pk"))
-        is_favorite = target_movie in request.user.movie_like.all()
+        target_movie = get_object_or_404(Movie, pk=request.POST.get("target_movie_pk"))
+        is_favorite = request.user.movie_like.filter(pk=target_movie.pk).exists()
         json_context = {}
         if is_favorite:
             request.user.movie_like.remove(target_movie)
@@ -242,3 +255,82 @@ class FavoriteButtonView(LoginRequiredMixin, View):
         json_context["like_count"] = target_movie.like.count()
 
         return JsonResponse(json_context)
+
+
+class TagSearchView(LoginRequiredMixin, ListView):
+    model = Movie
+    template_name = "myvieal/tag_search.html"
+
+    def get_queryset(self):
+        obj = Movie.objects.all()
+        order = self.request.GET.get("display_order")
+        search = self.request.GET.get("search")
+        if order is not None:
+            obj = obj.order_by("-" + order)
+        if search is not None:
+            obj = obj.filter(tag_list__name=search).distinct()
+        return obj
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        order = self.request.GET.get("display_order")
+        if self.request.GET.get("search") is not None:
+            context["search_text"] = self.request.GET.get("search")
+        if order == "created_at":
+            context["is_searched_by_created_at"] = True
+        elif order == "number_of_views":
+            context["is_searched_by_numbers_of_views"] = True
+        return context
+
+    # コンテクストデータのキーは標準では"videos_list"(モデル名_list)なので"movies"に変更
+    context_object_name = "movies"
+
+
+class TagHistory(LoginRequiredMixin, CreateView):
+    model = Search
+    form_class = SearchHistoryForm
+    template_name = "myvieal/tag_history.html"
+
+    def get_success_url(self):
+        return reverse("tag_search") + "?search=" + self.request.POST.get("search_word")
+
+    def form_valid(self, form):
+        instance = form.save(commit=False)
+        instance.searched_by = self.request.user
+        instance.searched_at = timezone.now()
+        instance.save()
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        print("フォームinvalid")
+        return super().form_invalid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["histories"] = Search.objects.filter(searched_by=self.request.user)
+        return context
+
+
+# ジャンルの名前を取得して該当するタグの名前とidを返すview
+def get_tags_by_genre(request, genre_name):
+    if request.method == "GET":
+        tags = Tag.objects.filter(genre=genre_name)
+        tag_list = []
+        for tag in tags:
+            tag_element = {}
+            tag_element["name"] = tag.name
+            tag_element["id"] = tag.id
+            tag_list.append(tag_element)
+        return JsonResponse({"tag_list": tag_list})
+    return None
+
+
+class CreateTagView(View):
+    def post(self, request, *args, **kwargs):
+        form = TagForm(request.POST)
+        if form.is_valid():
+            temp = form.save(commit=False)
+            temp.created_by = request.user
+            temp.save()
+            return JsonResponse({"success": True})
+        return JsonResponse({"success": False, "errors": form.errors})

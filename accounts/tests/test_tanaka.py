@@ -4,9 +4,8 @@ from django.urls import reverse
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 
+from accounts.models import CustomUser
 from myvieal.models import Movie
-
-from .models import CustomUser
 
 
 class RedirectIfAuthenticatedTest(TestCase):

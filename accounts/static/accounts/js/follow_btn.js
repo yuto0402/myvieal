@@ -35,8 +35,7 @@ document.querySelector(".follow-btn").onclick = function (event) {
     })
     .then((response) => {
       // フォロワー数を更新
-      document.getElementById("follower_count").textContent =
-        response.follower_count + "フォロワー";
+      document.getElementById("follower_count").textContent = response.follower_count;
       // ボタンの状態を変更する
       const followBtn = document.querySelector(".follow-btn");
       if (response.method == "follow") {
