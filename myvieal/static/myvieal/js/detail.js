@@ -1,3 +1,30 @@
+defaultheight = document.getElementById("id_content").style.height
+
+document.getElementById("form").addEventListener("submit", function (e) {
+  const textarea = document.getElementById("id_content");
+  const trimmedValue = textarea.value.trim();
+  if (trimmedValue === "") {
+    e.preventDefault();
+    textarea.value = "";
+    textarea.style.height = defaultheight;
+    textarea.reportValidity();
+  }
+});
+
+const reply_expanders = document.querySelectorAll(".reply_expander");
+
+reply_expanders.forEach(function (reply_expander) {
+  const text = reply_expander.textContent;
+  reply_expander.addEventListener("click", function () {
+    this.nextElementSibling.classList.toggle("invisible_reply")
+    if (this.textContent.includes("件の返信を見る")) {
+      this.innerHTML = '<span style="color: #2b8f38;">閉じる</span>';
+    } else {
+      this.innerHTML = `<span style="color: #2b8f38;">${text}</span>`;
+    }
+  });
+});
+
 const details = document.querySelectorAll(".detail");
 const descriptions = document.querySelectorAll(".description");
 
@@ -113,4 +140,56 @@ document.getElementById("favorite-btn").addEventListener("click", function (even
     .catch((error) => {
       console.log(error);
     });
+});
+
+const form_expanders = document.querySelectorAll(".form_expander");
+const reply_textareas = document.querySelectorAll(".reply_textarea");
+const reply_forms = document.querySelectorAll(".reply_form_class")
+let previous = "";
+
+form_expanders.forEach(function (form_expander) {
+  form_expander.addEventListener("click", function () {
+    let tfvalue = this.nextElementSibling.classList.contains("invisible_reply");
+    form_expanders.forEach(function (other_expander) {
+      other_expander.nextElementSibling.classList.add("invisible_reply");
+    });
+    if (tfvalue) {
+      this.nextElementSibling.classList.remove("invisible_reply");
+    } else {
+      this.nextElementSibling.classList.add("invisible_reply");
+    }
+    if (this !== previous) {
+      this.nextElementSibling.firstElementChild.firstElementChild.nextElementSibling.value = "";
+    }
+    previous = this
+  });
+});
+
+reply_textareas.forEach(function (reply_textarea) {
+  reply_textarea.addEventListener("input", function () {
+    this.style.height = "auto";
+    this.style.height = this.scrollHeight + "px";
+  });
+})
+
+reply_forms.forEach(function (reply_form) {
+  const reply_textarea_base = reply_form.firstElementChild.nextElementSibling
+  const reply_defaultheight = reply_textarea_base.style.height
+  reply_form.addEventListener("submit", function (e) {
+    const reply_trimmedValue = reply_textarea_base.value.trim();
+    if (reply_trimmedValue === "") {
+      e.preventDefault();
+      reply_textarea_base.value = "";
+      reply_textarea_base.style.height = reply_defaultheight;
+      reply_textarea_base.reportValidity();
+    }
+  });
+})
+
+const stoppers = document.querySelectorAll(".stopper")
+
+stoppers.forEach(function (stopper) {
+  stopper.addEventListener("click", function (e) {
+    e.stopPropagation();
+  });
 });

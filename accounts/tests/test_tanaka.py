@@ -5,6 +5,7 @@ from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 
 from accounts.models import CustomUser
+from myvieal.models import Comment as Com
 from myvieal.models import Movie
 
 
@@ -382,3 +383,28 @@ class Comment(TestCase):
         )
         self.assertTemplateUsed(response, "myvieal/detail.html")
         self.assertContains(response, "This is test.")
+
+
+class CommentReply(TestCase):
+    def setUp(self):
+        self.user = CustomUser.objects.create_user(
+            username="testuser", password="password123", email="testuser@st.kyoto-u.ac.jp"
+        )
+        self.movie = Movie.objects.create(title="testmovie", movie_file="test.mp4", created_by=self.user)
+        self.comment = Com.objects.create(content="test!", commented_on=self.movie, commented_by=self.user)
+
+    def test_reply_get(self):
+        self.client.login(username="testuser", password="password123")
+        response = self.client.get(reverse("reply", kwargs={"param": self.comment.pk}))
+        self.assertEqual(response.status_code, 405)
+
+    def test_reply_post(self):
+        self.client.login(username="testuser", password="password123")
+        response = self.client.post(
+            reverse("reply", kwargs={"param": self.comment.pk}), {"content": "This is test."}, follow=True
+        )
+        self.assertTemplateUsed(response, "myvieal/detail.html")
+        self.assertContains(response, "test!")
+        self.assertContains(response, "This is test.")
+        reply = Com.objects.get(content="This is test.")
+        self.assertEqual(reply.parent, self.comment)

@@ -1,4 +1,4 @@
-T/* header */
+/* header */
 /* ここまで header */
 
 /* body */
@@ -88,10 +88,12 @@ T/* header */
   body {
     margin: 0;
   }
+
   main {
     display: flex;
     flex-direction: column;
     gap: 10px;
   }
 }
+
 /* ここまで body */

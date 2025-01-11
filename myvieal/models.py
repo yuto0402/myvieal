@@ -38,6 +38,7 @@ class Comment(models.Model):
     commented_on = models.ForeignKey(Movie, on_delete=models.CASCADE)
     commented_at = models.DateTimeField(auto_now_add=True)
     commented_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    parent = models.ForeignKey("self", null=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.content} (by: {self.commented_by} on: {self.commented_on})"
