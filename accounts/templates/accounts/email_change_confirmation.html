@@ -46,7 +46,7 @@
 {% endblock %}
 
 {% block footer %}
-<script>
+<script nonce="{{request.csp_nonce}}">
   let last_click_time = new Date();
   document.getElementById('postLink').addEventListener('click', function(event) {
     event.preventDefault();

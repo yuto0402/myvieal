@@ -17,6 +17,7 @@
 
 .following-list {
   overflow-y: scroll;
+  display: block;
 }
 
 .following--nobody {
@@ -73,6 +74,7 @@
 
 .movie-list {
   overflow-y: scroll;
+  display: none;
 }
 
 .favorite--nothing {

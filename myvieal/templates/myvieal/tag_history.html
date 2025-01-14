@@ -24,7 +24,7 @@
     <img src={% static "myvieal/img/検索履歴.svg" %}  alt="">{{history.search_word}}
   </a>
 {% endfor %}
-<script>
+<script nonce="{{request.csp_nonce}}">
   const cancel = document.querySelector(".cancel-button")
   const search = document.querySelector("#search-bar")
 

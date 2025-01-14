@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 
 import dj_database_url
+from csp.constants import NONCE, SELF, UNSAFE_INLINE
 
 from .utils import split_to_list, strtobool
 
@@ -27,6 +28,7 @@ INSTALLED_APPS = [
     "allauth",
     "allauth.account",
     "pipeline",
+    "csp",
     "accounts",
     "myvieal",
 ]
@@ -42,6 +44,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "allauth.account.middleware.AccountMiddleware",
     "accounts.middleware.SessionChangeMiddleware",
+    "csp.middleware.CSPMiddleware",
 ]
 
 ROOT_URLCONF = "collaborative_development_th.urls"
@@ -196,3 +199,30 @@ SITE_ID = 1
 ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_EMAIL_VERIFICATION = "none"
 ACCOUNT_EMAIL_REQUIRED = True
+
+# Related to CSP
+CONTENT_SECURITY_POLICY = {
+    "DIRECTIVES": {
+        "default-src": [SELF, "fonts.googleapis.com", "maps.googleapis.com", "maps.gstatic.com"],
+        "font-src": [
+            SELF,
+            "fonts.gstatic.com",
+        ],
+        "script-src": [
+            SELF,
+            NONCE,
+            "maps.googleapis.com",
+        ],
+        "style-src": [SELF, NONCE, "fonts.googleapis.com"],
+        "style-src-elem": [
+            SELF,
+            NONCE,
+            UNSAFE_INLINE,
+            "fonts.googleapis.com",
+            "maps.googleapis.com",
+        ],
+        "style-src-attr": [
+            UNSAFE_INLINE,
+        ],
+    },
+}

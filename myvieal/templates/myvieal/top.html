@@ -23,7 +23,7 @@
     </a>
     {% endfor %}
   </main>
-<script>
+<script nonce="{{request.csp_nonce}}">
 const icons = document.querySelectorAll('.icon img');
 icons.forEach(icon => {
   icon.addEventListener('click', e => {
