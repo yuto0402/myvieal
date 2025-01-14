@@ -52,6 +52,18 @@ class ProfileEditForm(forms.ModelForm):
             "introduction",
         )
 
+    def clean_username(self):
+        username = self.cleaned_data["username"]
+        if len(username) > 50:
+            raise ValidationError("Please limit to 50 characters.")
+        return username
+
+    def clean_introduction(self):
+        introduction = self.cleaned_data["introduction"]
+        if len(introduction) > 500:
+            raise ValidationError("Please limit to 500 characters.")
+        return introduction
+
 
 class CustomLoginForm(BaseCustomForm, LoginForm):
     def __init__(self, *args, **kwargs):

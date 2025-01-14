@@ -23,19 +23,23 @@
       <input type="file" id="image-input" name="icon_image" style="display: none;">
       <div class="icon"><img class="icon-preview" src="{{ user.icon_image.url }}"></div>
     </div>
+    {{ form.icon_image.errors }}
 
     <div class="username">
       <p>ユーザー名 <span class="requirement">必須</span><span class="username-length">0/50</span></p>
-      <textarea name="username" required>{{ object.username }}</textarea>
+      <textarea name="username" maxlength="50" required>{{ object.username }}</textarea>
     </div>
+    {{ form.username.errors }}
 
     <div class="introduction">
       <p>紹介文<span class="introduction-length">0/500</span></p>
-      <textarea name="introduction">{{ object.introduction }}</textarea>
+      <textarea name="introduction" maxlength="500">{{ object.introduction }}</textarea>
     </div>
+    {{ form.introduction.errors }}
 
     <button type="submit" class="btn btn-primary">保存</button>
   </form>
+  {{ form.non_field_errors }}
 </main>
 <script src="{% static 'accounts/js/edit.js' %}"></script>
 {% endblock %}
