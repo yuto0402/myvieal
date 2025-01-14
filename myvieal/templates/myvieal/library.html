@@ -25,6 +25,8 @@
       </div>
     </div>
   </a>
+  {% empty %}
+  <p class="following--nobody">フォローしているユーザーはいません</p>
   {% endfor %}
 </div>
 
@@ -46,6 +48,8 @@
       <a href="{% url 'MovieEdit' movie.pk %}" class="movie_edit"><img src="{% static 'myvieal/img/pen.svg' %}" alt=""></a>
       {% endif %}
     </div>
+    {% empty %}
+    <p class="favorite--nothing">いいねしている動画はありません</p>
     {% endfor %}
 </div>
 
