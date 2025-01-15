@@ -112,7 +112,8 @@ video {
   align-items: baseline;
 }
 
-#id_content {
+#id_content,
+.reply_form {
   flex: 1;
   align-self: center;
   resize: none;
@@ -124,16 +125,18 @@ video {
   border-bottom: #9b9b9b 1px solid;
 }
 
-#id_content:focus {
+#id_content:focus,
+.reply_form:focus {
   outline: none;
   border: none;
   border-bottom: #9b9b9b 1px solid;
 }
 
 .comment_form button {
+  align-self: flex-end;
   border: none;
   background-color: #ffffff;
-  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .comment_container {
@@ -193,6 +196,20 @@ video {
 .favorite-btn {
   border: none;
   background: none;
+}
+
+.invisible_reply {
+  visibility: hidden;
+  height: 0;
+  padding: 0;
+}
+
+.invisible_form {
+  display: none;
+}
+
+.reply_form_class {
+  padding: 5px 0;
 }
 
 /* ここまで body */

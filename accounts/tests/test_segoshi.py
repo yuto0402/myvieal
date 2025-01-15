@@ -18,7 +18,7 @@ class FollowButtonTest(TestCase):
         response = self.client.post(reverse("follow_button"))
         self.assertRedirects(
             response,
-            f"{reverse("account_login")}?next={reverse("follow_button")}",
+            f"{reverse('account_login')}?next={reverse('follow_button')}",
             status_code=302,
             target_status_code=200,
         )

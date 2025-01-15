@@ -10,7 +10,7 @@ from django.views import View
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
 
 from .forms import CommentForm, MovieEditForm, MovieForm, SearchHistoryForm, TagForm
-from .models import CustomUser, MapHistory, Movie, Search, Tag
+from .models import Comment, CustomUser, MapHistory, Movie, Search, Tag
 
 
 # Create your views here.
@@ -57,7 +57,7 @@ class MovieDetailView(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        comments = self.object.comment_set.all().order_by("-commented_at")
+        comments = self.object.comment_set.all().annotate(count=Count("comment")).order_by("-commented_at")
         context.update({"comments": comments, "user": self.request.user, "form": CommentForm})
 
         is_following = self.object.created_by in self.request.user.following.all()
@@ -334,3 +334,18 @@ class CreateTagView(View):
             temp.save()
             return JsonResponse({"success": True})
         return JsonResponse({"success": False, "errors": form.errors})
+
+
+def reply_view(request, param):
+    if request.method != "POST":
+        return JsonResponse({"error": "無効なリクエストメソッドです。"}, status=405)
+    parent_comment = Comment.objects.get(pk=param)
+    movie = parent_comment.commented_on
+    form = CommentForm(request.POST)
+    if form.is_valid():
+        comment = form.save(commit=False)
+        comment.commented_on = movie
+        comment.commented_by = request.user
+        comment.parent = parent_comment
+        comment.save()
+    return redirect(reverse("MovieDetail", kwargs={"pk": movie.pk}))
