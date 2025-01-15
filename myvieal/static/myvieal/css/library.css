@@ -17,6 +17,11 @@
 
 .following-list {
   overflow-y: scroll;
+  display: block;
+}
+
+.following--nobody {
+  text-align: center;
 }
 
 .link {
@@ -69,6 +74,11 @@
 
 .movie-list {
   overflow-y: scroll;
+  display: none;
+}
+
+.favorite--nothing {
+  text-align: center;
 }
 
 .movie {

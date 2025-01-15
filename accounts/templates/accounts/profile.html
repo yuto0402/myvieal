@@ -50,7 +50,7 @@
   {% endfor %}
 
 {% if user != request.user %}
-<script>
+<script nonce="{{request.csp_nonce}}">
   const url = "{% url "follow_button" %}";
   const targetUserPk = "{{ user.pk }}";
 </script>

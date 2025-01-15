@@ -14,6 +14,10 @@ body {
   margin: 0;
 }
 
+main {
+  overflow-y: scroll;
+}
+
 .container {
   width: 100vw;
 }

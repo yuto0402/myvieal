@@ -18,7 +18,7 @@
     <a href="{% url 'PasswordChange' %}"><img src="{% static 'myvieal/img/password.svg' %}" alt="">パスワードの変更</a>
   </div>
   <div class="guidance">
-    <p><a href="">利用規約</a>・<a href="">プライバシーポリシー</a></p>
+    <p><a href="{% url "term_of_use" %}">利用規約</a>・<a href="{% url "privacy_policy" %}">プライバシーポリシー</a></p>
     <form method="POST" action="{% url "account_logout" %}">
       {% csrf_token %}
       <button type="submit" style="all: unset;"><div href="" class="green">ログアウト</div></button>

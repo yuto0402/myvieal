@@ -13,22 +13,24 @@
   </div>
 </nav>
 
-<div class="following-list" id="following-list" style="display: block">
+<div class="following-list" id="following-list">
   {% for following_user in object_list %}
   <a href="{% url "Profile" following_user.pk %}" class="link">
     <div class="following-item">
       <div class="following-item__icon-wrapper">
-        <div class="following-item__icon" {% if following_user.icon_image %}style="background-image:url({{ following_user.icon_image.url }});"{% endif %}></div>
+        <div class="following-item__icon" {% if following_user.icon_image %}data-icon-url="{{ following_user.icon_image.url }}"{% endif %}></div>
       </div>
       <div class="following-item__username-wrapper">
         <div class="following-item__username">{{ following_user.username }}</div>
       </div>
     </div>
   </a>
+  {% empty %}
+  <p class="following--nobody">フォローしているユーザーはいません</p>
   {% endfor %}
 </div>
 
-<div class="movie-list" id="movie-list" style="display: none;">
+<div class="movie-list" id="movie-list">
   {% for movie in movies %}
     <div class="movie">
       <a href="{% url 'MovieDetail' movie.pk %}" class="list">
@@ -46,6 +48,8 @@
       <a href="{% url 'MovieEdit' movie.pk %}" class="movie_edit"><img src="{% static 'myvieal/img/pen.svg' %}" alt=""></a>
       {% endif %}
     </div>
+    {% empty %}
+    <p class="favorite--nothing">いいねしている動画はありません</p>
     {% endfor %}
 </div>
 

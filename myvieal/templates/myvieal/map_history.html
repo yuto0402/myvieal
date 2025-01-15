@@ -32,7 +32,7 @@
   {% endfor %}
   </ul>
 
-<script>
+<script nonce="{{request.csp_nonce}}">
   let geocoder;
   let map;
   const input = document.getElementById("pac-input");

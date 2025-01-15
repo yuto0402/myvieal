@@ -1,0 +1,22 @@
+html {
+  font-size: 16px;
+  font-family: "Noto Sans JP", Arial, Helvetica, sans-serif;
+}
+
+.deleted {
+  margin-top: 4rem;
+  text-align: center;
+}
+
+.deleted__title {
+  margin: 1.5rem;
+
+  font-family: Futura, "Noto Sans JP", Arial, Helvetica, sans-serif;
+  font-size: 1.3rem;
+}
+
+.deleted__inform {
+  margin: 1.5rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+}

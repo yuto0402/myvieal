@@ -25,3 +25,8 @@ navBtnFollowing.addEventListener("click", function (event) {
     navBtnFollowing.classList.add("nav__btn--selected");
   }
 });
+
+document.querySelectorAll(".following-item__icon").forEach((element) => {
+  const imageUrl = element.dataset.iconUrl;
+  element.style.backgroundImage = `url('${imageUrl}')`;
+});

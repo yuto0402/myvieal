@@ -63,7 +63,7 @@
   {% endif %}
 
 
-<script>
+<script nonce="{{request.csp_nonce}}">
   let geocoder;
   let map;
   const name = document.querySelector('.address-name-name').textContent;

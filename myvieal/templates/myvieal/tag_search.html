@@ -40,7 +40,7 @@
   </a>
   {% endfor %}
 </main>
-<script>
+<script nonce="{{request.csp_nonce}}">
   document.addEventListener('load',(e)=>{
     alert('chin')
     {% if is_searched_by_created_at %}

@@ -2,6 +2,10 @@
 /* ここまで header */
 
 /* body */
+main {
+  overflow-y: scroll;
+}
+
 .profile {
   display: flex;
   flex-direction: column;
