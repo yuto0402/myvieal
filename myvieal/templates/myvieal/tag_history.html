@@ -13,7 +13,7 @@
 <div class="search-bar-container history">
   <form method="POST">
     {% csrf_token %}
-    <input id ="search-bar" class="history" type="text" name="search_word" value="{{search_text}}" placeholder="動画を検索">
+    <input id ="search-bar" class="history" type="text" name="search_word" value="{{search_text}}" placeholder="タグを入力">
   </form>
   <img src={% static "myvieal/img/キャンセルボタン.svg" %} class="cancel-button" style = "display : none;">
 </div>

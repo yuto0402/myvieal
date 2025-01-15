@@ -9,7 +9,7 @@
 <div class="search-bar-container">
   <form method="get">
     <a class="search-text-link" href="{% url "tag_history" %}">
-      <input id ="search-bar" class="top" type="text" name="search" value="{{search_text}}" placeholder="動画を検索" readonly>
+      <input id ="search-bar" class="top" type="text" name="search" value="{{search_text}}" placeholder="タグを入力" readonly>
     </a>
   </form>
 </div>
@@ -20,7 +20,7 @@
   <a href="{% url 'MapHistory' %}">スポット</a>
   <a href="{% url 'tag_search' %}">タグ</a>
 </div>
-<form class="query-button-container" method="get" action="/search/">
+<form class="query-button-container" method="get" action="/tag_search/">
   <button class="query-button created_at" type="submit" name="display_order" value="created_at">新着の動画</button>
   <button class="query-button number_of_views" type="submit" name="display_order" value="number_of_views">人気の動画</button>
 </form>
