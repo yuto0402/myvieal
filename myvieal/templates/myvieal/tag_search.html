@@ -16,9 +16,9 @@
 {% endblock %}
 {% block content %}
 <div class="orders">
-  <a href="{% url 'search' %}" class="movie-search">動画</a>
+  <a href="{% url 'search' %}">動画</a>
   <a href="{% url 'MapHistory' %}">スポット</a>
-  <a href="{% url 'tag_search' %}">タグ</a>
+  <a href="{% url 'tag_search' %}" class="movie-search">タグ</a>
 </div>
 <form class="query-button-container" method="get" action="/search/">
   <button class="query-button created_at" type="submit" name="display_order" value="created_at">新着の動画</button>

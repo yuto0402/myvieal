@@ -151,7 +151,7 @@ class SearchHistory(LoginRequiredMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["histories"] = Search.objects.filter(searched_by=self.request.user)
+        context["histories"] = Search.objects.filter(searched_by=self.request.user).order_by('-searched_at')
         return context
 
 
@@ -301,7 +301,7 @@ class TagHistory(LoginRequiredMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["histories"] = Search.objects.filter(searched_by=self.request.user)
+        context["histories"] = Search.objects.filter(searched_by=self.request.user).order_by('-searched_at')
         return context
 
 # ジャンルの名前を取得して該当するタグの名前とidを返すview
