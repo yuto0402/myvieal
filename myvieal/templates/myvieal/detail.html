@@ -58,8 +58,8 @@
     <span class="detail">...もっと見る</span>
   </div>
   <div class="send_section">
-    <div class="creater" style="border-bottom: none;">
-      <div class="icon" style="align-items: baseline;"><img src="{{ user.icon_image.url }}" alt=""></div>
+    <div class="creater extra_293">
+      <div class="icon extra_294"><img src="{{ user.icon_image.url }}" alt=""></div>
       <form method="POST" class="comment_form" id="form">
       {% csrf_token %}
       {{ form.content }}
@@ -73,7 +73,7 @@
       {% else %}
       <div>
         <div class="creater2 form_expander">
-          <div class="icon" style="align-items: baseline;"><img src="{{ comment.commented_by.icon_image.url }}" alt=""></div>
+          <div class="icon extra_294"><img src="{{ comment.commented_by.icon_image.url }}" alt=""></div>
           <div class="comment_container">
             <div>
               <div class="description description2">{{ comment.content|linebreaksbr }}</div>
@@ -82,7 +82,7 @@
             </div>
           </div>
         </div>
-        <div class="creater invisible_reply" style="border-bottom: none;">
+        <div class="creater invisible_reply extra_293">
           <form method="POST" action="{% url "reply" comment.pk %}" class="comment_form reply_form_class">
             {% csrf_token %}
             <textarea name="content" cols="" rows="1" placeholder="返信する" auto_complete="off" required class="reply_textarea reply_form" style="margin-left: 8px;"></textarea>
@@ -90,21 +90,21 @@
           </form>
         </div>
         {% if comment.comment_set.all %}
-          <div style="transform: translateY(-8px); margin-bottom: -8px;">
-            <div style="padding-bottom: 15px; transform: translateX(0.5em);" class="reply_expander">
-              <span style="color: #2b8f38;">{{ comment.count }}件の返信を見る</span>
+          <div class="extra_295">
+            <div class="reply_expander extra_296">
+              <span class="extra_297">{{ comment.count }}件の返信を見る</span>
             </div>
             <div class="invisible_reply">
             {% for child in comment.comment_set.all %}
-              <div class="creater2" style="padding-bottom: 21.5px;">
-                <div class="icon" style="align-items: baseline;">
-                  <img src="{{ child.commented_by.icon_image.url }}" alt="" style="width: 42px; height: 42px; transform: translateX(4px);">
+              <div class="creater2 extra_298">
+                <div class="icon extra_294">
+                  <img src="{{ child.commented_by.icon_image.url }}" alt="" class="extra_299">
                 </div>
                 <div class="comment_container">
-                  <div style="font-size: 86%;">
+                  <div class="extra_300">
                     <div class="description description2">{{ child.content|linebreaksbr }}</div>
                     <span class="detail detail2">...もっと見る</span>
-                    <div class="commented_at" style="font-size: 86%; right: 0.344%; bottom: -1.8em;">{{ child.commented_at|timesince|upto:',' }}前</div>
+                    <div class="commented_at extra_301">{{ child.commented_at|timesince|upto:',' }}前</div>
                   </div>
                 </div>
               </div>

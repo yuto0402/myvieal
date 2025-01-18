@@ -6,8 +6,6 @@ from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.exceptions import ValidationError
 from django.core.mail import send_mail
-from django.utils.encoding import force_bytes
-from django.utils.http import urlsafe_base64_encode
 from django.utils.translation import gettext_lazy as _
 
 from .adapter import CustomAccountAdapter
@@ -102,11 +100,12 @@ class EmailConfirmationForm(BaseCustomForm):
             raise ValidationError("ユーザーが既に存在しています。")
         return email
 
-    def send_verification_code(self, user_email, email_verification_code):
+    def send_verification_code(self, request, user_email, email_verification_code):
         """認証コードを含むメールを送信"""
+        current_site = get_current_site(request)
         subject = "Your signup verification code"
         message = f"Your verification code is: {email_verification_code}"
-        send_mail(subject, message, "no-reply@yourdomain.com", [user_email])
+        send_mail(subject, message, f"no-reply@{current_site.domain}", [user_email])
 
     def save(self, request):
         email = self.cleaned_data["email"]
@@ -115,7 +114,7 @@ class EmailConfirmationForm(BaseCustomForm):
             del request.session["attempts"]
         request.session["email_verification_code"] = email_verification_code
         request.session["signup_email"] = email
-        self.send_verification_code(email, email_verification_code)
+        self.send_verification_code(request, email, email_verification_code)
 
 
 class CustomUserCreationForm(BaseCustomForm, UserCreationForm):
@@ -182,11 +181,12 @@ class CustomPasswordResetForm(PasswordResetForm):
             raise ValidationError("ユーザーが存在しません。")
         return email
 
-    def send_verification_code(self, user_email, verification_code):
+    def send_verification_code(self, request, user_email, verification_code):
         """認証コードを含むメールを送信"""
+        current_site = get_current_site(request)
         subject = "Your password reset verification code"
         message = f"Your verification code is: {verification_code}"
-        send_mail(subject, message, "no-reply@yourdomain.com", [user_email])
+        send_mail(subject, message, f"no-reply@{current_site.domain}", [user_email])
 
     def save(
         self,
@@ -200,44 +200,15 @@ class CustomPasswordResetForm(PasswordResetForm):
         html_email_template_name=None,
         extra_email_context=None,
     ):
-        """
-        Generate a one-use only link for resetting password and send it to the
-        user.
-        """
         email = self.cleaned_data["email"]
-        if not domain_override:
-            current_site = get_current_site(request)
-            site_name = current_site.name
-            domain = current_site.domain
-        else:
-            site_name = domain = domain_override
         email_field_name = UserModel.get_email_field_name()
         for user in self.get_users(email):
             user_email = getattr(user, email_field_name)
             verification_code = CustomAccountAdapter._generate_code(self)
-            self.send_verification_code(user.email, verification_code)
+            self.send_verification_code(request, user.email, verification_code)
 
             request.session["verification_code"] = verification_code
             request.session["password_reset_email"] = user_email
-
-            context = {
-                "email": user_email,
-                "domain": domain,
-                "site_name": site_name,
-                "uid": urlsafe_base64_encode(force_bytes(user.pk)),
-                "user": user,
-                "token": token_generator.make_token(user),
-                "protocol": "https" if use_https else "http",
-                **(extra_email_context or {}),
-            }
-            self.send_mail(
-                subject_template_name,
-                email_template_name,
-                context,
-                from_email,
-                user_email,
-                html_email_template_name=html_email_template_name,
-            )
 
 
 class EmailChangeCodeForm(forms.Form):
@@ -270,18 +241,19 @@ class EmailChangeForm(BaseCustomForm):
             raise ValidationError("ユーザーが既に存在しています。")
         return email
 
-    def send_verification_code(self, user_email, email_change_code):
+    def send_verification_code(self, request, user_email, email_change_code):
         """認証コードを含むメールを送信"""
+        current_site = get_current_site(request)
         subject = "Your email change code"
         message = f"Your email change code is: {email_change_code}"
-        send_mail(subject, message, "no-reply@yourdomain.com", [user_email])
+        send_mail(subject, message, f"no-reply@{current_site.domain}", [user_email])
 
     def save(self, request):
         email = self.cleaned_data["email"]
         email_change_code = CustomAccountAdapter._generate_code(self)
         request.session["email_change_code"] = email_change_code
         request.session["new_email"] = email
-        self.send_verification_code(email, email_change_code)
+        self.send_verification_code(request, email, email_change_code)
 
 
 class PasswordChangeForm(PasswordChangeForm):

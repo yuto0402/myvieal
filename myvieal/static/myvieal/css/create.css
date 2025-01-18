@@ -32,7 +32,7 @@ h3 {
 /* ここまで header */
 
 /* body */
-form > div:not(.thumbnail) {
+form>div:not(.thumbnail) {
   padding: 10px 10px 20px;
   border-bottom: 1px solid grey;
 }
@@ -151,6 +151,10 @@ input:focus {
 .btn:hover {
   color: #fff;
   background-color: #2b8f38;
+}
+
+.extra_293 {
+  display: none;
 }
 
 /* ここからタグ機能 */

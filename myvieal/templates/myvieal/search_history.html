@@ -15,7 +15,7 @@
     {% csrf_token %}
     <input id ="search-bar" class="history" type="text" name="search_word" value="{{search_text}}" placeholder="動画を検索">
   </form>
-  <img src={% static "myvieal/img/キャンセルボタン.svg" %} class="cancel-button" style = "display : none;">
+  <img src={% static "myvieal/img/キャンセルボタン.svg" %} class="cancel-button extra_x">
 </div>
 {% endblock %}
 {% block content %}

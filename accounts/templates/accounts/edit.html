@@ -20,7 +20,7 @@
       <div class="icon-container">
         <label for="image-input"><img src="{% static 'myvieal/img/image.svg' %}" alt="" class="fa-image"></label>
       </div>
-      <input type="file" id="image-input" name="icon_image" style="display: none;">
+      <input type="file" id="image-input" name="icon_image" class="extra_293">
       <div class="icon"><img class="icon-preview" src="{{ user.icon_image.url }}"></div>
     </div>
     {{ form.icon_image.errors }}

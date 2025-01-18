@@ -14,9 +14,6 @@ body {
   margin: 0;
 }
 
-main {
-  overflow-y: scroll;
-}
 
 .container {
   width: 100vw;
@@ -214,6 +211,48 @@ video {
 
 .reply_form_class {
   padding: 5px 0;
+}
+
+.extra_293 {
+  border-bottom: none;
+}
+
+.extra_294 {
+  align-items: baseline !important;
+}
+
+.extra_295 {
+  transform: translateY(-8px);
+  margin-bottom: -8px;
+}
+
+.extra_296 {
+  padding-bottom: 15px;
+  transform: translateX(0.5em);
+}
+
+.extra_297 {
+  color: #2b8f38;
+}
+
+.extra_298 {
+  padding-bottom: 21.5px;
+}
+
+.extra_299 {
+  width: 42px !important;
+  height: 42px !important;
+  transform: translateX(4px);
+}
+
+.extra_300 {
+  font-size: 86%;
+}
+
+.extra_301 {
+  font-size: 86%;
+  right: 0.344%;
+  bottom: -1.8em;
 }
 
 /* ここまで body */

@@ -210,7 +210,7 @@ def resend_otp(request):
         del request.session["attempts"]
     request.session["email_verification_code"] = email_verification_code
     request.session["signup_email"] = email
-    EmailConfirmationForm().send_verification_code(email, email_verification_code)
+    EmailConfirmationForm().send_verification_code(request, email, email_verification_code)
     form = EmailVerificationCodeForm()
     post_success = True
 
@@ -228,7 +228,7 @@ def resend_password_reset(request):
         return JsonResponse({"error": "セッションにメールアドレスがありません。"}, status=400)
     for user in CustomPasswordResetForm().get_users(email):
         verification_code = CustomAccountAdapter()._generate_code()
-        CustomPasswordResetForm().send_verification_code(user.email, verification_code)
+        CustomPasswordResetForm().send_verification_code(request, user.email, verification_code)
         request.session["verification_code"] = verification_code
     form = CustomPasswordResetForm
     post_success = True
@@ -250,7 +250,7 @@ def resend_email_change(request):
         del request.session["attempts"]
     request.session["email_change_code"] = email_change_code
     request.session["new_email"] = email
-    EmailChangeForm().send_verification_code(email, email_change_code)
+    EmailChangeForm().send_verification_code(request, email, email_change_code)
     form = EmailChangeCodeForm()
     post_success = True
 

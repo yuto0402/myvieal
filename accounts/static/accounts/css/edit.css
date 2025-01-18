@@ -20,10 +20,11 @@ h3 {
   position: absolute;
   left: 85%;
 }
+
 /* ここまで header */
 
 /* body */
-form > div {
+form>div {
   padding: 10px 10px 20px;
   border-bottom: 1px solid grey;
 }
@@ -102,4 +103,9 @@ textarea:focus {
   color: #fff;
   background-color: #2b8f38;
 }
+
+.extra_293 {
+  display: none;
+}
+
 /* ここまで body */

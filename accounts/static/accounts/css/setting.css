@@ -12,6 +12,7 @@ h3 {
   left: 15%;
   font-size: 20px;
 }
+
 /* ここまで header */
 
 /* body */
@@ -46,4 +47,9 @@ a:not(.green) {
   gap: 20px;
   align-items: center;
 }
+
+.extra_293 {
+  all: unset;
+}
+
 /* ここまで body */

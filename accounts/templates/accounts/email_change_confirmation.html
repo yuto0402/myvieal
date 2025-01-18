@@ -3,6 +3,7 @@
 
 {% block extra-style %}
   <link rel="stylesheet" href="{% static 'accounts/css/password_change.css' %}">
+  <link rel="stylesheet" href="{% static 'accounts/css/email_change_confirmation.css' %}">
 {% endblock %}
 
 {% block header-container %}
@@ -12,7 +13,7 @@
 
 {% block content %}
 <main>
-  <div class="error_container" style="margin-top: 100px;">
+  <div class="error_container extra_293">
     {{ email }}に数字４ケタの認証コードを送信しました。<br>下のテキストボックスに記入してください。
   </div>
   <form method="post" action="{% url "EmailChangeConfirmation" %}">
@@ -33,13 +34,13 @@
       {% endfor %}
       {{ form.non_field_errors }}
     </div>
-    <div class="error_container" style="font-size: small;">メールが届きませんか？<span id="postLink" style="color: #2b8f38;">再送する</span></div>
+    <div class="error_container extra_294">メールが届きませんか？<span id="postLink" class="extra_295">再送する</span></div>
     <button type="submit" class="submit"><div>認証して変更を完了</div></button>
   </form>
   <form method="post" action="{% url 'trickpath' %}">
     {% csrf_token %}
-    <button class="cancel" type="submit" style="border: none; background-color: white; margin: 0 auto; display: block; font-size: 16px;">
-      <p style="font-size: 16px; font-family: Noto Sans JP, Arial, Helvetica, sans-serif; margin: 0 auto;">キャンセル</p>
+    <button class="cancel extra_296" type="submit">
+      <p class="extra_297">キャンセル</p>
     </button>
   </form>
 </main>
