@@ -21,7 +21,7 @@
     <p><a href="{% url "term_of_use" %}">利用規約</a>・<a href="{% url "privacy_policy" %}">プライバシーポリシー</a></p>
     <form method="POST" action="{% url "account_logout" %}">
       {% csrf_token %}
-      <button type="submit" style="all: unset;"><div href="" class="green">ログアウト</div></button>
+      <button type="submit" class="extra_293"><div href="" class="green">ログアウト</div></button>
     </form>
     <p>アカウントの削除は <a href={% url "account_delete" user.pk %} class="green">こちら</a></p>
   </div>

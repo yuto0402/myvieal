@@ -8,11 +8,11 @@
   text-align: center;
 }
 
-.search-bar-container > form {
+.search-bar-container>form {
   height: 100%;
 }
 
-.search-bar-container.history > form {
+.search-bar-container.history>form {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -59,11 +59,11 @@
 .cancel-button {
   position: absolute;
   top: 50%;
-  right: calc(
-    2% + 1em
-  ); /* 入力エリアの右端が2%で指定されているため、そこからさらに1emだけ左の位置を指定する。 */
+  right: calc(2% + 1em);
+  /* 入力エリアの右端が2%で指定されているため、そこからさらに1emだけ左の位置を指定する。 */
   transform: translateY(-50%);
-  z-index: 1; /* z-indexが規定値のままだとそもそもクリックできないので、イベントを起こせなかった。 */
+  z-index: 1;
+  /* z-indexが規定値のままだとそもそもクリックできないので、イベントを起こせなかった。 */
 }
 
 .orders {
@@ -115,4 +115,8 @@
 
 .history-container img {
   margin-right: 0.5em;
+}
+
+.extra_x {
+  display: none;
 }

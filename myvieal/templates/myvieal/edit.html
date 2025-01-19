@@ -20,11 +20,11 @@
       <div class="icon-container">
         <label for="image-input"><img src="{% static 'myvieal/img/image.svg' %}" alt="" class="fa-image"></label>
       </div>
-      <input type="file" id="image-input" name="thumbnail" style="display: none;">
+      <input type="file" class="extra_293" id="image-input" name="thumbnail">
       {% if object.thumbnail %}
       <img class="thumbnail-preview" src="{{ object.thumbnail.url }}">
       {% else %}
-      <img class="thumbnail-preview" style="display:none">
+      <img class="thumbnail-preview extra_293">
       {% endif %}
     </div>
 

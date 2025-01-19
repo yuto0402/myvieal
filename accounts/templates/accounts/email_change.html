@@ -3,6 +3,7 @@
 
 {% block extra-style %}
   <link rel="stylesheet" href="{% static 'accounts/css/password_change.css' %}">
+  <link rel="stylesheet" href="{% static 'accounts/css/email_change.css' %}">
 {% endblock %}
 
 {% block header-container %}
@@ -12,8 +13,8 @@
 
 {% block content %}
 <main>
-  <div class="error_container" style="font-size: small; margin: 100px auto 10px;">アカウントのメールアドレス</div>
-  <div class="error_container" style="margin-top: 0;">{{ email }}</div>
+  <div class="error_container extra_293">アカウントのメールアドレス</div>
+  <div class="error_container extra_294">{{ email }}</div>
   <form method="post">
     {% csrf_token %}
     <div class="form-group">
