@@ -235,3 +235,5 @@ if os.path.isfile('.env'): # .envファイルが存在しない時にもエラ�
 
     DEBUG = env('DEBUG')
     ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
+
+ALLOWED_HOSTS = ['35.79.117.47', '127.0.0.1', 'localhost']
