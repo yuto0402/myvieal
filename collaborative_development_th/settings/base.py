@@ -68,6 +68,7 @@ TEMPLATES = [
 WSGI_APPLICATION = "collaborative_development_th.wsgi.application"
 
 # Database
+
 DATABASES = {
     "default": {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -205,7 +206,29 @@ ACCOUNT_EMAIL_REQUIRED = True
 # Related to CSP
 CONTENT_SECURITY_POLICY = {
     "DIRECTIVES": {
-        "default-src": [SELF, "fonts.googleapis.com", "maps.googleapis.com", "maps.gstatic.com",],
+        "default-src": [
+            SELF,
+            "fonts.googleapis.com",
+            "maps.googleapis.com",
+            "maps.gstatic.com",
+        ],
+        "img-src": [
+            SELF,
+            "fonts.googleapis.com",
+            "maps.googleapis.com",
+            "maps.gstatic.com",
+            "data:",
+        ],
+        "media-src": [
+            SELF,
+            "fonts.googleapis.com",
+            "maps.googleapis.com",
+            "maps.gstatic.com",
+            "data:",
+        ],
+        "form-action": [
+            SELF,
+        ],
         "font-src": [
             SELF,
             "fonts.gstatic.com",
@@ -215,26 +238,24 @@ CONTENT_SECURITY_POLICY = {
             NONCE,
             "maps.googleapis.com",
         ],
-        "style-src": [SELF, NONCE, "fonts.googleapis.com"],
-        "style-src-elem": [
+        "style-src": [
             SELF,
             NONCE,
-            UNSAFE_INLINE,
+            "fonts.googleapis.com",
+        ],
+        "style-src-elem": [
+            SELF,
             "fonts.googleapis.com",
             "maps.googleapis.com",
         ],
         "style-src-attr": [
-            UNSAFE_INLINE,
-        ],
-        "media-src": [
             SELF,
-            "data:",
         ],
-        "img-src": [
+        "frame-ancestors": [
             SELF,
-            "data:",
-            "https://maps.googleapis.com",
-            "https://maps.gstatic.com",
+            "maps.googleapis.com",
+            "maps.gstatic.com",
+            "https://www.google.com",
         ],
     },
 }
@@ -248,3 +269,6 @@ if os.path.isfile('.env'): # .envファイルが存在しない時にもエラ�
 
 
 SECURE_CROSS_ORIGIN_OPENER_POLICY = None
+
+# Related to SecurityMiddleware
+SECURE_CONTENT_TYPE_NOSNIFF = True
