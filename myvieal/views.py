@@ -1,16 +1,21 @@
 # Create your views here.
 
+from csp.constants import UNSAFE_INLINE
+from csp.decorators import csp_update
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Count, Q
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
 from django.utils import timezone
+from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
 
 from .forms import CommentForm, MovieEditForm, MovieForm, SearchHistoryForm, TagForm
 from .models import Comment, CustomUser, MapHistory, Movie, Search, Tag
+
+csp_decorators = [csp_update({"style-src-attr": UNSAFE_INLINE, "style-src-elem": UNSAFE_INLINE})]
 
 
 # Create your views here.
@@ -21,6 +26,7 @@ class MovieListView(LoginRequiredMixin, ListView):
     ordering = ["-created_at"]
 
 
+@method_decorator(csp_decorators, name="dispatch")
 class MovieCreateView(LoginRequiredMixin, CreateView):
     model = Movie
     template_name = "myvieal/create.html"
@@ -44,6 +50,7 @@ class MovieCreateView(LoginRequiredMixin, CreateView):
         return context
 
 
+@method_decorator(csp_decorators, name="dispatch")
 class MovieDetailView(LoginRequiredMixin, DetailView):
     model = Movie
     context_object_name = "movie"
@@ -84,6 +91,7 @@ class MovieDetailView(LoginRequiredMixin, DetailView):
         return redirect(reverse("MovieDetail", kwargs={"pk": movie.pk}))
 
 
+@method_decorator(csp_decorators, name="dispatch")
 class MovieEditView(LoginRequiredMixin, UpdateView):
     model = Movie
     template_name = "myvieal/edit.html"
@@ -101,6 +109,7 @@ class MovieDeleteView(LoginRequiredMixin, DeleteView):
         return reverse("Profile", kwargs={"pk": self.request.user.pk})
 
 
+@method_decorator(csp_decorators, name="dispatch")
 class SearchView(LoginRequiredMixin, ListView):
     model = Movie
     template_name = "myvieal/search.html"
@@ -130,6 +139,7 @@ class SearchView(LoginRequiredMixin, ListView):
     context_object_name = "movies"
 
 
+@method_decorator(csp_decorators, name="dispatch")
 class SearchHistory(LoginRequiredMixin, CreateView):
     model = Search
     form_class = SearchHistoryForm
@@ -170,6 +180,7 @@ class LibraryView(LoginRequiredMixin, ListView):
         return context
 
 
+@method_decorator(csp_decorators, name="dispatch")
 class MapHistoryView(LoginRequiredMixin, ListView):
     model = MapHistory
     template_name = "myvieal/map_history.html"
@@ -179,6 +190,7 @@ class MapHistoryView(LoginRequiredMixin, ListView):
         return MapHistory.objects.filter(map_searched_by=self.request.user).order_by("-map_searched_at")
 
 
+@method_decorator(csp_decorators, name="dispatch")
 class MapResult(LoginRequiredMixin, ListView):
     model = Movie
     template_name = "myvieal/map.html"
