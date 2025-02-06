@@ -117,7 +117,7 @@
     {% endfor %}
   </div>
 </main>
-<script>
+<script nonce="{{request.csp_nonce}}">
   {% if movie.created_by == user %}
   const createdSelf = true
   {% else %}
