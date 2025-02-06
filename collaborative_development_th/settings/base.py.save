@@ -1,6 +1,6 @@
 import os
 from pathlib import Path
-import environ
+
 import dj_database_url
 from csp.constants import NONCE, SELF, UNSAFE_INLINE
 
@@ -68,11 +68,11 @@ TEMPLATES = [
 WSGI_APPLICATION = "collaborative_development_th.wsgi.application"
 
 # Database
+
 DATABASES = {
     "default": {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+        'ENGINE': 'djanog.db.backends.postgresql',
+        ''
 }
 
 # Authentication
@@ -205,7 +205,7 @@ ACCOUNT_EMAIL_REQUIRED = True
 # Related to CSP
 CONTENT_SECURITY_POLICY = {
     "DIRECTIVES": {
-        "default-src": [SELF, "fonts.googleapis.com", "maps.googleapis.com", "maps.gstatic.com",],
+        "default-src": [SELF, "fonts.googleapis.com", "maps.googleapis.com", "maps.gstatic.com"],
         "font-src": [
             SELF,
             "fonts.gstatic.com",
@@ -226,18 +226,10 @@ CONTENT_SECURITY_POLICY = {
         "style-src-attr": [
             UNSAFE_INLINE,
         ],
-        "media-src": [
-            SELF,
-            "data:",
-        ],
-        "img-src": [
-            SELF,
-            "data:",
-            "https://maps.googleapis.com",
-            "https://maps.gstatic.com",
-        ],
     },
 }
+
+import environ
 
 if os.path.isfile('.env'): # .envファイルが存在しない時にもエラーが発生しないようにする
     env = environ.Env(DEBUG=(bool, False))
@@ -246,5 +238,6 @@ if os.path.isfile('.env'): # .envファイルが存在しない時にもエラ�
     DEBUG = env('DEBUG')
     ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 
+ALLOWED_HOSTS = ['35.79.117.47']
 
 SECURE_CROSS_ORIGIN_OPENER_POLICY = None
