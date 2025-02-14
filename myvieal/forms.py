@@ -50,6 +50,7 @@ class CommentForm(forms.ModelForm):
                 "cols": "",
                 "placeholder": "コメントする",
                 "auto_complete": "off",
+                "class": "comment-input",
             }
         )
 
