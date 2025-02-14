@@ -124,7 +124,7 @@ video {
   line-height: 1.2;
   border: none;
   border-bottom: #9b9b9b 1px solid;
-  -webkit-appearance: none;
+  width: auto !important;
 }
 
 #id_content:focus,
