@@ -113,6 +113,10 @@ video {
   align-items: baseline;
 }
 
+.comment-input {
+  -webkit-appearance: none;
+}
+
 #id_content,
 .reply_form {
   flex: 1;
