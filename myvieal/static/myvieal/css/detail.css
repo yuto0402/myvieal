@@ -113,10 +113,6 @@ video {
   align-items: baseline;
 }
 
-.comment-input {
-  -webkit-appearance: none;
-}
-
 #id_content,
 .reply_form {
   flex: 1;
@@ -128,6 +124,7 @@ video {
   line-height: 1.2;
   border: none;
   border-bottom: #9b9b9b 1px solid;
+  -webkit-appearance: none;
 }
 
 #id_content:focus,
