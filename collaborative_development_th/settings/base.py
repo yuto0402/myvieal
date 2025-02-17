@@ -218,6 +218,7 @@ CONTENT_SECURITY_POLICY = {
             "maps.googleapis.com",
             "maps.gstatic.com",
             "data:",
+            "blob:",
         ],
         "media-src": [
             SELF,
@@ -225,6 +226,7 @@ CONTENT_SECURITY_POLICY = {
             "maps.googleapis.com",
             "maps.gstatic.com",
             "data:",
+            "blob:",
         ],
         "form-action": [
             SELF,
