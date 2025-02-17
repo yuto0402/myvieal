@@ -3,13 +3,13 @@
 
 {% block style %}
 <link rel="stylesheet" href="{% static 'accounts/css/signup.css' %}">
-<style>footer > div { margin-top: 35px; }</style>
+<link rel="stylesheet" href="{% static 'accounts/css/fine_ad.css' %}">
 {% endblock style %}
 
 {% block header %}アカウント作成{% endblock header %}
 
 {% block main %}
-<form method="post" enctype="multipart/form-data">
+<form method="post" enctype="multipart/form-data" id="form_js">
   {% csrf_token %}
   <div class="form-group">
     {{ form.email }}
@@ -20,7 +20,11 @@
     {% endfor %}
     {{ form.non_field_errors }}
   </div>
-  <button type="submit" style="margin-top: 40px"><div>認証コードを送信</div></button>
+  <button type="" class="extra_400" id="submit_js"><div>認証コードを送信</div></button>
   <div class="message resend">アカウントをすでにお持ちですか？<a href="{% url "account_login" %}">ログイン</a></div>
 </form>
 {% endblock main %}
+
+{% block script %}
+<script src="{% static 'accounts/js/prevent_multiple_submission.js' %}"></script>
+{% endblock script %}
