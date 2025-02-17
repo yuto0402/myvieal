@@ -26,6 +26,7 @@ body {
 .header-container {
   display: flex;
   position: fixed;
+  z-index: calc(infinity);
   width: 100%;
   height: 48px;
   background-color: var(--main-green);
