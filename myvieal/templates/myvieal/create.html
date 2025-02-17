@@ -8,29 +8,34 @@
 {% block header-container %}
   <a href="{% url 'top' %}" class="top">×</a>
   <h3>動画の投稿</h3>
-  <p class="post">投稿</p>
+  <button type="submit" form="form_js" class="btn--just-text submit_js">投稿</button>
 {% endblock %}
 
 {% block content %}
 <main>
-  <form action="" method="POST" enctype="multipart/form-data">
+  <form action="" method="POST" enctype="multipart/form-data" id="form_js">
     {% csrf_token %}
 
     <div class="thumbnail">
       <div class="icon-container">
         <label for="image-input"><img src="{% static 'myvieal/img/image.svg' %}" alt="" class="fa-image"></label>
       </div>
-      <input type="file" class="extra_293" id="image-input" name="thumbnail">
+      <input type="file" class="extra_293" id="image-input" name="thumbnail" accept="image/*">
       <img class="thumbnail-preview extra_293">
     </div>
 
     <div class="movie">
       <p>動画ファイル <span class="requirement">必須</span></p>
-      <input type="file" class="extra_293" id="file-input" name="movie_file" required>
+      <input type="file" class="extra_293" id="file-input" name="movie_file" accept="video/mp4, video/webm, video/ogg"required>
       <div class="button-container">
-        <label for="file-input" class="movie-select">動画を選択</label>
+        <label for="file-input" class="movie-select" id="movie-select-btn">動画を選択</label>
       </div>
-      <video class="video-preview extra_293" type="video/mp4">
+      <div class="video-preview-container">
+        <video class="video-preview extra_293" autoplay loop muted><p>videoが利用できません。</p></video>
+        <button type="button" id="video-preview__delete-btn" class="video-preview__delete-btn extra_293">×</button>
+        <div id="video-preview__duration" class="video-preview__duration extra_293"></div>
+      </div>
+
     </div>
 
     <div class="title">
@@ -63,10 +68,10 @@
     <div class="location">
       <p>位置情報 <span class="requirement">必須</p>
       <div class="address"><img src="{% static 'myvieal/img/pin.svg' %}" alt=""><input name="name" id="pac-input" placeholder="スポット" required></div>
-      <input  name="place_id" id="place_id" hidden required>
-      <input name="address" id="address" hidden required>
+      <input  name="place_id" id="place_id" hidden>
+      <input name="address" id="address" hidden>
     </div>
-    <button type="submit" class="btn btn-primary">投稿</button>
+    <button type="submit" class="btn btn-primary submit_js">投稿</button>
     {% for field in form %}
     {{ field.errors }}
     {% endfor %}
@@ -93,6 +98,7 @@
   <div class="image_url_indicator" url="{% static "myvieal/img/キャンセルボタン黒.svg" %}"></div>
 </main>
 <script src="{% static 'myvieal/js/create.js' %}"></script>
+<script src="{% static 'myvieal/js/prevent_multiple_submission.js' %}"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBzXcKAR-A9HDXwBfXemgidpzqKMq7wiBk&callback=initMap&libraries=places&v=weekly" async defer></script>
 {% endblock %}
 
