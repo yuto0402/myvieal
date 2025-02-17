@@ -1,3 +1,4 @@
+/*
 document.getElementById("image-input").addEventListener("change", function (event) {
   var file = event.target.files[0];
   var thumbnailPreview = document.querySelector(".thumbnail-preview");
@@ -5,12 +6,47 @@ document.getElementById("image-input").addEventListener("change", function (even
   var reader = new FileReader();
 
   reader.onload = function (e) {
+    console.log("サムネフォームのreader.onloadが実行されました")
     thumbnailPreview.src = reader.result;
+    console.log(thumbnailPreview)
     thumbnailPreview.style.display = "block";
   };
   reader.readAsDataURL(file);
 });
+*/
 
+// サムネイル画像がアップロードされたかどうか管理する変数
+let isThumbnailUploaded = false;
+
+// displayプロパティを設定する関数を作成する関数
+function createDisplaySetter(displayValue) {
+  return function (elements) {
+    elements.forEach(function (element) {
+      element.style.display = displayValue;
+    });
+  };
+}
+
+// displayプロパティを設定する関数たち　none, block, flexがある
+const setDisplayNone = createDisplaySetter("none");
+const setDisplayBlock = createDisplaySetter("block");
+const setDisplayFlex = createDisplaySetter("flex");
+
+document.getElementById("image-input").addEventListener("change", function (event) {
+  var thumbnailPreview = document.querySelector(".thumbnail-preview");
+  const [file] = event.target.files;
+
+  // 実際にfileがアップロードされたかどうか（キャンセルなどされてないか)を判定
+  if (file) {
+    isThumbnailUploaded = true;
+    thumbnailPreview.setAttribute("src", URL.createObjectURL(file));
+    setDisplayBlock([thumbnailPreview]);
+  } else {
+    setDisplayNone([thumbnailPreview]);
+  }
+});
+
+/*
 document.getElementById("file-input").addEventListener("change", function (event) {
   var file = event.target.files[0];
   var videoPreview = document.querySelector(".video-preview");
@@ -19,12 +55,92 @@ document.getElementById("file-input").addEventListener("change", function (event
   var reader = new FileReader();
 
   reader.onload = function () {
+    console.log("動画フォームのreader.onloadが実行されました")
     videoPreview.src = reader.result; // 動画のプレビューを表示
+    console.log(reader.result)
     videoPreview.style.display = "block"; // プレビューを表示
   };
 
   // 動画ファイルを読み込む
   reader.readAsDataURL(file);
+});
+:
+*/
+
+document.getElementById("file-input").addEventListener("change", function (event) {
+  var videoPreview = document.querySelector(".video-preview");
+  var deleteBtn = document.getElementById("video-preview__delete-btn");
+  var durationBox = document.getElementById("video-preview__duration");
+  var movieSelectBtn = document.getElementById("movie-select-btn");
+  const [file] = event.target.files;
+
+  // 実際にfileがアップロードされたかどうか（キャンセルなどされてないか)を判定
+  if (file) {
+    const mimeType = file.type;
+    if (videoPreview.canPlayType(mimeType) === "") {
+      alert(
+        "このファイル形式はサポートされていないため、投稿できません。サポートされている形式はmp4, webm, oggです。"
+      );
+      setDisplayNone([videoPreview, deleteBtn, durationBox]);
+      return;
+    }
+
+    videoPreview.setAttribute("src", URL.createObjectURL(file));
+
+    // 削除ボタンようの関数を設定
+    deleteBtn.addEventListener("click", function () {
+      document.getElementById("file-input").value = null;
+      videoPreview.setAttribute("src", "");
+      setDisplayNone([videoPreview, deleteBtn, durationBox]);
+      setDisplayFlex([movieSelectBtn]);
+
+      if (!isThumbnailUploaded) {
+        var thumbnailPreview = document.querySelector(".thumbnail-preview");
+        thumbnailPreview.setAttribute("src", "");
+        setDisplayNone([thumbnailPreview]);
+      }
+    });
+
+    setDisplayBlock([videoPreview, deleteBtn]);
+    setDisplayNone([movieSelectBtn]);
+
+    // videoPreviewのデータが読み込まれてからできること。
+    // 動画の長さを取得して表示と、サムネイル画像がなければ動画の最初のフレームを代わりに表示
+    videoPreview.addEventListener("loadeddata", function () {
+      // 動画の長さを取得して表示
+      const videoDuration = videoPreview.duration;
+      const ms = Math.floor(videoDuration * 1000);
+      const date = new Date(ms);
+      const hours = date.getUTCHours();
+      const minutes = date.getUTCMinutes();
+      const sec = date.getUTCSeconds();
+
+      let durationText = "";
+      if (hours > 0) {
+        durationText += `${hours.toString()}:`;
+      }
+      durationText += `${minutes.toString().padStart(2, "0")}:`;
+      durationText += `${sec.toString().padStart(2, "0")}`;
+
+      durationBox.textContent = durationText;
+
+      setDisplayBlock([durationBox]);
+
+      if (!isThumbnailUploaded) {
+        var thumbnailPreview = document.querySelector(".thumbnail-preview");
+        var canvas = document.createElement("canvas");
+        canvas.width = videoPreview.videoWidth;
+        canvas.height = videoPreview.videoHeight;
+        canvas.getContext("2d").drawImage(videoPreview, 0, 0, canvas.width, canvas.height);
+        var imageUrl = canvas.toDataURL("image/png");
+        thumbnailPreview.setAttribute("src", imageUrl);
+        setDisplayBlock([thumbnailPreview]);
+        canvas.remove();
+      }
+    });
+  } else {
+    setDisplayNone([videoPreview, deleteBtn, durationBox]);
+  }
 });
 
 const titleForm = document.querySelector('textarea[name="title"]');
