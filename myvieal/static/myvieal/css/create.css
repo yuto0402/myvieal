@@ -29,10 +29,20 @@ h3 {
   left: 85%;
 }
 
+.btn--just-text {
+  background: none;
+  border: none;
+  text-decoration: none;
+  color: #fff;
+  font-size: 15px;
+  position: absolute;
+  left: 85%;
+}
+
 /* ここまで header */
 
 /* body */
-form>div:not(.thumbnail) {
+form > div:not(.thumbnail) {
   padding: 10px 10px 20px;
   border-bottom: 1px solid grey;
 }
@@ -151,6 +161,41 @@ input:focus {
 .btn:hover {
   color: #fff;
   background-color: #2b8f38;
+}
+
+.video-preview-container {
+  position: relative;
+  width: 150px;
+}
+
+.video-preview__delete-btn {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 0;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+
+  font-size: 25px;
+}
+
+.video-preview__duration {
+  position: absolute;
+  right: 6px;
+  bottom: 6px;
+  width: 40px;
+  height: 20px;
+  border-radius: 5px;
+
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+
+  text-align: center;
+  font-size: 0.8rem;
 }
 
 .extra_293 {
