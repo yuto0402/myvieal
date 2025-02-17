@@ -24,4 +24,4 @@ PyYAML==6.0.2
 sqlparse==0.5.2
 typing_extensions==4.12.2
 tzdata==2024.2
-virtualenv==20.27.1
+virtualenv==20.29.2
