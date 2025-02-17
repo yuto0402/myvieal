@@ -15,7 +15,7 @@
 <main>
   <div class="error_container extra_293">アカウントのメールアドレス</div>
   <div class="error_container extra_294">{{ email }}</div>
-  <form method="post">
+  <form method="post" id="form_js">
     {% csrf_token %}
     <div class="form-group">
       {% for field in form %}
@@ -30,11 +30,12 @@
       {% endfor %}
       {{ form.non_field_errors }}
     </div>
-    <button type="submit" class="submit"><div>認証コードを送信</div></button>
+    <button type="submit" class="submit" id="submit_js"><div>認証コードを送信</div></button>
     <a href="{% url 'UserSetting' %}" class="cancel"><p>キャンセル</p></a>
   </form>
 </main>
 {% endblock %}
 
 {% block footer %}
+<script src="{% static 'accounts/js/prevent_multiple_submission.js' %}"></script>
 {% endblock %}
